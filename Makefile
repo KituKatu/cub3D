@@ -22,7 +22,7 @@ LIBFT_DIR = $(LIBDIR)libft/
 LIBFT	= $(LIBFT_DIR)libft.a
 LIBMLX = $(LIBDIR)MLX42
 LIBS = $(LIBMLX)/build/libmlx42.a -ldl -lglfw -pthread -lm
-LDFLAGS = -L/libft -lft
+LDFLAGS = -L$(LIBFT_DIR) -lft
 RM = rm -f
 RMDIR = rm -rf
 MKDIR = mkdir -p
@@ -47,8 +47,8 @@ submodules:
 libmlx:
 	@cmake $(LIBMLX) -B $(LIBMLX)/build && make -C $(LIBMLX)/build -j4
 
-$(NAME): obj $(OBJS) libft/libft.a
-	$(CC) $(CFLAGS) -o $@ $(OBJS) $(LDFLAGS) $(LIBS)
+$(NAME): obj $(OBJS) $(LIBFT)
+	$(CC) $(CFLAGS) -o $@ $(OBJS) $(LIBFT) $(LIBS)
 
 obj:
 	@$(MKDIR) obj
@@ -61,16 +61,16 @@ obj/%.o: src/%.c
 clean:
 	$(RM) $(OBJS) $(DEPS)	
 	$(RMDIR) $(LIBMLX)/build
-	$(MAKE) -C libft clean
+	$(MAKE) -C $(LIBFT_DIR) clean
 
 fclean: clean
 	$(RM) $(NAME)
-	$(MAKE) -C libft fclean
+	$(MAKE) -C $(LIBFT_DIR) fclean
 
 re: fclean all
 
-libft/libft.a:
-	$(MAKE) -C libft all
+$(LIBFT):
+	$(MAKE) -C $(LIBFT_DIR) all
 
 #debugging 
 leak:
