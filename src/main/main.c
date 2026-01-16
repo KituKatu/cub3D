@@ -6,15 +6,14 @@
 /*   By: jmcgrane <jmcgrane@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/14 17:13:00 by adecheri          #+#    #+#             */
-/*   Updated: 2026/01/16 13:33:40 by jmcgrane         ###   ########.fr       */
+/*   Updated: 2026/01/16 13:59:44 by jmcgrane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/cub3d.h"
 
-
-int main ()
+int	main(void)
 {
-    printf("hehehe\n");
-    return (0);
+	printf("hehehe\n");
+	return (0);
 }
