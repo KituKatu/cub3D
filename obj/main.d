@@ -1,3 +1,3 @@
-obj/main.o: src/main.c inc/cub3d.h
+obj/main.o: src/main.c src/../inc/cub3d.h
 
-inc/cub3d.h:
+src/../inc/cub3d.h:
