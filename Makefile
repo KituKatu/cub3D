@@ -1,12 +1,12 @@
 # **************************************************************************** #
 #                                                                              #
-#                                                          ::::::::            #
-#    Makefile                                            :+:    :+:            #
-#                                                       +:+                    #
-#    By: adecheri <marvin@42.fr>                       +#+                     #
-#                                                     +#+                      #
-#    Created: 2026/01/14 17:10:46 by adecheri       #+#    #+#                 #
-#    Updated: 2026/01/14 17:10:48 by adecheri       ########   odam.nl         #
+#                                                         :::      ::::::::    #
+#    Makefile                                           :+:      :+:    :+:    #
+#                                                     +:+ +:+         +:+      #
+#    By: jmcgrane <jmcgrane@student.42.fr>          +#+  +:+       +#+         #
+#                                                 +#+#+#+#+#+   +#+            #
+#    Created: 2026/01/14 17:10:46 by adecheri          #+#    #+#              #
+#    Updated: 2026/01/16 13:48:49 by jmcgrane         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -29,7 +29,11 @@ MKDIR = mkdir -p
 
 
 ## Files ##
-SRCS = src/main.c
+SRCS =	src/main/main.c \
+		src/parsing/parse_map.c \
+		src/raycasting/raycasting.c \
+		src/utils/error.c \
+		src/utils/free.c \
 		
 OBJS = $(SRCS:src/%.c=obj/%.o)
 DEPS = $(OBJS:.o=.d)
@@ -54,6 +58,7 @@ obj:
 	@$(MKDIR) obj
 
 obj/%.o: src/%.c
+	@$(MKDIR) $(dir $@)
 	$(CC) $(CFLAGS) -c -o $@ $<
 
 -include $(DEPS)
