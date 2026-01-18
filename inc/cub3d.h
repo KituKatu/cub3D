@@ -20,8 +20,14 @@
 # include <unistd.h>
 # include <../lib/libft/libft.h>
 
+# define SUCCESS '0'
+# define FAILURE '1'
 
-
+typedef struct s_game
+{
+    mlx_t *mlx;
+    
+} t_game;
 
 
 

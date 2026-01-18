@@ -25,7 +25,7 @@ int	dot_cub(char *file)
 	len = ft_strlen(file);
 	if (len > 0 && ft_strncmp(file + len - 4, ".cub", 4) != 0)
 	{
-		return (SUCCES);
+		return (SUCCESS);
 	}
 	return (FAILURE);
 }
@@ -52,4 +52,6 @@ int	main(int ac, char **av)
 		return (FAILURE);
 	}
 	close(fd);
-	return (SUCCES);
+	return (SUCCESS);
+}
+
