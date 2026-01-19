@@ -24,34 +24,39 @@ int	dot_cub(char *file)
 
 	len = ft_strlen(file);
 	if (len > 0 && ft_strncmp(file + len - 4, ".cub", 4) != 0)
-	{
 		return (SUCCESS);
-	}
 	return (FAILURE);
+}
+
+int init_map(const char *mapname)
+{
+	int fd;
+
+	if (!dot_cub(mapname))
+		ft_exit_error("Wrong file extention");
+	mapname = ft_strjoin("./maps/", mapname);
+	if (!mapname)
+		return (FAILURE); 
+	fd = open(mapname, O_RDONLY);
+	if (fd < 0)
+		ft_exit_error("Error opening file");
+	close(fd);
+}
+
+
+int init_game(const char *map)
+{
+	if (init_map(map))
+		return (FAILURE);
+	return (SUCCESS);
 }
 
 int	main(int ac, char **av)
 {
-	int	fd;
-
 	if(ac != 2)
-	{
-		//error_function
-		return (FAILURE);
-	}
-	if(!dot_cub(av[1]))
-	{
-		//error_function
-		printf("Wrong file extention\n");
-		return (FAILURE);
-	}
-	fd = open(av[1], O_RDONLY);
-	if(fd < 0)
-	{
-		//error_funtion
-		return (FAILURE);
-	}
-	close(fd);
+		ft_exit_error("Wrong no of arguments");
+	init_game(av[1]);
+
 	return (SUCCESS);
 }
 

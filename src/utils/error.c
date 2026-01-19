@@ -18,3 +18,13 @@
 */
 
 
+
+
+int ft_exit_errc(const char *msg, void **ptr)
+{
+    if (msg)
+        printf("%s\n", msg);
+    if (*ptr)
+        ft_clean_cubed(ptr);
+    exit(EXIT_FAILURE);
+}

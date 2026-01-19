@@ -12,3 +12,7 @@
 
 #include "../../inc/cub3d.h"
 
+void ft_clean_cubed(void **ptr)
+{
+    ft_safefree(ptr);
+}
