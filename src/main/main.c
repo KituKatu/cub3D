@@ -28,7 +28,7 @@ int	dot_cub(char *file)
 	return (FAILURE);
 }
 
-int init_map(const char *mapname)
+int init_map(char *mapname)
 {
 	int fd;
 
@@ -41,10 +41,11 @@ int init_map(const char *mapname)
 	if (fd < 0)
 		ft_exit_error("Error opening file");
 	close(fd);
+	return (SUCCESS);
 }
 
 
-int init_game(const char *map)
+int init_game(char *map)
 {
 	if (init_map(map))
 		return (FAILURE);
@@ -53,10 +54,12 @@ int init_game(const char *map)
 
 int	main(int ac, char **av)
 {
-	if(ac != 2)
+	if (ac != 2)
+	{
 		ft_exit_error("Wrong no of arguments");
+		return(FAILURE);
+	}
 	init_game(av[1]);
-
 	return (SUCCESS);
 }
 

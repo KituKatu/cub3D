@@ -13,7 +13,7 @@
 #ifndef CUB3D_H
 # define CUB3D_H
 
-# include "libft/libft.h"
+# include <../lib/libft/libft.h>
 # include "MLX42/MLX42.h"
 # include <math.h>
 # include <stdio.h>
@@ -37,7 +37,8 @@ typedef struct s_game
 
 
 /*Error Functions*/
-int ft_error(const char *msg, void **ptr);
+int ft_exit_errc(const char *msg, void **ptr);
+void ft_clean_cubed(void **ptr);
 
 
 

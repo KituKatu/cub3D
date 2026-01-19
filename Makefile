@@ -29,11 +29,14 @@ MKDIR = mkdir -p
 
 
 ## Files ##
+PARSDIR = src/parsing/
+RAYDIR = src/raycasting/
+UTILDIR = src/utils/
 SRCS =	src/main/main.c \
-		src/parsing/parse_map.c \
-		src/raycasting/raycasting.c \
-		src/utils/error.c \
-		src/utils/free.c \
+		$(PARSDIR)parse_map.c \
+		$(RAYDIR)raycasting.c \
+		$(UTILDIR)error.c \
+		$(UTILDIR)free.c \
 		
 OBJS = $(SRCS:src/%.c=obj/%.o)
 DEPS = $(OBJS:.o=.d)
