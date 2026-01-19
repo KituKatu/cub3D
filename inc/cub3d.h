@@ -34,7 +34,18 @@ typedef struct s_game
 } t_game;
 
 
-
+typedef struct s_map
+{
+	int			fd;
+	int			x_len;
+	int			y_len;
+	char		*mapline;
+	char		**mapgrid;
+    char        orient; 
+    int         *floor[3];
+    int         *ceiling[3];
+	mlx_image_t	*imgs[7];
+}				t_map;
 
 /*Error Functions*/
 int ft_exit_errc(const char *msg, void **ptr);
