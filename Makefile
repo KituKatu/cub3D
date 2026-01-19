@@ -29,10 +29,12 @@ MKDIR = mkdir -p
 
 
 ## Files ##
+MAINDIR = src/main/
 PARSDIR = src/parsing/
 RAYDIR = src/raycasting/
 UTILDIR = src/utils/
-SRCS =	src/main/main.c \
+
+SRCS =	$(MAINDIR)main.c \
 		$(PARSDIR)parse_map.c \
 		$(RAYDIR)raycasting.c \
 		$(UTILDIR)error.c \
