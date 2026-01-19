@@ -24,15 +24,15 @@ int	dot_cub(char *file)
 
 	len = ft_strlen(file);
 	if (len > 0 && ft_strncmp(file + len - 4, ".cub", 4) != 0)
-		return (SUCCESS);
-	return (FAILURE);
+		return (FAILURE);
+	return (SUCCESS);
 }
 
 int init_map(char *mapname)
 {
 	int fd;
 
-	if (!dot_cub(mapname))
+	if (dot_cub(mapname))
 		ft_exit_error("Wrong file extention");
 	mapname = ft_strjoin("./maps/", mapname);
 	if (!mapname)
