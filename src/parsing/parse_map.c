@@ -27,6 +27,79 @@
     as long as it respects the rules of the map.
 */
 
+// TODO: Read map in 3:
+// 1) paths specified for the textures (?) in MLX
+// 2) colour codes for Ceiling and Floor
+// 3) map with validations
+//      - surrounded by walls --> whitespaces can lead and in between 
+//      - instances of player and orientation
+//      - whitespaces have valid paths --> flood fill 
+
+void val_colval(char *mapline, char *sign)
+{
+    if (sign[0] == 'F')
+    {
+        
+    }
+
+}
+
+int val_id_values(char *mapline)
+{
+    int i;
+    char *signstr;
+
+    i = 0;
+    signstr = "NOSOWEEAFLCE";
+    while (signstr[i])
+    {
+        if (ft_strchr(mapline, signstr[i]))
+        {
+            if (val_textpath(mapline, &signstr[i]) || val_colval(mapline, &signstr[i]))
+                ft_exit_errc("Wrong values", mapline);
+            
+        }
+        i += 2;
+    }
+    return (SUCCESS);
+}
+
+// keep searching for identifiers and validating
+// until we can find and parse whole map
+bool val_mapline(char *mapline)
+{
+    if (!mapline)
+        
+    val_id_values(mapline, );
+
+    return (SUCCESS);
+}
+
+
+
+//do we want to validate as we read or do we want to load and then reiterate to validate?
+// 
+int read_map(char *mapname)
+{
+    int fd;
+    char *ln;
+    t_map *map;
+
+    fd = open(mapname, O_RDONLY);
+    if (fd < 0)
+        ft_exit_errc("Error opening file", NULL);
+    map = ft_calloc(1, sizeof(t_map));
+    if (!map)
+        return (close(fd), FAILURE);
+    //needs while loop until EOF 
+    ln = get_next_line(fd);
+    if (val_mapline(ln))
+        ft_exit_errc("Map invalid", (void **)&ln);
+    close(fd);
+    return (SUCCESS);
+}
+
+
 
 
 

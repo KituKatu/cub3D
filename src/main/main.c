@@ -37,10 +37,8 @@ int init_map(char *mapname)
 	mapname = ft_strjoin("./maps/", mapname);
 	if (!mapname)
 		return (FAILURE); 
-	fd = open(mapname, O_RDONLY);
-	if (fd < 0)
-		ft_exit_error("Error opening file");
-	close(fd);
+	if (read_map(mapname))
+		ft_exit_error("Can't read map"); 
 	return (SUCCESS);
 }
 

@@ -21,10 +21,12 @@
 # include <stdlib.h>
 # include <unistd.h>
 
-# define SUCCESS '0'
-# define FAILURE '1'
+# define SUCCESS 0
+# define FAILURE 1
 # define SPACE '0'
 # define WALL '1'
+# define READ_SIZE 42
+
 
 
 typedef struct s_game
@@ -47,10 +49,17 @@ typedef struct s_map
 	mlx_image_t	*imgs[7];
 }				t_map;
 
+
+
+/*Map Validation*/
+int read_map(char *mapname);
+
+/*Key Hooks*/
+
+
 /*Error Functions*/
 int ft_exit_errc(const char *msg, void **ptr);
 void ft_clean_cubed(void **ptr);
-
 
 
 
