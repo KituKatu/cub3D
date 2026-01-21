@@ -92,6 +92,7 @@ int read_map(char *mapname)
     if (!map)
         return (close(fd), FAILURE);
     //needs while loop until EOF 
+    
     ln = get_next_line(fd);
     if (val_mapline(ln))
         ft_exit_errc("Map invalid", (void **)&ln);

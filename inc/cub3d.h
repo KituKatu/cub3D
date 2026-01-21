@@ -46,7 +46,7 @@ typedef struct s_map
     char        orient; 
     int         *floor[3];
     int         *ceiling[3];
-	mlx_image_t	*imgs[7];
+	mlx_image_t	*imgs[5];
 }				t_map;
 
 
