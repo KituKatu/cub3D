@@ -48,16 +48,25 @@ int val_id_values(char *mapline)
 {
     int i;
     char *signstr;
+    char *
 
     i = 0;
     signstr = "NOSOWEEAFLCE";
     while (signstr[i])
     {
-        if (ft_strchr(mapline, signstr[i]))
+        if(i >= 0 && i <= 6)
         {
-            if (val_textpath(mapline, &signstr[i]))
-                ft_exit_errc("Wrong values", mapline);
-            
+            ft_strchr(mapline, signstr[i]);
+            if (ft_strchr(mapline, signstr[i]))
+            {
+                if (val_textpath(mapline, &signstr[i]))
+                    ft_exit_errc("Wrong values", mapline);
+                
+            }
+        }
+        else if (i == 8 || i == 10)
+        {
+
         }
         i += 2;
     }
@@ -69,7 +78,7 @@ int val_id_values(char *mapline)
 bool val_mapline(char *mapline)
 {
     if (!mapline)
-        
+        return()
     val_id_values(mapline, );
 
     return (SUCCESS);
