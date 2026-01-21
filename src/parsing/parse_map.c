@@ -37,7 +37,7 @@
 
 void val_colval(char *mapline, char *sign)
 {
-    if (sign[0] == 'F')
+    if (mapline[0] == sign[0] && mapline[1] == sign[1])
     {
         
     }
@@ -55,7 +55,7 @@ int val_id_values(char *mapline)
     {
         if (ft_strchr(mapline, signstr[i]))
         {
-            if (val_textpath(mapline, &signstr[i]) || val_colval(mapline, &signstr[i]))
+            if (val_textpath(mapline, &signstr[i]))
                 ft_exit_errc("Wrong values", mapline);
             
         }
