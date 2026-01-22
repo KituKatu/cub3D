@@ -79,26 +79,26 @@ bool val_mapline(char *mapline)
 
 //do we want to validate as we read or do we want to load and then reiterate to validate?
 // 
-int read_map(char *mapname)
+int	read_map(char *mapname, t_map *my_map)
 {
-    int fd;
-    char *ln;
-    t_map *map;
+	int		fd;
+	char	line;
 
-    fd = open(mapname, O_RDONLY);
-    if (fd < 0)
-        ft_exit_errc("Error opening file", NULL);
-    map = ft_calloc(1, sizeof(t_map));
-    if (!map)
-        return (close(fd), FAILURE);
-    //needs while loop until EOF 
-    
-    ln = get_next_line(fd);
-    if (val_mapline(ln))
-        ft_exit_errc("Map invalid", (void **)&ln);
-    close(fd);
-    return (SUCCESS);
+	fd = open(mapname, O_RDONLY);
+	if (fd < 0)
+		ft_exit_errc("Error opening file", NULL);
+	//needs while loop until EOF 
+
+	while(line = get_next_line(fd))
+	{
+		
+	}
+	// if (val_mapline(ln))
+	//     ft_exit_errc("Map invalid", (void **)&ln);
+	close(fd);
+	return (SUCCESS);
 }
+
 
 
 

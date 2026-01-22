@@ -28,24 +28,39 @@ int	dot_cub(char *file)
 	return (SUCCESS);
 }
 
-int init_map(char *mapname)
+t_map	*init_map(char *mapname)
 {
-	int fd;
+	char	*map_path;
+	t_map	*my_map;
 
 	if (dot_cub(mapname))
 		ft_exit_error("Wrong file extention");
-	mapname = ft_strjoin("./maps/", mapname);
+	map_path = ft_strjoin("./maps/", mapname);
 	if (!mapname)
 		return (FAILURE); 
-	if (read_map(mapname))
-		ft_exit_error("Can't read map"); 
-	return (SUCCESS);
+	my_map = ft_calloc(1, sizeof(t_map));
+	if (!my_map)
+	{
+		free(map_path);
+		return (FAILURE);
+	}
+	if (read_map(map_path, my_map))
+	{
+		free(map_path);
+		free(my_map);
+		ft_exit_error("Can't read map");
+	}
+	free(map_path);
+	return (my_map);
 }
 
 
-int init_game(char *map)
+int init_game(char *mapfile)
 {
-	if (init_map(map))
+	t_map	*map;
+
+	map = init_map(mapfile);
+	if (!map)
 		return (FAILURE);
 	return (SUCCESS);
 }
