@@ -38,30 +38,39 @@ typedef struct s_game
 
 typedef struct s_map
 {
+	char		*north;
+	char		*south;
+	char		*east;
+	char		*west;
 	int			fd;
 	int			x_len;
 	int			y_len;
 	char		*mapline;
 	char		**mapgrid;
-    char        orient; 
-    int         *floor[3];
-    int         *ceiling[3];
+	char		orient;
+	int			floor[3];
+	int			ceiling[3];
 	mlx_image_t	*imgs[5];
 }				t_map;
 
 
 
 /*Map Validation*/
-int read_map(char *mapname);
+
+int		dot_cub(char *file);
+int		empty_line(char *line);
+t_map	*init_map(char *mapname);
+int		init_game(char *mapfile);
+t_map	*read_map(char *mapname, t_map *map);
+void	parse_identifier(char *line, t_map *map);
 
 /*Key Hooks*/
 
 
 /*Error Functions*/
-int ft_exit_errc(const char *msg, void **ptr);
+
 void ft_clean_cubed(void **ptr);
-
-
+int ft_exit_errc(const char *msg, void **ptr);
 
 
 #endif

@@ -18,34 +18,12 @@ side the wall is facing (North, South, East, West
 - Your program must be able to set the floor and ceiling colors to two different ones.
 */
 
-int	dot_cub(char *file)
+int init_game(char *mapfile)
 {
-	int	len;
+	t_map	*map;
 
-	len = ft_strlen(file);
-	if (len > 0 && ft_strncmp(file + len - 4, ".cub", 4) != 0)
-		return (FAILURE);
-	return (SUCCESS);
-}
-
-int init_map(char *mapname)
-{
-	int fd;
-
-	if (dot_cub(mapname))
-		ft_exit_error("Wrong file extention");
-	mapname = ft_strjoin("./maps/", mapname);
-	if (!mapname)
-		return (FAILURE); 
-	if (read_map(mapname))
-		ft_exit_error("Can't read map"); 
-	return (SUCCESS);
-}
-
-
-int init_game(char *map)
-{
-	if (init_map(map))
+	map = init_map(mapfile);
+	if (!map)
 		return (FAILURE);
 	return (SUCCESS);
 }

@@ -35,79 +35,97 @@
 //      - instances of player and orientation
 //      - whitespaces have valid paths --> flood fill 
 
-void val_colval(char *mapline, char *sign)
-{
-    if (mapline[0] == sign[0] && mapline[1] == sign[1])
-    {
+// void val_colval(char *mapline, char *sign)
+// {
+//     if (mapline[0] == sign[0] && mapline[1] == sign[1])
+//     {
         
-    }
+//     }
 
-}
+// }
 
-int val_id_values(char *mapline)
-{
-    int i;
-    char *signstr;
-    char *
+// int val_id_values(char *mapline)
+// {
+//     int i;
+//     char *signstr;
 
-    i = 0;
-    signstr = "NOSOWEEAFLCE";
-    while (signstr[i])
-    {
-        if(i >= 0 && i <= 6)
-        {
-            ft_strchr(mapline, signstr[i]);
-            if (ft_strchr(mapline, signstr[i]))
-            {
-                if (val_textpath(mapline, &signstr[i]))
-                    ft_exit_errc("Wrong values", mapline);
-                
-            }
-        }
-        else if (i == 8 || i == 10)
-        {
-
-        }
-        i += 2;
-    }
-    return (SUCCESS);
-}
+//     i = 0;
+//     signstr = "NOSOWEEAFLCE";
+//     while (signstr[i])
+//     {
+//         if (ft_strchr(mapline, signstr[i]))
+//         {
+//             if (val_textpath(mapline, &signstr[i]))
+//                 ft_exit_errc("Wrong values", mapline);
+            
+//         }
+//         i += 2;
+//     }
+//     return (SUCCESS);
+// }
 
 // keep searching for identifiers and validating
 // until we can find and parse whole map
-bool val_mapline(char *mapline)
-{
-    if (!mapline)
-        return()
-    val_id_values(mapline, );
+// bool val_mapline(char *mapline)
+// {
+//     if (!mapline)
+        
+//     val_id_values(mapline, );
 
-    return (SUCCESS);
+//     return (SUCCESS);
+// }
+
+t_map	*init_map(char *mapname)
+{
+	char	*map_path;
+	t_map	*map;
+
+	if (dot_cub(mapname))
+		ft_exit_error("Wrong file extention");
+	map_path = ft_strjoin("./maps/", mapname);
+	if (!mapname)
+		return (FAILURE); 
+	map = ft_calloc(1, sizeof(t_map));
+	if (!map)
+	{
+		free(map_path);
+		return (FAILURE);
+	}
+	if (read_map(map_path, map))
+	{
+		free(map_path);
+		free(map);
+		ft_exit_error("Can't read map");
+	}
+	free(map_path);
+	return (map);
 }
 
-
-
-//do we want to validate as we read or do we want to load and then reiterate to validate?
-// 
-int read_map(char *mapname)
+int	read_map(char *mapname, t_map *map)
 {
-    int fd;
-    char *ln;
-    t_map *map;
+	int		fd;
+	char	line;
 
-    fd = open(mapname, O_RDONLY);
-    if (fd < 0)
-        ft_exit_errc("Error opening file", NULL);
-    map = ft_calloc(1, sizeof(t_map));
-    if (!map)
-        return (close(fd), FAILURE);
-    //needs while loop until EOF 
-    
-    ln = get_next_line(fd);
-    if (val_mapline(ln))
-        ft_exit_errc("Map invalid", (void **)&ln);
-    close(fd);
-    return (SUCCESS);
+	fd = open(mapname, O_RDONLY);
+	if (fd < 0)
+		ft_exit_errc("Error opening file", NULL);
+	//needs while loop until EOF 
+	while(line = get_next_line(fd))
+	{
+		if (empty_line(line))
+		{
+			free(line);
+			continue;
+		}
+		//parse_identifier(line, my_map);
+		free(line);
+	}
+	// if (val_mapline(ln))
+	//     ft_exit_errc("Map invalid", (void **)&ln);
+	close(fd);
+	return (SUCCESS);
 }
+
 
 
 

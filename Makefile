@@ -36,6 +36,7 @@ UTILDIR = src/utils/
 
 SRCS =	$(MAINDIR)main.c \
 		$(PARSDIR)parse_map.c \
+		$(PARSDIR)parsing_utils.c \
 		$(RAYDIR)raycasting.c \
 		$(UTILDIR)error.c \
 		$(UTILDIR)free.c \
