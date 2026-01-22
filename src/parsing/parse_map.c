@@ -117,7 +117,7 @@ int	read_map(char *mapname, t_map *map)
 			free(line);
 			continue;
 		}
-		//parse_identifier(line, my_map);
+		parse_identifier(line, map);
 		free(line);
 	}
 	// if (val_mapline(ln))
