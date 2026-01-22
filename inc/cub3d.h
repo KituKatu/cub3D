@@ -57,10 +57,12 @@ typedef struct s_map
 
 /*Map Validation*/
 
-int	dot_cub(char *file);
+int		dot_cub(char *file);
+int		empty_line(char *line);
 t_map	*init_map(char *mapname);
 int		init_game(char *mapfile);
-t_map	*read_map(char *mapname, t_map *my_map);
+t_map	*read_map(char *mapname, t_map *map);
+void	parse_identifier(char *line, t_map *map);
 
 /*Key Hooks*/
 
