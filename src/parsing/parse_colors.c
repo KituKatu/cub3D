@@ -12,7 +12,7 @@
 
 #include "../../inc/cub3d.h"
 
-
+//parses colors read 
 int parse_color(char *line, t_map *map)
 {
     char *c_arr[3];
@@ -28,7 +28,7 @@ int parse_color(char *line, t_map *map)
         if (ft_isdigit(*ptr) || *ptr == ',')
             ptr++;
         else 
-            ft_exit_errc("Wrong input colors", &map);
+            ft_exit_errc("Wrong input colors", &map, 'm');
     }
     *c_arr = ft_split(line, ',');
     while (c_arr[i])
