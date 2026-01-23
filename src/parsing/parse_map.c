@@ -116,14 +116,12 @@ int	read_map(char *mapname, t_map *map)
 void	parse_map(t_map *map, char *line, int fd)
 {
 	char	**grid;
-	int		map_fd;
 
-	map_fd = fd;
 	map_dimensions(map, line, fd);
-	grid = init_grid(map, map_fd);
+	map->grid = init_grid(map);
 }
 
-char	**init_grid(t_map *map, int map_fd)
+char	**init_grid(t_map *map)
 {
 	int		i;
 	char	*line;
@@ -131,15 +129,13 @@ char	**init_grid(t_map *map, int map_fd)
 
 	i = 0;
 	grid = calloc(map->y_len + 1, sizeof(char *));
-	while(line = get_next_line(map_fd))
+	if (!grid)
+		return (NULL);
+	while()
 	{
-		while(line[i])
-		{
-			*grid[i] = line[i];
-			i++;
-		}
+		//I need to initlize all strings with map->x_len
 	}
-	return (*grid);
+	return (grid);
 }
 
 void	map_dimensions(t_map *map, char *line, int fd)
