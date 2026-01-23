@@ -6,7 +6,11 @@
 /*   By: jmcgrane <jmcgrane@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/16 16:38:24 by adecheri          #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2026/01/23 14:29:57 by jmcgrane         ###   ########.fr       */
+=======
+/*   Updated: 2026/01/23 16:43:19 by jmcgrane         ###   ########.fr       */
+>>>>>>> jack
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,13 +115,51 @@ int	read_map(char *mapname, t_map *map)
 
 void	parse_map(t_map *map, char *line, int fd)
 {
+	char	**grid;
+	int		map_fd;
+
+	map_fd = fd;
 	map_dimensions(map, line, fd);
-	
+	grid = init_grid(map, map_fd);
+}
+
+char	**init_grid(t_map *map, int map_fd)
+{
+	int		i;
+	char	*line;
+	char	**grid;
+
+	i = 0;
+	grid = calloc(map->y_len + 1, sizeof(char *));
+	while(line = get_next_line(map_fd))
+	{
+		while(line[i])
+		{
+			*grid[i] = line[i];
+			i++;
+		}
+	}
+	return (*grid);
 }
 
 void	map_dimensions(t_map *map, char *line, int fd)
 {
-	
+	int	height;
+	int	width;
+	int	curr_width;
+
+	height = 1;
+	width = ft_strlen(line);
+	while(line = get_next_line(fd))
+	{
+		curr_width = ft_strlen(line);
+		if (curr_width > width)
+			width = curr_width;
+		ft_safefree(line);
+		height++;
+	}
+	map->x_len = width;
+	map->y_len = height;
 }
 
 
