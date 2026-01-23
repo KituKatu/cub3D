@@ -34,6 +34,7 @@ int parse_color(char *line, t_map *map)
     while (c_arr[i])
     {
         color[i] = ft_atoi(c_arr[i])%255;
+        ft_safefree(c_arr[i]);
         i++;
     }
     // Combine into single int: 0xRRGGBB
