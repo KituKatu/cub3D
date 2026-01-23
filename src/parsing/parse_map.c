@@ -35,7 +35,6 @@
 //      - instances of player and orientation
 //      - whitespaces have valid paths --> flood fill 
 
-
 // int val_id_values(char *mapline)
 // {
 //     int i;
@@ -56,16 +55,6 @@
 //     return (SUCCESS);
 // }
 
-// keep searching for identifiers and validating
-// until we can find and parse whole map
-// bool val_mapline(char *mapline)
-// {
-//     if (!mapline)
-        
-//     val_id_values(mapline, );
-
-//     return (SUCCESS);
-// }
 
 t_map	*init_map(char *mapname)
 {
@@ -86,7 +75,7 @@ t_map	*init_map(char *mapname)
 	if (read_map(map_path, map))
 	{
 		ft_safefree(&map_path);
-		ft_exit_errc("Can't read map", &map);
+		ft_exit_errc("Can't read map", &map, 'm');
 	}
 	ft_safefree(&map_path);
 	return (map);
@@ -99,7 +88,7 @@ int	read_map(char *mapname, t_map *map)
 
 	fd = open(mapname, O_RDONLY);
 	if (fd < 0)
-		ft_exit_errc("Error opening file", NULL);
+		ft_exit_errc("Error opening file", NULL, '0');
 	//needs while loop until EOF 
 	while(line = get_next_line(fd))
 	{

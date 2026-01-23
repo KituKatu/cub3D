@@ -12,3 +12,7 @@
 
 #include "../../inc/cub3d.h"
 
+//calculate height of walls on grid by raycasting
+//calc vector of camera plane?
+//direction vector multiplies the pos of player in cert direction (length doesn't matter only dir)
+

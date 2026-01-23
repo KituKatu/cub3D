@@ -32,7 +32,7 @@
 typedef struct s_game
 {
     mlx_t *mlx;
-    
+    t_map *map;
 } t_game;
 
 
@@ -46,7 +46,7 @@ typedef struct s_map
 	int			x_len;
 	int			y_len;
 	char		*mapline;
-	char		**mapgrid;
+	char		**grid;
 	char		orient;
 	int			floor;
 	int			ceiling;
@@ -69,8 +69,8 @@ void	parse_identifier(char *line, t_map *map);
 
 /*Error Functions*/
 
-void ft_clean_cubed(void **ptr);
-int ft_exit_errc(const char *msg, void **ptr);
+void ft_clean_cubed(void **ptr, char id);
+int ft_exit_errc(const char *msg, void **ptr, char id);
 
 
 #endif

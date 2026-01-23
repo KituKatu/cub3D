@@ -18,11 +18,11 @@
 */
 
 
-int ft_exit_errc(const char *msg, void **ptr)
+int ft_exit_errc(const char *msg, void **ptr, char id)
 {
     if (msg)
         printf("%s\n", msg);
     if (*ptr)
-        ft_clean_cubed(ptr);
+        ft_clean_cubed(ptr, id);
     exit(EXIT_FAILURE);
 }
