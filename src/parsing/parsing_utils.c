@@ -6,40 +6,35 @@
 /*   By: jmcgrane <jmcgrane@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/23 12:52:50 by jmcgrane          #+#    #+#             */
-/*   Updated: 2026/01/23 12:52:51 by jmcgrane         ###   ########.fr       */
+/*   Updated: 2026/01/23 13:20:58 by jmcgrane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/cub3d.h"
 
-void	parse_identifier(char *line, t_map *map)
+int	parse_identifier(char *line, t_map *map)
 {
-	if (ft_strncmp(line, "NO ", 3) == 0)
-	{
-		map->north = ft_strtrim(line + 3, "\n\t ");
-	}
-	else if (ft_strncmp(line, "SO ", 3) == 0)
-	{
-		map->south = ft_strtrim(line + 3, "\n\t ");
-	}
-	else if (ft_strncmp(line, "EA ", 3) == 0)
-	{
-		map->east = ft_strtrim(line + 3, "\n\t ");
-	}
-	else if (ft_strncmp(line, "WE ", 3) == 0)
-	{
-		map->west = ft_strtrim(line + 3, "\n\t ");
-	}
-	else if (ft_strncmp(line, "F ", 2) == 0)
+	if (ft_strncmp(line, "F ", 2) == 0)
 	{
 		line = ft_strtrim(line + 2, "\n\t ");
-		parse_color(line, map);
+		map->floor = parse_color(line, map);
 	}
 	else if (ft_strncmp(line, "C ", 2) == 0)
 	{
 		line = ft_strtrim(line + 2, "\n\t ");
 		parse_color(line, map);
 	}
+	else if (ft_strncmp(line, "NO ", 3) == 0)
+		map->north = ft_strtrim(line + 3, "\n\t ");
+	else if (ft_strncmp(line, "SO ", 3) == 0)
+		map->south = ft_strtrim(line + 3, "\n\t ");
+	else if (ft_strncmp(line, "EA ", 3) == 0)
+		map->east = ft_strtrim(line + 3, "\n\t ");
+	else if (ft_strncmp(line, "WE ", 3) == 0)
+		map->west = ft_strtrim(line + 3, "\n\t ");
+	else if(ft_strchr(line, WALL))
+		return (1);
+	return (0);
 }
 
 int	empty_line(char *line)
