@@ -18,8 +18,6 @@
 */
 
 
-
-
 int ft_exit_errc(const char *msg, void **ptr)
 {
     if (msg)

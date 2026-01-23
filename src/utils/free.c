@@ -12,6 +12,13 @@
 
 #include "../../inc/cub3d.h"
 
+
+
+void free_cubmap(t_map *map)
+{
+    
+}
+
 void ft_clean_cubed(void **ptr)
 {
     ft_safefree(ptr);
