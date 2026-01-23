@@ -48,8 +48,8 @@ typedef struct s_map
 	char		*mapline;
 	char		**mapgrid;
 	char		orient;
-	int			floor[3];
-	int			ceiling[3];
+	int			floor;
+	int			ceiling;
 	mlx_image_t	*imgs[5];
 }				t_map;
 
