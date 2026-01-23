@@ -6,7 +6,7 @@
 /*   By: jmcgrane <jmcgrane@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/14 17:31:12 by adecheri          #+#    #+#             */
-/*   Updated: 2026/01/23 12:56:12 by jmcgrane         ###   ########.fr       */
+/*   Updated: 2026/01/23 13:48:44 by jmcgrane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ typedef struct s_map
 	int			x_len;
 	int			y_len;
 	char		*mapline;
-	char		**mapgrid;
+	char		**grid;
 	char		orient;
 	int			floor;
 	int			ceiling;
@@ -62,7 +62,7 @@ int		empty_line(char *line);
 t_map	*init_map(char *mapname);
 int		init_game(char *mapfile);
 int		read_map(char *mapname, t_map *map);
-void	parse_identifier(char *line, t_map *map);
+int		parse_identifier(char *line, t_map *map);
 
 /*Key Hooks*/
 

@@ -6,7 +6,7 @@
 /*   By: jmcgrane <jmcgrane@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/16 16:38:24 by adecheri          #+#    #+#             */
-/*   Updated: 2026/01/23 12:54:56 by jmcgrane         ###   ########.fr       */
+/*   Updated: 2026/01/23 14:29:57 by jmcgrane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,8 +108,11 @@ int	read_map(char *mapname, t_map *map)
 			ft_safefree(&line);
 			continue;
 		}
-		parse_identifier(line, map);
-		ft_safefree(&line);
+		if(parse_identifier(line, map) == 1)
+		{
+			parse_map(map, line, fd);
+		}
+		free(line);
 	}
 	// if (val_mapline(ln))
 	//     ft_exit_errc("Map invalid", (void **)&ln);
@@ -117,9 +120,16 @@ int	read_map(char *mapname, t_map *map)
 	return (SUCCESS);
 }
 
+void	parse_map(t_map *map, char *line, int fd)
+{
+	map_dimensions(map, line, fd);
+	
+}
 
-
-
+void	map_dimensions(t_map *map, char *line, int fd)
+{
+	
+}
 
 
 
