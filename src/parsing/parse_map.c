@@ -88,23 +88,22 @@ t_map	*init_map(char *mapname)
 	map = ft_calloc(1, sizeof(t_map));
 	if (!map)
 	{
-		free(map_path);
+		ft_safefree(&map_path);
 		return (FAILURE);
 	}
 	if (read_map(map_path, map))
 	{
-		free(map_path);
-		free(map);
-		ft_exit_error("Can't read map");
+		ft_safefree(&map_path);
+		ft_exit_errc("Can't read map", &map);
 	}
-	free(map_path);
+	ft_safefree(&map_path);
 	return (map);
 }
 
 int	read_map(char *mapname, t_map *map)
 {
 	int		fd;
-	char	line;
+	char	*line;
 
 	fd = open(mapname, O_RDONLY);
 	if (fd < 0)
@@ -114,11 +113,11 @@ int	read_map(char *mapname, t_map *map)
 	{
 		if (empty_line(line))
 		{
-			free(line);
+			ft_safefree(&line);
 			continue;
 		}
 		parse_identifier(line, map);
-		free(line);
+		ft_safefree(&line);
 	}
 	// if (val_mapline(ln))
 	//     ft_exit_errc("Map invalid", (void **)&ln);
