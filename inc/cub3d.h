@@ -6,7 +6,7 @@
 /*   By: jmcgrane <jmcgrane@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/14 17:31:12 by adecheri          #+#    #+#             */
-/*   Updated: 2026/01/16 13:59:27 by jmcgrane         ###   ########.fr       */
+/*   Updated: 2026/01/23 12:56:12 by jmcgrane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ int		dot_cub(char *file);
 int		empty_line(char *line);
 t_map	*init_map(char *mapname);
 int		init_game(char *mapfile);
-t_map	*read_map(char *mapname, t_map *map);
+int		read_map(char *mapname, t_map *map);
 void	parse_identifier(char *line, t_map *map);
 
 /*Key Hooks*/
