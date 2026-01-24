@@ -33,8 +33,8 @@ int	parse_identifier(char *line, t_map *map)
 	else if (ft_strncmp(line, "WE ", 3) == 0)
 		map->west = ft_strtrim(line + 3, "\n\t ");
 	else if(ft_strchr(line, WALL))
-		return (1);
-	return (0);
+		return (FAILURE);
+	return (SUCCESS);
 }
 
 int	empty_line(char *line)
