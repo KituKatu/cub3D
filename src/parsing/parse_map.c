@@ -6,7 +6,7 @@
 /*   By: jmcgrane <jmcgrane@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/16 16:38:24 by adecheri          #+#    #+#             */
-/*   Updated: 2026/01/26 16:23:12 by jmcgrane         ###   ########.fr       */
+/*   Updated: 2026/01/26 16:46:27 by jmcgrane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,20 +44,20 @@ t_map	*init_map(char *mapname)
 		ft_exit_error("Wrong file extention");
 	map_path = ft_strjoin("./maps/", mapname);
 	if (!mapname)
-		return (FAILURE); 
+		return (NULL); 
 	map = ft_calloc(1, sizeof(t_map));
 	if (!map)
 	{
-		ft_safefree(&map_path);
-		return (FAILURE);
+		ft_safefree((void*)&map_path);
+		return (NULL);
 	}
 	map->name = map_path;
 	if (read_map(map))
 	{
-		ft_safefree(&map_path);
-		ft_exit_errc("Can't read map", &map, 'm');
+		ft_safefree((void*)&map_path);
+		ft_exit_errc("Can't read map", (void*)&map, 'm');
 	}
-	ft_safefree(&map_path);
+	ft_safefree((void*)&map_path);
 	return (map);
 }
 
@@ -120,10 +120,10 @@ bool val_flmaprow(char *line)
 
 void	parse_map_1(t_map *map)
 {
-	map_dimensions(map, map->line);
+	map_dimensions(map);
 	map->grid = init_grid(map);
 	if (!map->grid)
-		ft_exit_errc("Grid allocation failed", &map, 'm');
+		ft_exit_errc("Grid allocation failed", (void*)&map, 'm');
 	read_map_again(map);
 }
 
@@ -133,16 +133,16 @@ void	parse_map_2(t_map *map)
 	int	j;
 
 	i = 0;
-	while (map->line = get_next_line(map->fd))
+	while ((map->line = get_next_line(map->fd)))
 	{
 		if (i == 0 && val_flmaprow(map->line))
 		{
-			ft_safefree(&map->line);
+			ft_safefree((void*)&map->line);
 			//error_exit
 		}
 		if (i >= map->y_len)
 		{
-			ft_safefree(&map->line);
+			ft_safefree((void*)&map->line);
 			break ;
 		}
 		j = 0;
@@ -174,7 +174,7 @@ char	**init_grid(t_map *map)
 		grid[i] = calloc(map->x_len + 1, sizeof(char));
 		if (!grid[i])
 		{
-			ft_freearr(grid);
+			ft_freearr((void*)grid);
 			return (NULL);
 		}
 		i++;

@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                         ::::::::           */
-/*   parse_colors.c                                      :+:    :+:           */
-/*                                                      +:+                   */
-/*   By: adecheri <marvin@42.fr>                       +#+                    */
-/*                                                    +#+                     */
-/*   Created: 2026/01/23 12:26:14 by adecheri       #+#    #+#                */
-/*   Updated: 2026/01/23 12:26:15 by adecheri       ########   odam.nl        */
+/*                                                        :::      ::::::::   */
+/*   parse_colors.c                                     :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: jmcgrane <jmcgrane@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/01/23 12:26:14 by adecheri          #+#    #+#             */
+/*   Updated: 2026/01/26 17:00:03 by jmcgrane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 //parses colors read 
 int parse_color(char *line, t_map *map)
 {
-    char *c_arr[3];
+    char c_arr[3];
     int color[3];
     char *ptr;
     int i;
@@ -28,7 +28,7 @@ int parse_color(char *line, t_map *map)
         if (ft_isdigit(*ptr) || *ptr == ',')
             ptr++;
         else 
-            ft_exit_errc("Wrong input colors", &map, 'm');
+            ft_exit_errc("Wrong input colors", (void*)&map, 'm');
     }
     *c_arr = ft_split(line, ',');
     while (c_arr[i])

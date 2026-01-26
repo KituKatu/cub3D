@@ -40,7 +40,7 @@ files = ft_atoi.c \
 		ft_printf_utils2.c \
 		ft_printf.c \
 		get_next_line.c
-#		ft_freearr.c \
+		ft_freearr.c \
 
 NAME = ../libft/libft.a
 HEADERFILES = libft.h
