@@ -6,11 +6,7 @@
 /*   By: jmcgrane <jmcgrane@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/16 16:38:24 by adecheri          #+#    #+#             */
-<<<<<<< HEAD
 /*   Updated: 2026/01/23 14:29:57 by jmcgrane         ###   ########.fr       */
-=======
-/*   Updated: 2026/01/23 16:43:19 by jmcgrane         ###   ########.fr       */
->>>>>>> jack
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,27 +35,6 @@
 //      - instances of player and orientation
 //      - whitespaces have valid paths --> flood fill 
 
-// int val_id_values(char *mapline)
-// {
-//     int i;
-//     char *signstr;
-
-//     i = 0;
-//     signstr = "NOSOWEEAFLCE";
-//     while (signstr[i])
-//     {
-//         if (ft_strchr(mapline, signstr[i]))
-//         {
-//             if (val_textpath(mapline, &signstr[i]))
-//                 ft_exit_errc("Wrong values", mapline);
-            
-//         }
-//         i += 2;
-//     }
-//     return (SUCCESS);
-// }
-
-
 t_map	*init_map(char *mapname)
 {
 	char	*map_path;
@@ -85,43 +60,92 @@ t_map	*init_map(char *mapname)
 	return (map);
 }
 
+
+bool val_flmaprow(char *line)
+{
+	int i;
+	
+	i = 0; 
+	while (line[i])
+	{
+		if (line[i] != ' ' || line[i] != WALL)
+			return (true);
+		i++;
+	}
+	return (false);
+}
+
+/*we need to parse in 1 go and save to temp buffer 
+	if we want to 'remember our place in the map' 
+	so I suggest:
+	 - reading into buffer
+	 - maybe ft_splitting,
+	 - calc max length, 
+	 - then realloccing / appending the short strings  
+*/
+void	parse_map(t_map *map, char *line)
+{
+	char	**grid;
+	int i;
+
+	i = 0;
+	while (line = get_next_line(map->fd))
+	{
+		if (map->x_len < ft_strlen(line))
+			map->x_len = ft_strlen(line);
+		if (!map->mapline && line)
+		{
+			if (val_flmaprow(line))
+				ft_exit_errc("Error upper walls", &map, 'm');
+			map->grid[i] = ft_strdup(line);
+			if (!map->grid[i])
+				ft_exit_errc("Error dup mapline", &map, 'm');
+		}
+		while(line)
+		{
+			if (empty_line(line))
+				ft_exit_errc("Obstructed map", &map, 'm');
+			ft_strjoin(map->mapline, line);
+		}
+		//check if at EOF --> otherwise, broken map
+		if ()
+		i++;
+	}
+	map->y_len = i; 
+
+	// map->grid = init_grid(map, line);
+	// if (!map->grid)
+	// 	ft_exit_errc("Grid failed to init", &map, 'm');
+}
+
 int	read_map(char *mapname, t_map *map)
 {
-	int		fd;
 	char	*line;
 
-	fd = open(mapname, O_RDONLY);
-	if (fd < 0)
+	map->fd = open(mapname, O_RDONLY);
+	if (map->fd < 0)
 		ft_exit_errc("Error opening file", NULL, '0');
 	//needs while loop until EOF 
-	while(line = get_next_line(fd))
+	while(line = get_next_line(map->fd))
 	{
 		if (empty_line(line))
 		{
 			ft_safefree(&line);
 			continue;
 		}
-		if(parse_identifier(line, map) == 1)
+		if (parse_identifier(line, map) == 1)
 		{
-			parse_map(map, line, fd);
+			parse_map(map, line);
 		}
-		free(line);
+		ft_safefree(line);
 	}
-	// if (val_mapline(ln))
-	//     ft_exit_errc("Map invalid", (void **)&ln);
-	close(fd);
+	close(map->fd);
 	return (SUCCESS);
 }
 
-void	parse_map(t_map *map, char *line, int fd)
-{
-	char	**grid;
 
-	map_dimensions(map, line, fd);
-	map->grid = init_grid(map);
-}
 
-char	**init_grid(t_map *map)
+char	**init_grid(t_map *map, char *line)
 {
 	int		i;
 	char	*line;
@@ -138,7 +162,7 @@ char	**init_grid(t_map *map)
 	return (grid);
 }
 
-void	map_dimensions(t_map *map, char *line, int fd)
+void	map_dimensions(t_map *map, char *line)
 {
 	int	height;
 	int	width;
@@ -146,7 +170,7 @@ void	map_dimensions(t_map *map, char *line, int fd)
 
 	height = 1;
 	width = ft_strlen(line);
-	while(line = get_next_line(fd))
+	while (line = get_next_line(map->fd))
 	{
 		curr_width = ft_strlen(line);
 		if (curr_width > width)
