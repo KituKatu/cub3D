@@ -6,7 +6,7 @@
 /*   By: jmcgrane <jmcgrane@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/14 17:31:12 by adecheri          #+#    #+#             */
-/*   Updated: 2026/01/23 16:28:42 by jmcgrane         ###   ########.fr       */
+/*   Updated: 2026/01/26 16:15:38 by jmcgrane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,8 @@ typedef struct s_map
 	int			fd;
 	int			x_len;
 	int			y_len;
-	char		*mapline;
+	char		*line;
+	char		*name;
 	char		**grid;
 	char		orient;
 	int			floor;
@@ -57,12 +58,15 @@ typedef struct s_map
 /*Map Validation*/
 
 int		dot_cub(char *file);
+int		read_map(t_map *map);
 int		empty_line(char *line);
 t_map	*init_map(char *mapname);
 int		init_game(char *mapfile);
-int		read_map(char *mapname, t_map *map);
+int		read_map_again(t_map *map);
+void	parse_map_1(t_map *map);
+void	parse_map_2(t_map *map);
+void	map_dimensions(t_map *map, char *line);
 int		parse_identifier(char *line, t_map *map);
-void	map_dimensions(t_map *map, char *line, int fd);
 
 /*Key Hooks*/
 

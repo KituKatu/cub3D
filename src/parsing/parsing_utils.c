@@ -6,7 +6,7 @@
 /*   By: jmcgrane <jmcgrane@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/23 12:52:50 by jmcgrane          #+#    #+#             */
-/*   Updated: 2026/01/26 12:44:25 by jmcgrane         ###   ########.fr       */
+/*   Updated: 2026/01/26 16:17:26 by jmcgrane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,20 +37,20 @@ int	parse_identifier(char *line, t_map *map)
 	return (SUCCESS);
 }
 
-void	map_dimensions(t_map *map, char *line)
+void	map_dimensions(t_map *map)
 {
 	int	height;
 	int	width;
 	int	curr_width;
 
 	height = 1;
-	width = ft_strlen(line);
-	while (line = get_next_line(map->fd))
+	width = ft_strlen(map->line);
+	while (map->line = get_next_line(map->fd))
 	{
-		curr_width = ft_strlen(line);
+		curr_width = ft_strlen(map->line);
 		if (curr_width > width)
 			width = curr_width;
-		ft_safefree(line);
+		ft_safefree(&map->line);
 		height++;
 	}
 	map->x_len = width;
