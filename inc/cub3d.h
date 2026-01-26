@@ -49,11 +49,7 @@ typedef struct s_map
 	char		**grid;
 	char		orient;
 	int			floor;
-<<<<<<< HEAD
 	int			ceiling;
-=======
-	int			ceiling[3];
->>>>>>> jack
 	mlx_image_t	*imgs[5];
 }				t_map;
 
