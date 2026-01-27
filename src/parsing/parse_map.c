@@ -6,7 +6,7 @@
 /*   By: jmcgrane <jmcgrane@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/16 16:38:24 by adecheri          #+#    #+#             */
-/*   Updated: 2026/01/26 16:46:27 by jmcgrane         ###   ########.fr       */
+/*   Updated: 2026/01/27 16:16:01 by jmcgrane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,59 @@
 //      - instances of player and orientation
 //      - whitespaces have valid paths --> flood fill 
 
+void	parse_map_1(t_map *map)
+{
+	map_dimensions(map);
+	close(map->fd);
+	map->grid = init_grid(map);
+	if (!map->grid)
+		ft_exit_errc("Grid allocation failed", (void*)&map, 'm');
+	read_map_again(map);
+}
+
+void	parse_map_2(t_map *map)
+{
+	int	i;
+	int	j;
+	int k;
+
+	i = 0;
+	j = 0;
+	if (i == 0 && val_flmaprow(map->line))
+		ft_exit_errc("Invalid first map row", (void*)&map, 'm');
+	while (map->line[j] && map->line[j] != '\n')
+	{
+		map->grid[i][j] = map->line[j];
+		j++;
+	}
+	while (j < map->x_len)
+		map->grid[i][j++] = ' ';
+	map->grid[i][j] = '\0';
+	ft_safefree((void*)&map->line);
+	i++;
+	while ((i < map->y_len) && (map->line = get_next_line(map->fd)))
+	{
+		j = 0;
+		while (map->line[j] && map->line[j] != '\n')
+		{
+			map->grid[i][j] = map->line[j];
+			j++;
+		}
+		while (j < map->x_len)
+			map->grid[i][j++] = ' ';
+		map->grid[i][j] = '\0';
+		i++;
+		ft_safefree((void*)&map->line);
+	}
+	//Tester
+	k = 0;
+	while (k < map->y_len)
+	{
+		printf("%s\n", map->grid[k]);
+		k++;
+	}
+}
+
 t_map	*init_map(char *mapname)
 {
 	char	*map_path;
@@ -61,123 +114,16 @@ t_map	*init_map(char *mapname)
 	return (map);
 }
 
-
 bool val_flmaprow(char *line)
 {
 	int i;
 	
 	i = 0; 
-	while (line[i])
+	while (line[i] && line[i] != '\n')
 	{
 		if (line[i] != ' ' && line[i] != WALL)
 			return (true);
 		i++;
 	}
 	return (false);
-}
-
-/*we need to parse in 1 go and save to temp buffer 
-	if we want to 'remember our place in the map' 
-	so I suggest:
-	 - reading into buffer
-	 - maybe ft_splitting,
-	 - calc max length, 
-	 - then realloccing / appending the short strings  
-*/
-// void	parse_map(t_map *map, char *line)
-// {
-// 	int	i;
-
-// 	i = 0;
-// 	while (line = get_next_line(map->fd))
-// 	{
-// 		if (map->x_len < ft_strlen(line))
-// 			map->x_len = ft_strlen(line);
-// 		if (!map->mapline && line)
-// 		{
-// 			if (val_flmaprow(line))
-// 				ft_exit_errc("Error upper walls", &map, 'm');
-// 			map->grid[i] = ft_strdup(line);
-// 			if (!map->grid[i])
-// 				ft_exit_errc("Error dup mapline", &map, 'm');
-// 		}
-// 		while(line)
-// 		{
-// 			if (empty_line(line))
-// 				ft_exit_errc("Obstructed map", &map, 'm');
-// 			ft_strjoin(map->mapline, line);
-// 		}
-// 		//check if at EOF --> otherwise, broken map
-// 		if ()
-// 		i++;
-// 	}
-// 	map->y_len = i; 
-
-// 	// map->grid = init_grid(map, line);
-// 	// if (!map->grid)
-// 	// 	ft_exit_errc("Grid failed to init", &map, 'm');
-// }
-
-void	parse_map_1(t_map *map)
-{
-	map_dimensions(map);
-	map->grid = init_grid(map);
-	if (!map->grid)
-		ft_exit_errc("Grid allocation failed", (void*)&map, 'm');
-	read_map_again(map);
-}
-
-void	parse_map_2(t_map *map)
-{
-	int	i;
-	int	j;
-
-	i = 0;
-	while ((map->line = get_next_line(map->fd)))
-	{
-		if (i == 0 && val_flmaprow(map->line))
-		{
-			ft_safefree((void*)&map->line);
-			//error_exit
-		}
-		if (i >= map->y_len)
-		{
-			ft_safefree((void*)&map->line);
-			break ;
-		}
-		j = 0;
-		while (map->line[j] && map->line[j] != '\n')
-		{
-			map->grid[i][j] = map->line[j];
-			j++;
-		}
-		while (j < map->x_len)
-		{
-			map->grid[i][j] = ' ';
-			j++;
-		}
-		i++;
-	}
-}
-
-char	**init_grid(t_map *map)
-{
-	int		i;
-	char	**grid;
-
-	i = 0;
-	grid = calloc(map->y_len + 1, sizeof(char *));
-	if (!grid)
-		return (NULL);
-	while(i < map->y_len)
-	{
-		grid[i] = calloc(map->x_len + 1, sizeof(char));
-		if (!grid[i])
-		{
-			ft_freearr((void*)grid);
-			return (NULL);
-		}
-		i++;
-	}
-	return (grid);
 }

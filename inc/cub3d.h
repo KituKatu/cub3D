@@ -6,7 +6,7 @@
 /*   By: jmcgrane <jmcgrane@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/14 17:31:12 by adecheri          #+#    #+#             */
-/*   Updated: 2026/01/26 16:47:01 by jmcgrane         ###   ########.fr       */
+/*   Updated: 2026/01/27 16:20:03 by jmcgrane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,7 @@ typedef struct s_game
 
 int		dot_cub(char *file);
 int		read_map(t_map *map);
+bool val_flmaprow(char *line);
 int		empty_line(char *line);
 void	parse_map_1(t_map *map);
 void	parse_map_2(t_map *map);

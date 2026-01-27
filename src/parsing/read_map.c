@@ -6,7 +6,7 @@
 /*   By: jmcgrane <jmcgrane@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/26 13:50:37 by jmcgrane          #+#    #+#             */
-/*   Updated: 2026/01/26 16:49:18 by jmcgrane         ###   ########.fr       */
+/*   Updated: 2026/01/27 14:28:07 by jmcgrane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,14 +19,15 @@ int	read_map(t_map *map)
 		ft_exit_errc("Error opening file", NULL, '0');
 	while((map->line = get_next_line(map->fd)))
 	{
-		if (empty_line(map->line))
+		if (empty_line(map->line) == SUCCESS)
 		{
 			ft_safefree((void*)&map->line);
 			continue;
 		}
-		if (parse_identifier(map->line, map) == 1)
+		if (parse_identifier(map->line, map) == FAILURE)
 		{
 			parse_map_1(map);
+			break ;
 		}
 		ft_safefree((void*)&map->line);
 	}
@@ -41,14 +42,15 @@ int	read_map_again(t_map *map)
 		ft_exit_errc("Error opening file", NULL, '0');
 	while((map->line = get_next_line(map->fd)))
 	{
-		if (empty_line(map->line))
+		if (empty_line(map->line) == SUCCESS)
 		{
 			ft_safefree((void*)&map->line);
 			continue;
 		}
-		if (ft_strchr(map->line, WALL))
+		if (parse_identifier(map->line, map) == FAILURE)
 		{
 			parse_map_2(map);
+			break ;
 		}
 		ft_safefree((void*)&map->line);
 	}
