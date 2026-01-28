@@ -6,7 +6,7 @@
 /*   By: jmcgrane <jmcgrane@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/16 16:38:24 by adecheri          #+#    #+#             */
-/*   Updated: 2026/01/27 16:16:01 by jmcgrane         ###   ########.fr       */
+/*   Updated: 2026/01/28 13:37:36 by jmcgrane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,26 +35,26 @@
 //      - instances of player and orientation
 //      - whitespaces have valid paths --> flood fill 
 
-void	parse_map_1(t_map *map)
+void	map_setup(t_map *map)
 {
 	map_dimensions(map);
 	close(map->fd);
 	map->grid = init_grid(map);
 	if (!map->grid)
-		ft_exit_errc("Grid allocation failed", (void*)&map, 'm');
+		ft_exit_errc("Grid allocation failed", (void *)&map, 'm');
 	read_map_again(map);
 }
 
-void	parse_map_2(t_map *map)
+void	parse_map(t_map *map)
 {
 	int	i;
 	int	j;
-	int k;
+	int	k;
 
 	i = 0;
 	j = 0;
-	if (i == 0 && val_flmaprow(map->line))
-		ft_exit_errc("Invalid first map row", (void*)&map, 'm');
+	if (i == 0 && frst_last(map->line))
+		ft_exit_errc("Invalid first map row", (void *)&map, 'm');
 	while (map->line[j] && map->line[j] != '\n')
 	{
 		map->grid[i][j] = map->line[j];
@@ -63,8 +63,20 @@ void	parse_map_2(t_map *map)
 	while (j < map->x_len)
 		map->grid[i][j++] = ' ';
 	map->grid[i][j] = '\0';
-	ft_safefree((void*)&map->line);
+	ft_safefree((void *)&map->line);
 	i++;
+	create_grid(map, i, j);
+	//Tester
+	k = 0;
+	while (k < map->y_len)
+	{
+		printf("%s\n", map->grid[k]);
+		k++;
+	}
+}
+
+void	create_grid(t_map *map, int i, int j)
+{
 	while ((i < map->y_len) && (map->line = get_next_line(map->fd)))
 	{
 		j = 0;
@@ -77,14 +89,7 @@ void	parse_map_2(t_map *map)
 			map->grid[i][j++] = ' ';
 		map->grid[i][j] = '\0';
 		i++;
-		ft_safefree((void*)&map->line);
-	}
-	//Tester
-	k = 0;
-	while (k < map->y_len)
-	{
-		printf("%s\n", map->grid[k]);
-		k++;
+		ft_safefree((void *)&map->line);
 	}
 }
 
@@ -101,24 +106,24 @@ t_map	*init_map(char *mapname)
 	map = ft_calloc(1, sizeof(t_map));
 	if (!map)
 	{
-		ft_safefree((void*)&map_path);
+		ft_safefree((void *)&map_path);
 		return (NULL);
 	}
 	map->name = map_path;
 	if (read_map(map))
 	{
-		ft_safefree((void*)&map_path);
-		ft_exit_errc("Can't read map", (void*)&map, 'm');
+		ft_safefree((void *)&map_path);
+		ft_exit_errc("Can't read map", (void *)&map, 'm');
 	}
-	ft_safefree((void*)&map_path);
+	ft_safefree((void *)&map_path);
 	return (map);
 }
 
-bool val_flmaprow(char *line)
+bool	frst_last(char *line)
 {
-	int i;
+	int	i;
 	
-	i = 0; 
+	i = 0;
 	while (line[i] && line[i] != '\n')
 	{
 		if (line[i] != ' ' && line[i] != WALL)

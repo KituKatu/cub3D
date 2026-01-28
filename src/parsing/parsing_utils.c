@@ -6,7 +6,7 @@
 /*   By: jmcgrane <jmcgrane@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/23 12:52:50 by jmcgrane          #+#    #+#             */
-/*   Updated: 2026/01/27 16:16:44 by jmcgrane         ###   ########.fr       */
+/*   Updated: 2026/01/28 11:58:31 by jmcgrane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,8 +60,6 @@ void	map_dimensions(t_map *map)
 	}
 	map->x_len = width;
 	map->y_len = height;
-	printf("x_len = %d\n", map->x_len);
-	printf("y_len = %d\n", map->y_len);
 	close(map->fd);
 }
 

@@ -6,7 +6,7 @@
 /*   By: jmcgrane <jmcgrane@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/26 13:50:37 by jmcgrane          #+#    #+#             */
-/*   Updated: 2026/01/27 14:28:07 by jmcgrane         ###   ########.fr       */
+/*   Updated: 2026/01/28 11:57:54 by jmcgrane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ int	read_map(t_map *map)
 		}
 		if (parse_identifier(map->line, map) == FAILURE)
 		{
-			parse_map_1(map);
+			map_setup(map);
 			break ;
 		}
 		ft_safefree((void*)&map->line);
@@ -49,7 +49,7 @@ int	read_map_again(t_map *map)
 		}
 		if (parse_identifier(map->line, map) == FAILURE)
 		{
-			parse_map_2(map);
+			parse_map(map);
 			break ;
 		}
 		ft_safefree((void*)&map->line);

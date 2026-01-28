@@ -6,7 +6,7 @@
 /*   By: jmcgrane <jmcgrane@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/16 16:39:35 by adecheri          #+#    #+#             */
-/*   Updated: 2026/01/26 16:55:38 by jmcgrane         ###   ########.fr       */
+/*   Updated: 2026/01/28 12:25:07 by jmcgrane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,27 +14,27 @@
 
 
 
-void free_cubmap(t_map **map)
+void	free_cubmap(t_map **map)
 {
-    int i;
+	int	i;
 
-    i = 0;
-    ft_safefree((void*)&(*map)->line);
-    ft_safefree((void*)&(*map)->north);
-    ft_safefree((void*)&(*map)->east);
-    ft_safefree((void*)&(*map)->south);
-    ft_safefree((void*)&(*map)->west);
-    while((*map)->grid)
-    {
-        ft_safefree((void*)&(*map)->grid[i]);
-        i++;
-    }
+	i = 0;
+	ft_safefree((void *)&(*map)->line);
+	ft_safefree((void *)&(*map)->north);
+	ft_safefree((void *)&(*map)->east);
+	ft_safefree((void *)&(*map)->south);
+	ft_safefree((void *)&(*map)->west);
+	while((*map)->grid)
+	{
+		ft_safefree((void*)&(*map)->grid[i]);
+		i++;
+	}
 }
 
-void ft_clean_cubed(void **ptr, char id)
+void	ft_clean_cubed(void **ptr, char id)
 {
-    if (id == 'm')
-        free_cubmap((t_map **)ptr);
-    else
-        ft_safefree(ptr);
+	if (id == 'm')
+		free_cubmap((t_map **)ptr);
+	else
+		ft_safefree(ptr);
 }

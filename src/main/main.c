@@ -6,7 +6,7 @@
 /*   By: jmcgrane <jmcgrane@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/14 17:13:00 by adecheri          #+#    #+#             */
-/*   Updated: 2026/01/27 13:52:03 by jmcgrane         ###   ########.fr       */
+/*   Updated: 2026/01/28 16:16:00 by jmcgrane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,24 +18,13 @@ side the wall is facing (North, South, East, West
 - Your program must be able to set the floor and ceiling colors to two different ones.
 */
 
-int init_game(char *mapfile)
-{
-	t_map	*map;
-
-	map = init_map(mapfile);
-	if (!map)
-		return (FAILURE);
-	return (SUCCESS);
-}
-
 int	main(int ac, char **av)
 {
 	if (ac != 2)
 	{
-		ft_exit_error("Wrong no of arguments");
-		return(FAILURE);
+		ft_exit_error("Wrong no of arguments\n");
+		return (FAILURE);
 	}
 	init_game(av[1]);
 	return (SUCCESS);
 }
-
