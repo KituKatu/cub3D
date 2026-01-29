@@ -26,7 +26,7 @@
 # define SUCCESS 0
 # define FAILURE 1
 # define READ_SIZE 42
-# define TILE_SIZE 64
+# define TILE_SIZE 32
 
 typedef struct s_map
 {
@@ -63,6 +63,7 @@ int		empty_line(char *line);
 char	**init_grid(t_map *map);
 t_map	*init_map(char *mapname);
 int		init_game(char *mapfile);
+int		parse_map_id(char *line);
 int		read_map_again(t_map *map);
 void	map_dimensions(t_map *map);
 void	create_grid(t_map *map, int i, int j);

@@ -47,7 +47,7 @@ int	read_map_again(t_map *map)
 			ft_safefree((void*)&map->line);
 			continue;
 		}
-		if (parse_identifier(map->line, map) == FAILURE)
+		if (parse_map_id(map->line) == FAILURE)
 		{
 			parse_map(map);
 			break ;

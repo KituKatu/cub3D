@@ -12,17 +12,38 @@
 
 #include "../../inc/cub3d.h"
 
+int	parse_map_id(char *line)
+{
+	if (ft_strncmp(line, "F ", 2) == 0)
+		return (SUCCESS);
+	else if (ft_strncmp(line, "C ", 2) == 0)
+		return (SUCCESS);
+	else if (ft_strncmp(line, "NO ", 3) == 0)
+		return (SUCCESS);
+	else if (ft_strncmp(line, "SO ", 3) == 0)
+		return (SUCCESS);
+	else if (ft_strncmp(line, "EA ", 3) == 0)
+		return (SUCCESS);
+	else if (ft_strncmp(line, "WE ", 3) == 0)
+		return (SUCCESS);
+	else if(ft_strchr(line, WALL))
+		return (FAILURE);
+	return (SUCCESS);
+}
+
 int	parse_identifier(char *line, t_map *map)
 {
 	if (ft_strncmp(line, "F ", 2) == 0)
 	{
 		line = ft_strtrim(line + 2, "\n\t ");
 		map->floor = parse_color(line, map);
+		printf("Floor rgb: %d\n", map->floor);
 	}
 	else if (ft_strncmp(line, "C ", 2) == 0)
 	{
 		line = ft_strtrim(line + 2, "\n\t ");
 		map->ceiling = parse_color(line, map);
+		printf("Ceiling rgb: %d\n", map->ceiling);
 	}
 	else if (ft_strncmp(line, "NO ", 3) == 0)
 		map->north = ft_strtrim(line + 3, "\n\t ");
@@ -32,7 +53,7 @@ int	parse_identifier(char *line, t_map *map)
 		map->east = ft_strtrim(line + 3, "\n\t ");
 	else if (ft_strncmp(line, "WE ", 3) == 0)
 		map->west = ft_strtrim(line + 3, "\n\t ");
-	else if(ft_strchr(line, '1'))
+	else if(ft_strchr(line, WALL))
 		return (FAILURE);
 	return (SUCCESS);
 }

@@ -15,7 +15,8 @@ NAME = cub3D
 ## Commands ##
 CC = cc
 INCLUDES = -I ./inc -I $(LIBMLX)/include
-CFLAGS = -Wall -Wextra -Werror -Wunreachable-code -Ofast -MMD -MP $(INCLUDES) #-g -fsanitize=thread
+CFLAGS = -Wall -Wextra -Werror -Wunreachable-code -Ofast -fPIE -MMD -MP $(INCLUDES) #-g -fsanitize=thread
+# CFLAGS = -Wall -Wextra -Werror -Wunreachable-code -Ofast -MMD -MP $(INCLUDES) #-g -fsanitize=thread
 ##CFLAGS = -I/opt/homebrew/include -L/opt/homebrew/lib -lglfw -framework OpenGL $(INCLUDES)
 LIBDIR = lib/
 LIBFT_DIR = $(LIBDIR)libft/

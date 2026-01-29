@@ -3,8 +3,8 @@ SO ./textures/ocean.png
 WE ./textures/ocean.png
 EA ./textures/ocean.png
 
-F 220,200,0
-C 225,30,0
+F 120,200,0
+C 125,30,0
 
         1111111111111111111111111
         1000000000110000000000001
