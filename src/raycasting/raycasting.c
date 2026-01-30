@@ -58,6 +58,9 @@ void move_pl(t_game **game, double stepY, double stepX)
 //need a keyhook where the pos of player is updated 
 void	cub_keyhook(mlx_key_data_t keydown, void *param)
 {
+	if (map->fd < 0)
+		ft_exit_errc("Error opening file", NULL, '0');
+	//needs while loop until EOF 
 	t_game	**game;
 
 	game = param;

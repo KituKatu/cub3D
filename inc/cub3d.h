@@ -26,6 +26,7 @@
 # define SUCCESS 0
 # define FAILURE 1
 # define READ_SIZE 42
+# define ROTSPEED 30
 
 
 typedef struct s_map
@@ -46,10 +47,21 @@ typedef struct s_map
 	mlx_image_t	*img[4];
 }				t_map;
 
+
+typedef struct s_player
+{
+	double dirX;
+	double dirY;
+	double planeX;
+	double planeY;
+
+} t_player; 
+
 typedef struct s_game
 {
 	mlx_t	*mlx;
 	t_map	*map;
+	t_player *player;
 }			t_game;
 
 /*Map Validation*/
@@ -82,6 +94,7 @@ int			fill_img_array(t_game *game);
 mlx_image_t	*load_wall_texture(t_game *game, char *path);
 
 /*Key Hooks*/
+
 
 /*Error Functions*/
 
