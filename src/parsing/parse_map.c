@@ -144,7 +144,6 @@ int	read_map(char *mapname, t_map *map)
 }
 
 
-
 char	**init_grid(t_map *map, char *line)
 {
 	int		i;
@@ -162,25 +161,25 @@ char	**init_grid(t_map *map, char *line)
 	return (grid);
 }
 
-void	map_dimensions(t_map *map, char *line)
-{
-	int	height;
-	int	width;
-	int	curr_width;
+// void	map_dimensions(t_map *map, char *line)
+// {
+// 	int	height;
+// 	int	width;
+// 	int	curr_width;
 
-	height = 1;
-	width = ft_strlen(line);
-	while (line = get_next_line(map->fd))
-	{
-		curr_width = ft_strlen(line);
-		if (curr_width > width)
-			width = curr_width;
-		ft_safefree(line);
-		height++;
-	}
-	map->x_len = width;
-	map->y_len = height;
-}
+// 	height = 1;
+// 	width = ft_strlen(line);
+// 	while (line = get_next_line(map->fd))
+// 	{
+// 		curr_width = ft_strlen(line);
+// 		if (curr_width > width)
+// 			width = curr_width;
+// 		ft_safefree(line);
+// 		height++;
+// 	}
+// 	map->x_len = width;
+// 	map->y_len = height;
+// }
 
 
 

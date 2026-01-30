@@ -26,13 +26,25 @@
 # define SPACE '0'
 # define WALL '1'
 # define READ_SIZE 42
+# define ROTSPEED 30
 
 
+typedef struct s_player
+{
+	double posX;
+	double posY;
+	double planeX;
+	double planeY;
+	double time; 
+	double dirX;
+	double dirY;
+} t_player;
 
 typedef struct s_game
 {
     mlx_t *mlx;
     t_map *map;
+	t_player *player; 
 } t_game;
 
 
