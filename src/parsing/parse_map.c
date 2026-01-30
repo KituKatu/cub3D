@@ -6,7 +6,7 @@
 /*   By: jmcgrane <jmcgrane@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/16 16:38:24 by adecheri          #+#    #+#             */
-/*   Updated: 2026/01/28 13:37:36 by jmcgrane         ###   ########.fr       */
+/*   Updated: 2026/01/30 15:46:29 by jmcgrane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,8 @@ void	map_setup(t_map *map)
 	map->grid = init_grid(map);
 	if (!map->grid)
 		ft_exit_errc("Grid allocation failed", (void *)&map, 'm');
+	if (validate_map(map))
+		ft_exit_errc("floodfill failed", (void *)&map, 'f');
 	read_map_again(map);
 }
 

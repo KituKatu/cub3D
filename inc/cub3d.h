@@ -6,7 +6,7 @@
 /*   By: jmcgrane <jmcgrane@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/14 17:31:12 by adecheri          #+#    #+#             */
-/*   Updated: 2026/01/28 16:19:32 by jmcgrane         ###   ########.fr       */
+/*   Updated: 2026/01/30 15:45:46 by jmcgrane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,15 +59,19 @@ int		read_map(t_map *map);
 bool	frst_last(char *line);
 void	map_setup(t_map *map);
 void	parse_map(t_map *map);
+char	**map_copy(t_map *map);
 int		empty_line(char *line);
 char	**init_grid(t_map *map);
 t_map	*init_map(char *mapname);
 int		init_game(char *mapfile);
 int		parse_map_id(char *line);
+int		validate_map(t_map *map);
 int		read_map_again(t_map *map);
 void	map_dimensions(t_map *map);
 void	create_grid(t_map *map, int i, int j);
 int		parse_identifier(char *line, t_map *map);
+int		floodfill(t_map *map, char **map_copy, int x, int y);
+
 
 /*Map colors*/
 

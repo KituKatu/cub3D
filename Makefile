@@ -6,7 +6,7 @@
 #    By: jmcgrane <jmcgrane@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2026/01/14 17:10:46 by adecheri          #+#    #+#              #
-#    Updated: 2026/01/28 16:11:32 by jmcgrane         ###   ########.fr        #
+#    Updated: 2026/01/30 14:00:12 by jmcgrane         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -35,6 +35,7 @@ PARSDIR = src/parsing/
 RAYDIR = src/raycasting/
 UTILDIR = src/utils/
 MLXDIR = src/mlx/
+FFILL = src/floodfill/
 
 SRCS =	$(MAINDIR)main.c \
 		$(PARSDIR)parse_map.c \
@@ -45,6 +46,7 @@ SRCS =	$(MAINDIR)main.c \
 		$(UTILDIR)error.c \
 		$(UTILDIR)free.c \
 		$(MLXDIR)init_mlx.c \
+		$(FFILL)floodfill.c \
 		
 OBJS = $(SRCS:src/%.c=obj/%.o)
 DEPS = $(OBJS:.o=.d)

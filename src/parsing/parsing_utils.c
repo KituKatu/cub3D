@@ -6,7 +6,7 @@
 /*   By: jmcgrane <jmcgrane@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/23 12:52:50 by jmcgrane          #+#    #+#             */
-/*   Updated: 2026/01/28 11:58:31 by jmcgrane         ###   ########.fr       */
+/*   Updated: 2026/01/30 15:49:18 by jmcgrane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,13 +37,11 @@ int	parse_identifier(char *line, t_map *map)
 	{
 		line = ft_strtrim(line + 2, "\n\t ");
 		map->floor = parse_color(line, map);
-		printf("Floor rgb: %d\n", map->floor);
 	}
 	else if (ft_strncmp(line, "C ", 2) == 0)
 	{
 		line = ft_strtrim(line + 2, "\n\t ");
 		map->ceiling = parse_color(line, map);
-		printf("Ceiling rgb: %d\n", map->ceiling);
 	}
 	else if (ft_strncmp(line, "NO ", 3) == 0)
 		map->north = ft_strtrim(line + 3, "\n\t ");
@@ -95,7 +93,7 @@ char	**init_grid(t_map *map)
 		return (NULL);
 	while(i < map->y_len)
 	{
-		grid[i] = calloc(map->x_len + 1, sizeof(char));
+		grid[i] = ft_calloc(map->x_len + 1, sizeof(char));
 		if (!grid[i])
 		{
 			ft_freearr((void*)grid);
