@@ -26,7 +26,7 @@
 # define SUCCESS 0
 # define FAILURE 1
 # define READ_SIZE 42
-# define TILE_SIZE 32
+
 
 typedef struct s_map
 {
