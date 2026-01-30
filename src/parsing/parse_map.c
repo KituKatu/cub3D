@@ -6,7 +6,7 @@
 /*   By: jmcgrane <jmcgrane@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/16 16:38:24 by adecheri          #+#    #+#             */
-/*   Updated: 2026/01/23 14:29:57 by jmcgrane         ###   ########.fr       */
+/*   Updated: 2026/01/27 16:16:01 by jmcgrane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,59 @@
 //      - instances of player and orientation
 //      - whitespaces have valid paths --> flood fill 
 
+void	parse_map_1(t_map *map)
+{
+	map_dimensions(map);
+	close(map->fd);
+	map->grid = init_grid(map);
+	if (!map->grid)
+		ft_exit_errc("Grid allocation failed", (void*)&map, 'm');
+	read_map_again(map);
+}
+
+void	parse_map_2(t_map *map)
+{
+	int	i;
+	int	j;
+	int k;
+
+	i = 0;
+	j = 0;
+	if (i == 0 && val_flmaprow(map->line))
+		ft_exit_errc("Invalid first map row", (void*)&map, 'm');
+	while (map->line[j] && map->line[j] != '\n')
+	{
+		map->grid[i][j] = map->line[j];
+		j++;
+	}
+	while (j < map->x_len)
+		map->grid[i][j++] = ' ';
+	map->grid[i][j] = '\0';
+	ft_safefree((void*)&map->line);
+	i++;
+	while ((i < map->y_len) && (map->line = get_next_line(map->fd)))
+	{
+		j = 0;
+		while (map->line[j] && map->line[j] != '\n')
+		{
+			map->grid[i][j] = map->line[j];
+			j++;
+		}
+		while (j < map->x_len)
+			map->grid[i][j++] = ' ';
+		map->grid[i][j] = '\0';
+		i++;
+		ft_safefree((void*)&map->line);
+	}
+	//Tester
+	k = 0;
+	while (k < map->y_len)
+	{
+		printf("%s\n", map->grid[k]);
+		k++;
+	}
+}
+
 t_map	*init_map(char *mapname)
 {
 	char	*map_path;
@@ -44,31 +97,31 @@ t_map	*init_map(char *mapname)
 		ft_exit_error("Wrong file extention");
 	map_path = ft_strjoin("./maps/", mapname);
 	if (!mapname)
-		return (FAILURE); 
+		return (NULL); 
 	map = ft_calloc(1, sizeof(t_map));
 	if (!map)
 	{
-		ft_safefree(&map_path);
-		return (FAILURE);
+		ft_safefree((void*)&map_path);
+		return (NULL);
 	}
-	if (read_map(map_path, map))
+	map->name = map_path;
+	if (read_map(map))
 	{
-		ft_safefree(&map_path);
-		ft_exit_errc("Can't read map", &map, 'm');
+		ft_safefree((void*)&map_path);
+		ft_exit_errc("Can't read map", (void*)&map, 'm');
 	}
-	ft_safefree(&map_path);
+	ft_safefree((void*)&map_path);
 	return (map);
 }
-
 
 bool val_flmaprow(char *line)
 {
 	int i;
 	
 	i = 0; 
-	while (line[i])
+	while (line[i] && line[i] != '\n')
 	{
-		if (line[i] != ' ' || line[i] != WALL)
+		if (line[i] != ' ' && line[i] != WALL)
 			return (true);
 		i++;
 	}
@@ -144,6 +197,7 @@ int	read_map(char *mapname, t_map *map)
 }
 
 
+
 char	**init_grid(t_map *map, char *line)
 {
 	int		i;
@@ -161,25 +215,25 @@ char	**init_grid(t_map *map, char *line)
 	return (grid);
 }
 
-// void	map_dimensions(t_map *map, char *line)
-// {
-// 	int	height;
-// 	int	width;
-// 	int	curr_width;
+void	map_dimensions(t_map *map, char *line)
+{
+	int	height;
+	int	width;
+	int	curr_width;
 
-// 	height = 1;
-// 	width = ft_strlen(line);
-// 	while (line = get_next_line(map->fd))
-// 	{
-// 		curr_width = ft_strlen(line);
-// 		if (curr_width > width)
-// 			width = curr_width;
-// 		ft_safefree(line);
-// 		height++;
-// 	}
-// 	map->x_len = width;
-// 	map->y_len = height;
-// }
+	height = 1;
+	width = ft_strlen(line);
+	while (line = get_next_line(map->fd))
+	{
+		curr_width = ft_strlen(line);
+		if (curr_width > width)
+			width = curr_width;
+		ft_safefree(line);
+		height++;
+	}
+	map->x_len = width;
+	map->y_len = height;
+}
 
 
 

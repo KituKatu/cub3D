@@ -6,7 +6,7 @@
 #    By: jmcgrane <jmcgrane@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2026/01/14 17:10:46 by adecheri          #+#    #+#              #
-#    Updated: 2026/01/16 13:48:49 by jmcgrane         ###   ########.fr        #
+#    Updated: 2026/01/26 16:57:11 by jmcgrane         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -36,7 +36,9 @@ UTILDIR = src/utils/
 
 SRCS =	$(MAINDIR)main.c \
 		$(PARSDIR)parse_map.c \
+		$(PARSDIR)parse_colors.c \
 		$(PARSDIR)parsing_utils.c \
+		$(PARSDIR)read_map.c \
 		$(RAYDIR)raycasting.c \
 		$(UTILDIR)error.c \
 		$(UTILDIR)free.c \

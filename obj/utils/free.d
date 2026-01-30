@@ -1,7 +1,7 @@
-obj/main/main.o: src/main/main.c src/main/../../inc/cub3d.h \
+obj/utils/free.o: src/utils/free.c src/utils/../../inc/cub3d.h \
   inc/../lib/libft/libft.h lib/MLX42/include/MLX42/MLX42.h
 
-src/main/../../inc/cub3d.h:
+src/utils/../../inc/cub3d.h:
 
 inc/../lib/libft/libft.h:
 

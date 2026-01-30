@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                         ::::::::           */
-/*   libft.h                                             :+:    :+:           */
-/*                                                      +:+                   */
-/*   By: adecheri <marvin@42.fr>                       +#+                    */
-/*                                                    +#+                     */
-/*   Created: 2024/10/18 18:20:36 by adecheri       #+#    #+#                */
-/*   Updated: 2024/10/18 18:20:38 by adecheri       ########   odam.nl        */
+/*                                                        :::      ::::::::   */
+/*   libft.h                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: jmcgrane <jmcgrane@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/10/18 18:20:36 by adecheri          #+#    #+#             */
+/*   Updated: 2026/01/26 16:45:47 by jmcgrane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,5 +83,6 @@ int				ft_printf(const char *str, ...);
 char			*extract_line(char *line_buffer, char *leftover);
 char			*read_and_store(int fd, char *full_line, char *buffer);
 char			*get_next_line(int fd);
+void			ft_freearr(void **array);
 
 #endif
