@@ -6,7 +6,7 @@
 /*   By: jmcgrane <jmcgrane@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/23 12:52:50 by jmcgrane          #+#    #+#             */
-/*   Updated: 2026/01/28 11:58:31 by jmcgrane         ###   ########.fr       */
+/*   Updated: 2026/02/02 13:07:18 by jmcgrane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ int	parse_map_id(char *line)
 		return (SUCCESS);
 	else if (ft_strncmp(line, "WE ", 3) == 0)
 		return (SUCCESS);
-	else if(ft_strchr(line, WALL))
+	else if (ft_strchr(line, WALL))
 		return (FAILURE);
 	return (SUCCESS);
 }
@@ -37,13 +37,11 @@ int	parse_identifier(char *line, t_map *map)
 	{
 		line = ft_strtrim(line + 2, "\n\t ");
 		map->floor = parse_color(line, map);
-		printf("Floor rgb: %d\n", map->floor);
 	}
 	else if (ft_strncmp(line, "C ", 2) == 0)
 	{
 		line = ft_strtrim(line + 2, "\n\t ");
 		map->ceiling = parse_color(line, map);
-		printf("Ceiling rgb: %d\n", map->ceiling);
 	}
 	else if (ft_strncmp(line, "NO ", 3) == 0)
 		map->north = ft_strtrim(line + 3, "\n\t ");
@@ -53,7 +51,7 @@ int	parse_identifier(char *line, t_map *map)
 		map->east = ft_strtrim(line + 3, "\n\t ");
 	else if (ft_strncmp(line, "WE ", 3) == 0)
 		map->west = ft_strtrim(line + 3, "\n\t ");
-	else if(ft_strchr(line, WALL))
+	else if (ft_strchr(line, WALL))
 		return (FAILURE);
 	return (SUCCESS);
 }
@@ -76,7 +74,7 @@ void	map_dimensions(t_map *map)
 			i++;
 		if (i > width)
 			width = i;
-		ft_safefree((void*)&map->line);
+		ft_safefree((void *)&map->line);
 		height++;
 	}
 	map->x_len = width;
@@ -90,45 +88,19 @@ char	**init_grid(t_map *map)
 	char	**grid;
 
 	i = 0;
-	grid = calloc(map->y_len + 1, sizeof(char *));
+	grid = ft_calloc(map->y_len + 1, sizeof(char *));
 	if (!grid)
 		return (NULL);
-	while(i < map->y_len)
+	while (i < map->y_len)
 	{
-		grid[i] = calloc(map->x_len + 1, sizeof(char));
+		grid[i] = ft_calloc(map->x_len + 1, sizeof(char));
 		if (!grid[i])
 		{
-			ft_freearr((void*)grid);
+			ft_freearr((void *)grid);
 			return (NULL);
 		}
 		i++;
 	}
+	grid[i] = NULL;
 	return (grid);
-}
-
-int	empty_line(char *line)
-{
-	int	i;
-
-	i = 0;
-	while(line[i])
-	{
-		if (line[i] != ' ' && line[i] != '\t'
-			&& line[i] != '\n')
-		{
-			return (FAILURE);
-		}
-		i++;
-	}
-	return (SUCCESS);
-}
-
-int	dot_cub(char *file)
-{
-	int	len;
-
-	len = ft_strlen(file);
-	if (len > 0 && ft_strncmp(file + len - 4, ".cub", 4) != 0)
-		return (FAILURE);
-	return (SUCCESS);
 }
