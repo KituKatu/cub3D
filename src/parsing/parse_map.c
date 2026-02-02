@@ -141,40 +141,40 @@ bool	frst_last(char *line)
 	 - calc max length, 
 	 - then realloccing / appending the short strings  
 */
-void	parse_map(t_map *map, char *line)
-{
-	char	**grid;
-	int i;
+// void	parse_map(t_map *map, char *line)
+// {
+// 	char	**grid;
+// 	int i;
 
-	i = 0;
-	while (line = get_next_line(map->fd))
-	{
-		if (map->x_len < ft_strlen(line))
-			map->x_len = ft_strlen(line);
-		if (!map->mapline && line)
-		{
-			if (val_flmaprow(line))
-				ft_exit_errc("Error upper walls", &map, 'm');
-			map->grid[i] = ft_strdup(line);
-			if (!map->grid[i])
-				ft_exit_errc("Error dup mapline", &map, 'm');
-		}
-		while(line)
-		{
-			if (empty_line(line))
-				ft_exit_errc("Obstructed map", &map, 'm');
-			ft_strjoin(map->mapline, line);
-		}
-		//check if at EOF --> otherwise, broken map
-		if ()
-		i++;
-	}
-	map->y_len = i; 
+// 	i = 0;
+// 	while (line = get_next_line(map->fd))
+// 	{
+// 		if (map->x_len < ft_strlen(line))
+// 			map->x_len = ft_strlen(line);
+// 		if (!map->mapline && line)
+// 		{
+// 			if (val_flmaprow(line))
+// 				ft_exit_errc("Error upper walls", &map, 'm');
+// 			map->grid[i] = ft_strdup(line);
+// 			if (!map->grid[i])
+// 				ft_exit_errc("Error dup mapline", &map, 'm');
+// 		}
+// 		while(line)
+// 		{
+// 			if (empty_line(line))
+// 				ft_exit_errc("Obstructed map", &map, 'm');
+// 			ft_strjoin(map->mapline, line);
+// 		}
+// 		//check if at EOF --> otherwise, broken map
+// 		if ()
+// 		i++;
+// 	}
+// 	map->y_len = i; 
 
 	// map->grid = init_grid(map, line);
 	// if (!map->grid)
 	// 	ft_exit_errc("Grid failed to init", &map, 'm');
-}
+//}
 
 int	read_map(char *mapname, t_map *map)
 {
