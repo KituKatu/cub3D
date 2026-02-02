@@ -6,7 +6,7 @@
 /*   By: jmcgrane <jmcgrane@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/02 12:49:59 by jmcgrane          #+#    #+#             */
-/*   Updated: 2026/02/02 12:58:30 by jmcgrane         ###   ########.fr       */
+/*   Updated: 2026/02/02 13:07:37 by jmcgrane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,10 +46,9 @@ int	empty_line(char *line)
 	int	i;
 
 	i = 0;
-	while(line[i])
+	while (line[i])
 	{
-		if (line[i] != ' ' && line[i] != '\t'
-			&& line[i] != '\n')
+		if (line[i] != ' ' && line[i] != '\t' && line[i] != '\n')
 		{
 			return (FAILURE);
 		}

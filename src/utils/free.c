@@ -6,13 +6,11 @@
 /*   By: jmcgrane <jmcgrane@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/16 16:39:35 by adecheri          #+#    #+#             */
-/*   Updated: 2026/01/28 12:25:07 by jmcgrane         ###   ########.fr       */
+/*   Updated: 2026/02/02 13:08:50 by jmcgrane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/cub3d.h"
-
-
 
 void	free_cubmap(t_map **map)
 {
@@ -26,7 +24,7 @@ void	free_cubmap(t_map **map)
 	ft_safefree((void *)&(*map)->west);
 	while((*map)->grid)
 	{
-		ft_safefree((void*)&(*map)->grid[i]);
+		ft_safefree((void *)&(*map)->grid[i]);
 		i++;
 	}
 }
