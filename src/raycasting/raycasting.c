@@ -148,7 +148,6 @@ void	cub_keyhook(mlx_key_data_t keydown, void *param)
 	t_game	**game;
     
 	game = (t_game *)param;
-
 	if (keydown.action == MLX_PRESS || keydown.action == MLX_REPEAT)
 	{
 		if (keydown.key == MLX_KEY_ESCAPE)
