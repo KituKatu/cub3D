@@ -6,7 +6,7 @@
 /*   By: jmcgrane <jmcgrane@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/26 13:50:37 by jmcgrane          #+#    #+#             */
-/*   Updated: 2026/02/02 12:45:58 by jmcgrane         ###   ########.fr       */
+/*   Updated: 2026/02/02 13:07:32 by jmcgrane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ t_map	*init_map(char *mapname)
 		ft_exit_error("Wrong file extention");
 	map_path = ft_strjoin("./maps/", mapname);
 	if (!mapname)
-		return (NULL); 
+		return (NULL);
 	map = ft_calloc(1, sizeof(t_map));
 	if (!map)
 	{
@@ -43,19 +43,19 @@ int	read_map(t_map *map)
 	map->fd = open(map->name, O_RDONLY);
 	if (map->fd < 0)
 		ft_exit_errc("Error opening file", NULL, '0');
-	while((map->line = get_next_line(map->fd)))
+	while ((map->line = get_next_line(map->fd)))
 	{
 		if (empty_line(map->line) == SUCCESS)
 		{
-			ft_safefree((void*)&map->line);
-			continue;
+			ft_safefree((void *)&map->line);
+			continue ;
 		}
 		if (parse_identifier(map->line, map) == FAILURE)
 		{
 			map_setup(map);
 			break ;
 		}
-		ft_safefree((void*)&map->line);
+		ft_safefree((void *)&map->line);
 	}
 	close(map->fd);
 	return (SUCCESS);
@@ -66,19 +66,19 @@ int	read_map_again(t_map *map)
 	map->fd = open(map->name, O_RDONLY);
 	if (map->fd < 0)
 		ft_exit_errc("Error opening file", NULL, '0');
-	while((map->line = get_next_line(map->fd)))
+	while ((map->line = get_next_line(map->fd)))
 	{
 		if (empty_line(map->line) == SUCCESS)
 		{
-			ft_safefree((void*)&map->line);
-			continue;
+			ft_safefree((void *)&map->line);
+			continue ;
 		}
 		if (parse_map_id(map->line) == FAILURE)
 		{
 			parse_map(map);
 			break ;
 		}
-		ft_safefree((void*)&map->line);
+		ft_safefree((void *)&map->line);
 	}
 	close(map->fd);
 	return (SUCCESS);

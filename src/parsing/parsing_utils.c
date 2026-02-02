@@ -6,7 +6,7 @@
 /*   By: jmcgrane <jmcgrane@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/23 12:52:50 by jmcgrane          #+#    #+#             */
-/*   Updated: 2026/02/02 12:58:23 by jmcgrane         ###   ########.fr       */
+/*   Updated: 2026/02/02 13:07:18 by jmcgrane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ int	parse_map_id(char *line)
 		return (SUCCESS);
 	else if (ft_strncmp(line, "WE ", 3) == 0)
 		return (SUCCESS);
-	else if(ft_strchr(line, WALL))
+	else if (ft_strchr(line, WALL))
 		return (FAILURE);
 	return (SUCCESS);
 }
@@ -51,7 +51,7 @@ int	parse_identifier(char *line, t_map *map)
 		map->east = ft_strtrim(line + 3, "\n\t ");
 	else if (ft_strncmp(line, "WE ", 3) == 0)
 		map->west = ft_strtrim(line + 3, "\n\t ");
-	else if(ft_strchr(line, WALL))
+	else if (ft_strchr(line, WALL))
 		return (FAILURE);
 	return (SUCCESS);
 }
@@ -74,7 +74,7 @@ void	map_dimensions(t_map *map)
 			i++;
 		if (i > width)
 			width = i;
-		ft_safefree((void*)&map->line);
+		ft_safefree((void *)&map->line);
 		height++;
 	}
 	map->x_len = width;
@@ -91,7 +91,7 @@ char	**init_grid(t_map *map)
 	grid = ft_calloc(map->y_len + 1, sizeof(char *));
 	if (!grid)
 		return (NULL);
-	while(i < map->y_len)
+	while (i < map->y_len)
 	{
 		grid[i] = ft_calloc(map->x_len + 1, sizeof(char));
 		if (!grid[i])

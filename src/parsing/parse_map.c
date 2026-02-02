@@ -6,7 +6,7 @@
 /*   By: jmcgrane <jmcgrane@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/16 16:38:24 by adecheri          #+#    #+#             */
-/*   Updated: 2026/02/02 13:01:50 by jmcgrane         ###   ########.fr       */
+/*   Updated: 2026/02/02 13:08:19 by jmcgrane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,7 +98,7 @@ void	create_grid(t_map *map, int i, int j)
 bool	frst_last(char *line)
 {
 	int	i;
-	
+
 	i = 0;
 	while (line[i] && line[i] != '\n')
 	{

@@ -6,7 +6,7 @@
 /*   By: jmcgrane <jmcgrane@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/30 14:00:42 by jmcgrane          #+#    #+#             */
-/*   Updated: 2026/02/02 12:35:13 by jmcgrane         ###   ########.fr       */
+/*   Updated: 2026/02/02 13:10:29 by jmcgrane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,6 @@ int	validate_map(t_map *map)
 		{
 			if (copy[y][x] && ft_strchr("NSEW", copy[y][x]))
 			{
-				// printf("Player_pos: %c\n", copy[y][x]);
 				result = floodfill(map, copy, x, y);
 				return (ft_freearr((void *)copy), result);
 			}
