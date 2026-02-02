@@ -6,7 +6,7 @@
 /*   By: jmcgrane <jmcgrane@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/14 17:31:12 by adecheri          #+#    #+#             */
-/*   Updated: 2026/02/02 12:57:12 by jmcgrane         ###   ########.fr       */
+/*   Updated: 2026/02/02 14:24:13 by jmcgrane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,8 @@ typedef struct s_map
 	char		**grid;
 	char		orient;
 	int			ceiling;
+	int			player_x;
+	int			player_y;
 	mlx_image_t	*img[4];
 }				t_map;
 
@@ -67,6 +69,7 @@ t_map	*init_map(char *mapname);
 int		init_game(char *mapfile);
 int		parse_map_id(char *line);
 int		validate_map(t_map *map);
+int		is_valid_char(t_map *map);
 int		read_map_again(t_map *map);
 void	map_dimensions(t_map *map);
 void	create_grid(t_map *map, int i, int j);

@@ -6,11 +6,35 @@
 /*   By: jmcgrane <jmcgrane@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/02 12:49:59 by jmcgrane          #+#    #+#             */
-/*   Updated: 2026/02/02 13:07:37 by jmcgrane         ###   ########.fr       */
+/*   Updated: 2026/02/02 14:15:33 by jmcgrane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/cub3d.h"
+
+int	is_valid_char(t_map *map)
+{
+	int	i;
+	int	j;
+
+	i = 0;
+	while (i < map->y_len)
+	{
+		j = 0;
+		while (j < map->x_len - 1)
+		{
+			if (map->grid[i][j] != 'N' && map->grid[i][j] != 'S' && map->grid[i][j] != 'E'
+				&& map->grid[i][j] != 'W' && map->grid[i][j] != '1' && map->grid[i][j] != '0'
+				&& map->grid[i][j] != ' ')
+			{
+				return (FAILURE);
+			}
+			j++;
+		}
+		i++;
+	}
+	return (SUCCESS);
+}
 
 int	one_player(t_map *map)
 {
