@@ -6,11 +6,43 @@
 /*   By: jmcgrane <jmcgrane@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/30 14:00:42 by jmcgrane          #+#    #+#             */
-/*   Updated: 2026/02/02 14:31:16 by jmcgrane         ###   ########.fr       */
+/*   Updated: 2026/02/02 14:34:17 by jmcgrane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/cub3d.h"
+
+int	validate_map(t_map *map)
+{
+	int		x;
+	int		y;
+	char	**copy;
+	int		result;
+
+	result = 0;
+	copy = map_copy(map);
+	if (!copy)
+		return (FAILURE);
+	y = 0;
+	while (y < map->y_len)
+	{
+		x = 0;
+		while (x < map->x_len)
+		{
+			if (copy[y][x] && ft_strchr("NSEW", copy[y][x]))
+			{
+				map->player_x = x;
+				map->player_y = y;
+				map->orient = copy[y][x];
+				result = floodfill(map, copy, x, y);
+				return (ft_freearr((void *)copy), result);
+			}
+			x++;
+		}
+		y++;
+	}
+	return (result);
+}
 
 char	**map_copy(t_map *map)
 {
@@ -57,36 +89,4 @@ int	floodfill(t_map *map, char **map_copy, int x, int y)
 	if (floodfill(map, map_copy, x, y - 1))
 		return (FAILURE);
 	return (SUCCESS);
-}
-
-int	validate_map(t_map *map)
-{
-	int		x;
-	int		y;
-	char	**copy;
-	int		result;
-
-	result = 0;
-	copy = map_copy(map);
-	if (!copy)
-		return (FAILURE);
-	y = 0;
-	while (y < map->y_len)
-	{
-		x = 0;
-		while (x < map->x_len)
-		{
-			if (copy[y][x] && ft_strchr("NSEW", copy[y][x]))
-			{
-				map->player_x = x;
-				map->player_y = y;
-				map->orient = copy[y][x];
-				result = floodfill(map, copy, x, y);
-				return (ft_freearr((void *)copy), result);
-			}
-			x++;
-		}
-		y++;
-	}
-	return (result);
 }
