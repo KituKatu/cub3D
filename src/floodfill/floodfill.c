@@ -6,7 +6,7 @@
 /*   By: jmcgrane <jmcgrane@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/30 14:00:42 by jmcgrane          #+#    #+#             */
-/*   Updated: 2026/01/30 16:09:27 by jmcgrane         ###   ########.fr       */
+/*   Updated: 2026/02/02 12:35:13 by jmcgrane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ char	**map_copy(t_map *map)
 	while (i < map->y_len)
 	{
 		map_copy[i] = ft_strdup(map->grid[i]);
+		printf("%s\n", map_copy[i]);
 		if (!map_copy[i])
 		{
 			ft_freearr((void *)map_copy);
@@ -32,6 +33,13 @@ char	**map_copy(t_map *map)
 		i++;
 	}
 	map_copy[i] = NULL;
+	// printf("MAP_COPY\n");
+	// i = 0;
+	// while (i < map->y_len)
+	// {
+	// 	printf("%s\n", map_copy[i]);
+	// 	i++;
+	// }
 	return (map_copy);
 }
 
@@ -74,6 +82,7 @@ int	validate_map(t_map *map)
 		{
 			if (copy[y][x] && ft_strchr("NSEW", copy[y][x]))
 			{
+				// printf("Player_pos: %c\n", copy[y][x]);
 				result = floodfill(map, copy, x, y);
 				return (ft_freearr((void *)copy), result);
 			}
