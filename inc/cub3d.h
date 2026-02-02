@@ -27,6 +27,9 @@
 # define FAILURE 1
 # define READ_SIZE 42
 # define ROTSPEED 30
+# define MOVSPEED 2
+# define HEIGHT 60
+
 
 
 typedef struct s_map
@@ -50,6 +53,8 @@ typedef struct s_map
 
 typedef struct s_player
 {
+	int posX;
+	int posY;
 	double dirX;
 	double dirY;
 	double planeX;
