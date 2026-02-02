@@ -6,7 +6,7 @@
 /*   By: jmcgrane <jmcgrane@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/16 16:38:24 by adecheri          #+#    #+#             */
-/*   Updated: 2026/01/30 15:46:29 by jmcgrane         ###   ########.fr       */
+/*   Updated: 2026/02/02 12:37:33 by jmcgrane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,20 +38,18 @@
 void	map_setup(t_map *map)
 {
 	map_dimensions(map);
-	close(map->fd);
 	map->grid = init_grid(map);
 	if (!map->grid)
 		ft_exit_errc("Grid allocation failed", (void *)&map, 'm');
+	read_map_again(map);
 	if (validate_map(map))
 		ft_exit_errc("floodfill failed", (void *)&map, 'f');
-	read_map_again(map);
 }
 
 void	parse_map(t_map *map)
 {
 	int	i;
 	int	j;
-	int	k;
 
 	i = 0;
 	j = 0;
@@ -68,13 +66,13 @@ void	parse_map(t_map *map)
 	ft_safefree((void *)&map->line);
 	i++;
 	create_grid(map, i, j);
-	//Tester
-	k = 0;
-	while (k < map->y_len)
-	{
-		printf("%s\n", map->grid[k]);
-		k++;
-	}
+	// Tester
+	// i = 0;
+	// while (i < map->y_len)
+	// {
+	// 	printf("%s\n", map->grid[i]);
+	// 	i++;
+	// }
 }
 
 void	create_grid(t_map *map, int i, int j)

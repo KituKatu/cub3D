@@ -6,7 +6,7 @@
 /*   By: jmcgrane <jmcgrane@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/23 12:52:50 by jmcgrane          #+#    #+#             */
-/*   Updated: 2026/01/30 15:49:18 by jmcgrane         ###   ########.fr       */
+/*   Updated: 2026/02/02 12:12:36 by jmcgrane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,7 +88,7 @@ char	**init_grid(t_map *map)
 	char	**grid;
 
 	i = 0;
-	grid = calloc(map->y_len + 1, sizeof(char *));
+	grid = ft_calloc(map->y_len + 1, sizeof(char *));
 	if (!grid)
 		return (NULL);
 	while(i < map->y_len)
@@ -96,11 +96,12 @@ char	**init_grid(t_map *map)
 		grid[i] = ft_calloc(map->x_len + 1, sizeof(char));
 		if (!grid[i])
 		{
-			ft_freearr((void*)grid);
+			ft_freearr((void *)grid);
 			return (NULL);
 		}
 		i++;
 	}
+	grid[i] = NULL;
 	return (grid);
 }
 
