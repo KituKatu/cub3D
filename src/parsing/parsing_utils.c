@@ -6,7 +6,7 @@
 /*   By: jmcgrane <jmcgrane@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/23 12:52:50 by jmcgrane          #+#    #+#             */
-/*   Updated: 2026/02/02 12:12:36 by jmcgrane         ###   ########.fr       */
+/*   Updated: 2026/02/02 12:58:23 by jmcgrane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,31 +103,4 @@ char	**init_grid(t_map *map)
 	}
 	grid[i] = NULL;
 	return (grid);
-}
-
-int	empty_line(char *line)
-{
-	int	i;
-
-	i = 0;
-	while(line[i])
-	{
-		if (line[i] != ' ' && line[i] != '\t'
-			&& line[i] != '\n')
-		{
-			return (FAILURE);
-		}
-		i++;
-	}
-	return (SUCCESS);
-}
-
-int	dot_cub(char *file)
-{
-	int	len;
-
-	len = ft_strlen(file);
-	if (len > 0 && ft_strncmp(file + len - 4, ".cub", 4) != 0)
-		return (FAILURE);
-	return (SUCCESS);
 }

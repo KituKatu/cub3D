@@ -6,7 +6,7 @@
 /*   By: jmcgrane <jmcgrane@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/16 16:38:24 by adecheri          #+#    #+#             */
-/*   Updated: 2026/02/02 12:37:33 by jmcgrane         ###   ########.fr       */
+/*   Updated: 2026/02/02 13:01:50 by jmcgrane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,8 @@ void	map_setup(t_map *map)
 	if (!map->grid)
 		ft_exit_errc("Grid allocation failed", (void *)&map, 'm');
 	read_map_again(map);
+	if (one_player(map))
+		ft_exit_errc("Game is only one player", (void *)&map, 'p');
 	if (validate_map(map))
 		ft_exit_errc("floodfill failed", (void *)&map, 'f');
 }
@@ -91,32 +93,6 @@ void	create_grid(t_map *map, int i, int j)
 		i++;
 		ft_safefree((void *)&map->line);
 	}
-}
-
-t_map	*init_map(char *mapname)
-{
-	char	*map_path;
-	t_map	*map;
-
-	if (dot_cub(mapname))
-		ft_exit_error("Wrong file extention");
-	map_path = ft_strjoin("./maps/", mapname);
-	if (!mapname)
-		return (NULL); 
-	map = ft_calloc(1, sizeof(t_map));
-	if (!map)
-	{
-		ft_safefree((void *)&map_path);
-		return (NULL);
-	}
-	map->name = map_path;
-	if (read_map(map))
-	{
-		ft_safefree((void *)&map_path);
-		ft_exit_errc("Can't read map", (void *)&map, 'm');
-	}
-	ft_safefree((void *)&map_path);
-	return (map);
 }
 
 bool	frst_last(char *line)
