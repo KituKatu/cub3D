@@ -26,8 +26,8 @@ void init_player(t_game *game)
     player = ft_calloc(1, sizeof(t_player));
     if (!player)
         ft_exit_errc("Failed to init player", (void *)&game, 'g');
-    player->posX = game->map->;
-    player->posY = game->map->;
+    player->posX = game->map->player_x;
+    player->posY = game->map->player_y;
     
 }
 
@@ -58,7 +58,7 @@ int val_stray(t_game *game, int )
             side = 1;
         }
         //Check if ray has hit a wall
-        if (game->map->mapgrid[mapX][mapY] == WALL) 
+        if (game->map->grid[mapX][mapY] == WALL) 
         hit = true;
     }
     
