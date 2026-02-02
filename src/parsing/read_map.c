@@ -6,11 +6,37 @@
 /*   By: jmcgrane <jmcgrane@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/26 13:50:37 by jmcgrane          #+#    #+#             */
-/*   Updated: 2026/01/28 11:57:54 by jmcgrane         ###   ########.fr       */
+/*   Updated: 2026/02/02 12:45:58 by jmcgrane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/cub3d.h"
+
+t_map	*init_map(char *mapname)
+{
+	char	*map_path;
+	t_map	*map;
+
+	if (dot_cub(mapname))
+		ft_exit_error("Wrong file extention");
+	map_path = ft_strjoin("./maps/", mapname);
+	if (!mapname)
+		return (NULL); 
+	map = ft_calloc(1, sizeof(t_map));
+	if (!map)
+	{
+		ft_safefree((void *)&map_path);
+		return (NULL);
+	}
+	map->name = map_path;
+	if (read_map(map))
+	{
+		ft_safefree((void *)&map_path);
+		ft_exit_errc("Can't read map", (void *)&map, 'm');
+	}
+	ft_safefree((void *)&map_path);
+	return (map);
+}
 
 int	read_map(t_map *map)
 {

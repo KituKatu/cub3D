@@ -6,7 +6,7 @@
 /*   By: jmcgrane <jmcgrane@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/14 17:31:12 by adecheri          #+#    #+#             */
-/*   Updated: 2026/01/30 15:45:46 by jmcgrane         ###   ########.fr       */
+/*   Updated: 2026/02/02 12:57:12 by jmcgrane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,7 @@ void	map_setup(t_map *map);
 void	parse_map(t_map *map);
 char	**map_copy(t_map *map);
 int		empty_line(char *line);
+int		one_player(t_map *map);
 char	**init_grid(t_map *map);
 t_map	*init_map(char *mapname);
 int		init_game(char *mapfile);
