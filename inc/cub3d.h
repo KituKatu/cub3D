@@ -28,7 +28,7 @@
 # define READ_SIZE 42
 # define ROTSPEED 30
 # define MOVSPEED 2
-# define HEIGHT 60
+# define SHEIGHT 60
 
 
 
@@ -61,7 +61,6 @@ typedef struct s_player
 	double dirY;
 	double planeX;
 	double planeY;
-
 } t_player; 
 
 typedef struct s_game

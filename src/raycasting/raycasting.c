@@ -30,14 +30,26 @@ void init_player(t_game *game)
     player->posY = game->map->player_y;
     
 }
+//returns the line height of the walls depending on x or y axis is hit by raycast 
+//needs a struct for all the arguments 
+int calc_height(int side, int sideDistX, int sideDistY)
+{
+    double perpWallDist; 
 
+    if (side == 0)
+        perpWallDist = (sideDistX - deltaDistX);
+    else 
+        perpWallDist = (sideDistY - deltaDistY);
+    return((int)SHEIGHT / perpWallDist); 
+}
 
 // calc if step hits wall?
-int val_stray(t_game *game, int )
+int val_stray(t_game *game, int sideDistX, int sideDistY)
 {
     int mapX;
     int mapY;
     bool hit;
+    int side; 
     
     mapX = game->player->dirX;
     mapY = game->player->dirY; 
@@ -59,7 +71,7 @@ int val_stray(t_game *game, int )
         }
         //Check if ray has hit a wall
         if (game->map->grid[mapX][mapY] == WALL) 
-        hit = true;
+            hit = true;
     }
     
 }
