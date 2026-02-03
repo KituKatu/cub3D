@@ -61,6 +61,10 @@ typedef struct s_player
 	double dirY;
 	double planeX;
 	double planeY;
+	double sideDistX;
+	double sideDistY;
+	double deltaDistX;
+	double deltaDistY;
 } t_player; 
 
 typedef struct s_game

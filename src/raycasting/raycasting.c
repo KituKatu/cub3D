@@ -32,47 +32,48 @@ void init_player(t_game *game)
 }
 //returns the line height of the walls depending on x or y axis is hit by raycast 
 //needs a struct for all the arguments 
-int calc_height(int side, int sideDistX, int sideDistY)
+int calc_height(t_game *game, int side)
 {
     double perpWallDist; 
 
+
     if (side == 0)
-        perpWallDist = (sideDistX - deltaDistX);
+        perpWallDist = (game->player->sideDistX - game->player->deltaDistX);
     else 
-        perpWallDist = (sideDistY - deltaDistY);
+        perpWallDist = (game->player->deltaDistX - game->player->deltaDistY);
     return((int)SHEIGHT / perpWallDist); 
 }
 
-// calc if step hits wall?
-int val_stray(t_game *game, int sideDistX, int sideDistY)
+// calc if ray from camera plane hits wall? --> needs
+int val_stray(t_game *game)
 {
     int mapX;
     int mapY;
     bool hit;
-    int side; 
+    int side;
     
     mapX = game->player->dirX;
     mapY = game->player->dirY; 
-    
     while (hit == false)
     {
         //jump to next map square, either in x-direction, or in y-direction
-        if (sideDistX < sideDistY)
+        if (game->player->sideDistX < game->player->deltaDistY)
         {
-            sideDistX += deltaDistX;
+            game->player->sideDistX += game->player->deltaDistX;
             mapX += stepX;
             side = 0;
         }
         else
         {
-            sideDistY += deltaDistY;
+            game->player->sideDistY += game->player->deltaDistY;
             mapY += stepY;
             side = 1;
         }
-        //Check if ray has hit a wall
-        if (game->map->grid[mapX][mapY] == WALL) 
+
+        if (game->map->grid[mapX][mapY] == WALL)
             hit = true;
     }
+
     
 }
 
@@ -84,22 +85,22 @@ void calc_dirX(t_player *play)
     if (play->dirX < 0)
     {
         stepX = -1;
-        sideDistX = (posX - mapX) * deltaDistX;
+        play->sideDistX = (play->posX - mapX) * play->deltaDistX;
     }
     else
     {
         stepX = 1;
-        sideDistX = (mapX + 1.0 - posX) * deltaDistX;
+        play->sideDistX = (mapX + 1.0 - play->posX) * play->deltaDistX;
     }
     if (rayDirY < 0)
     {
         stepY = -1;
-        sideDistY = (posY - mapY) * deltaDistY;
+        play->sideDistY = (play->posY - mapY) * play->deltaDistY;
     }
     else
     {
         stepY = 1;
-        sideDistY = (mapY + 1.0 - posY) * deltaDistY;
+        play->sideDistY = (mapY + 1.0 - play->posY) * play->deltaDistY;
     }
 
 }
