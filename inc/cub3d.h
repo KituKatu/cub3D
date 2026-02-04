@@ -6,7 +6,7 @@
 /*   By: jmcgrane <jmcgrane@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/14 17:31:12 by adecheri          #+#    #+#             */
-/*   Updated: 2026/02/02 14:24:13 by jmcgrane         ###   ########.fr       */
+/*   Updated: 2026/02/04 14:33:45 by jmcgrane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,10 @@
 # define FAILURE 1
 # define READ_SIZE 42
 # define TILE_SIZE 32
+# define FOV 0.66 // Same as wolfenstien
+# define SCREEN_WIDTH 1024 // Standard (4 : 3 aspect ratio)
+# define SCREEN_HEIGHT 768
+
 
 typedef struct s_map
 {
