@@ -6,7 +6,7 @@
 /*   By: jmcgrane <jmcgrane@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/14 17:31:12 by adecheri          #+#    #+#             */
-/*   Updated: 2026/02/04 15:29:06 by jmcgrane         ###   ########.fr       */
+/*   Updated: 2026/02/04 15:35:05 by jmcgrane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,10 @@
 # define FOV 0.66 // Same as wolfenstien
 # define SCREEN_WIDTH 1024 // Standard (4 : 3 aspect ratio)
 # define SCREEN_HEIGHT 768
+# define ROTSPEED 30
+# define MOVSPEED 2
+# define SHEIGHT 60
+
 
 
 typedef struct s_map
@@ -52,10 +56,26 @@ typedef struct s_map
 	mlx_image_t	*img[4];
 }				t_map;
 
+
+typedef struct s_player
+{
+	int posX;
+	int posY;
+	double dirX;
+	double dirY;
+	double planeX;
+	double planeY;
+	double sideDistX;
+	double sideDistY;
+	double deltaDistX;
+	double deltaDistY;
+} t_player; 
+
 typedef struct s_game
 {
 	mlx_t	*mlx;
 	t_map	*map;
+	t_player *player;
 }			t_game;
 
 /*Map Validation*/
@@ -94,6 +114,7 @@ int			fill_img_array(t_game *game);
 mlx_image_t	*load_wall_texture(t_game *game, char *path);
 
 /*Key Hooks*/
+
 
 /*Error Functions*/
 
