@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                         ::::::::           */
-/*   raycasting.c                                        :+:    :+:           */
-/*                                                      +:+                   */
-/*   By: adecheri <marvin@42.fr>                       +#+                    */
-/*                                                    +#+                     */
-/*   Created: 2026/01/16 16:38:38 by adecheri       #+#    #+#                */
-/*   Updated: 2026/01/16 16:38:40 by adecheri       ########   odam.nl        */
+/*                                                        :::      ::::::::   */
+/*   raycasting.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: jmcgrane <jmcgrane@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/01/16 16:38:38 by adecheri          #+#    #+#             */
+/*   Updated: 2026/02/06 13:19:47 by jmcgrane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,9 +26,37 @@ void init_player(t_game *game)
     player = ft_calloc(1, sizeof(t_player));
     if (!player)
         ft_exit_errc("Failed to init player", (void *)&game, 'g');
-    player->posX = game->map->player_x;
-    player->posY = game->map->player_y;
-    
+    player->posX = game->map->player_x + 0.5; // +0.5 for center of tile
+    player->posY = game->map->player_y + 0.5;
+    if (game->map->orient == 'N')
+    {
+        player->dirX = 0;
+        player->dirY = -1;
+        player->planeX = 0.66;
+        player->planeY = 0.0;
+    }
+    else if (game->map->orient == 'S')
+    {
+        player->dirX = 0;
+        player->dirY = 1;
+        player->planeX = -0.66;
+        player->planeY = 0.0;
+    }
+    else if (game->map->orient == 'E')
+    {
+        player->dirX = 1;
+        player->dirY = 0;
+        player->planeX = 0.0;
+        player->planeY = 0.66;
+    }
+    else if (game->map->orient == 'W')
+    {
+        player->dirX = -1;
+        player->dirY = 0;
+        player->planeX = 0.0;
+        player->planeY = -0.66;
+    }
+    game->player = player;
 }
 //returns the line height of the walls depending on x or y axis is hit by raycast 
 //needs a struct for all the arguments 
