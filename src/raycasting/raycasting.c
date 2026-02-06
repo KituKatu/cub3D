@@ -6,7 +6,7 @@
 /*   By: jmcgrane <jmcgrane@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/16 16:38:38 by adecheri          #+#    #+#             */
-/*   Updated: 2026/02/06 13:19:47 by jmcgrane         ###   ########.fr       */
+/*   Updated: 2026/02/06 13:27:58 by jmcgrane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,15 +19,26 @@
     load in vector lib?
 */
 
-void init_player(t_game *game)
+void    init_orient_E_W(t_game *game, t_player *player)
 {
-    t_player *player;
+    if (game->map->orient == 'E')
+    {
+        player->dirX = 1;
+        player->dirY = 0;
+        player->planeX = 0.0;
+        player->planeY = 0.66;
+    }
+    else if (game->map->orient == 'W')
+    {
+        player->dirX = -1;
+        player->dirY = 0;
+        player->planeX = 0.0;
+        player->planeY = -0.66;
+    }
+}
 
-    player = ft_calloc(1, sizeof(t_player));
-    if (!player)
-        ft_exit_errc("Failed to init player", (void *)&game, 'g');
-    player->posX = game->map->player_x + 0.5; // +0.5 for center of tile
-    player->posY = game->map->player_y + 0.5;
+void    init_orient_N_S(t_game *game, t_player *player)
+{
     if (game->map->orient == 'N')
     {
         player->dirX = 0;
@@ -42,20 +53,19 @@ void init_player(t_game *game)
         player->planeX = -0.66;
         player->planeY = 0.0;
     }
-    else if (game->map->orient == 'E')
-    {
-        player->dirX = 1;
-        player->dirY = 0;
-        player->planeX = 0.0;
-        player->planeY = 0.66;
-    }
-    else if (game->map->orient == 'W')
-    {
-        player->dirX = -1;
-        player->dirY = 0;
-        player->planeX = 0.0;
-        player->planeY = -0.66;
-    }
+    init_orient_E_W(game, player);
+}
+
+void	init_player(t_game *game)
+{
+    t_player *player;
+
+    player = ft_calloc(1, sizeof(t_player));
+    if (!player)
+        ft_exit_errc("Failed to init player", (void *)&game, 'g');
+    player->posX = game->map->player_x + 0.5; // +0.5 for center of tile
+    player->posY = game->map->player_y + 0.5;
+    init_orient_N_S(game, player);
     game->player = player;
 }
 //returns the line height of the walls depending on x or y axis is hit by raycast 

@@ -6,7 +6,7 @@
 /*   By: jmcgrane <jmcgrane@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/14 17:31:12 by adecheri          #+#    #+#             */
-/*   Updated: 2026/02/04 15:39:12 by jmcgrane         ###   ########.fr       */
+/*   Updated: 2026/02/06 13:28:36 by jmcgrane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,11 +114,24 @@ mlx_image_t	*load_wall_texture(t_game *game, char *path);
 
 /*Key Hooks*/
 
+void	cub_keyhook(mlx_key_data_t keydown, void *param);
 
 /*Error Functions*/
 
 void	ft_clean_cubed(void **ptr, char id);
 int		ft_exit_errc(const char *msg, void **ptr, char id);
+
+/*Ray Casting*/
+
+int		val_stray(t_game *game);
+void	init_player(t_game *game);
+void	calc_dirX(t_player *play);
+void	rotate_c(t_game **game, char dir);
+int		calc_height(t_game *game, int side);
+void	init_orient_N_S(t_game *game, t_player *player);
+void	init_orient_E_W(t_game *game, t_player *player);
+void	move_pl(t_game **game, double y, double x, keys_t dir);
+
 
 
 #endif
