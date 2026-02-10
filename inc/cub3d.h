@@ -6,7 +6,7 @@
 /*   By: jmcgrane <jmcgrane@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/14 17:31:12 by adecheri          #+#    #+#             */
-/*   Updated: 2026/02/06 13:28:36 by jmcgrane         ###   ########.fr       */
+/*   Updated: 2026/02/10 11:10:51 by jmcgrane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,30 +52,31 @@ typedef struct s_map
 	int			ceiling;
 	int			player_x;
 	int			player_y;
+	int			floor_check;
+	int			ceiling_check;
 	mlx_image_t	*img[4];
 }				t_map;
 
-
 typedef struct s_player
 {
-	int posX;
-	int posY;
-	double dirX;
-	double dirY;
-	double planeX;
-	double planeY;
-	double sideDistX;
-	double sideDistY;
-	double deltaDistX;
-	double deltaDistY;
-} t_player; 
+	double	posX;
+	double	posY;
+	double	dirX;
+	double	dirY;
+	double	planeX;
+	double	planeY;
+	double	sideDistX;
+	double	sideDistY;
+	double	deltaDistX;
+	double	deltaDistY;
+}			t_player;
 
 typedef struct s_game
 {
-	mlx_t	*mlx;
-	t_map	*map;
-	t_player *player;
-}			t_game;
+	mlx_t		*mlx;
+	t_map		*map;
+	t_player	*player;
+}				t_game;
 
 /*Map Validation*/
 
@@ -95,6 +96,7 @@ int		validate_map(t_map *map);
 int		is_valid_char(t_map *map);
 int		read_map_again(t_map *map);
 void	map_dimensions(t_map *map);
+void	floor_ceiling(t_map *map, char *line);
 void	create_grid(t_map *map, int i, int j);
 int		parse_identifier(char *line, t_map *map);
 int		floodfill(t_map *map, char **map_copy, int x, int y);

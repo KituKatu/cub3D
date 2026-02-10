@@ -6,7 +6,7 @@
 /*   By: jmcgrane <jmcgrane@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/23 12:52:50 by jmcgrane          #+#    #+#             */
-/*   Updated: 2026/02/02 13:07:18 by jmcgrane         ###   ########.fr       */
+/*   Updated: 2026/02/10 11:12:15 by jmcgrane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,17 +33,8 @@ int	parse_map_id(char *line)
 
 int	parse_identifier(char *line, t_map *map)
 {
-	if (ft_strncmp(line, "F ", 2) == 0)
-	{
-		line = ft_strtrim(line + 2, "\n\t ");
-		map->floor = parse_color(line, map);
-	}
-	else if (ft_strncmp(line, "C ", 2) == 0)
-	{
-		line = ft_strtrim(line + 2, "\n\t ");
-		map->ceiling = parse_color(line, map);
-	}
-	else if (ft_strncmp(line, "NO ", 3) == 0)
+	floor_ceiling(map, line);
+	if (ft_strncmp(line, "NO ", 3) == 0)
 		map->north = ft_strtrim(line + 3, "\n\t ");
 	else if (ft_strncmp(line, "SO ", 3) == 0)
 		map->south = ft_strtrim(line + 3, "\n\t ");
@@ -54,6 +45,26 @@ int	parse_identifier(char *line, t_map *map)
 	else if (ft_strchr(line, WALL))
 		return (FAILURE);
 	return (SUCCESS);
+}
+
+void	floor_ceiling(t_map *map, char *line)
+{
+	if (ft_strncmp(line, "F ", 2) == 0)
+	{
+		if (map->floor_check > 0)
+			return ;
+		map->floor_check++;
+		line = ft_strtrim(line + 2, "\n\t ");
+		map->floor = parse_color(line, map);
+	}
+	else if (ft_strncmp(line, "C ", 2) == 0)
+	{
+		if (map->ceiling_check > 0)
+			return ;
+		map->ceiling_check++;
+		line = ft_strtrim(line + 2, "\n\t ");
+		map->ceiling = parse_color(line, map);
+	}
 }
 
 void	map_dimensions(t_map *map)
