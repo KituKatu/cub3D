@@ -16,81 +16,116 @@
 /*calculate height of walls on grid by raycasting
 	calc vector of camera plane?
 	direction vector multiplies the pos of player in cert direction (length doesn't matter only dir)
-	load in vector lib?
 */
+
+void calc_delta(t_game *game, t_ray *ray)
+{
+	if (ray->dirX == 0)
+		ray->dirX = 1e30; 
+	else
+		ray->deltaDistX = abs(1/ray->dirX);  
+	if (ray->dirY == 0)
+		ray->dirY = 1e30;
+	else 
+		ray->deltaDistY = abs(1/ray->dirY);
+}
+
 
 // returns the line height of the walls depending on x or y axis is hit by raycast
 // needs a struct for all the arguments
-int	calc_height(t_game *game, int side)
+void	calc_height(t_game *game, t_ray *ray, int side)
 {
 	double	perpWallDist;
+	int drawStart;
+	int drawEnd;
+	int x; // defines spot where ray is drawn in image
 
+	x = SCREEN_WIDTH/2;
+	//color = 16777215; //white decimal (0xFFFFFFFF)
 	if (side == 0)
-		perpWallDist = (game->player->sideDistX - game->player->deltaDistX);
+		perpWallDist = (ray->sideDistX - ray->deltaDistX);
 	else
-		perpWallDist = (game->player->deltaDistX - game->player->deltaDistY);
-	return ((int)SHEIGHT / perpWallDist);
+		perpWallDist = (ray->deltaDistX - ray->deltaDistY);
+	ray->lineHeight = (int)SCREEN_HEIGHT / perpWallDist;
+
+	drawStart = -ray->lineHeight/2 + SCREEN_HEIGHT /2;
+	if (drawStart < 0)
+		drawStart = 0; 
+	drawEnd = ray->lineHeight/2 + SCREEN_HEIGHT /2;
+	if (drawEnd >= SCREEN_HEIGHT)
+		drawEnd = SCREEN_HEIGHT - 1;
+	while (drawStart < drawEnd)
+	{
+		mlx_put_pixel(game->mlx, x, drawStart, 0xFFFFFFFF);
+		drawStart++;
+	}
 }
 
-// calc if ray from camera plane hits wall? --> needs
-int	val_stray(t_game *game)
+// calc if ray from camera plane hits wall
+// with side defining if the wall is NS or EW
+void	dda(t_game *game, t_ray *ray)
 {
 	int		mapX;
 	int		mapY;
 	bool	hit;
 	int		side;
 
-	mapX = game->player->dirX;
-	mapY = game->player->dirY;
+	mapX = game->player->posX;
+	mapY = game->player->posY;
 	while (hit == false)
 	{
-		// jump to next map square, either in x-direction, or in y-direction
-		if (game->player->sideDistX < game->player->deltaDistY)
+		
+		if (ray->sideDistX < ray->deltaDistY)
 		{
-			game->player->sideDistX += game->player->deltaDistX;
-			mapX += stepX;
+			ray->sideDistX += ray->deltaDistX;
+			mapX += ray->stepX;
 			side = 0;
 		}
 		else
 		{
-			game->player->sideDistY += game->player->deltaDistY;
-			mapY += stepY;
+			ray->sideDistY += ray->deltaDistY;
+			mapY += ray->stepY;
 			side = 1;
 		}
 		if (game->map->grid[mapX][mapY] == WALL)
 			hit = true;
 	}
+	calc_height(game, ray, side);
 }
 
-// calculate distance ray to wall
-
-void	calc_dirX(t_player *play)
+/* calculate distance ray to wall
+	
+*/
+void	calc_side(t_game *game, t_ray *ray)
 {
+	
 	// calculate step and initial sideDist
-	if (play->dirX < 0)
+	if (ray->dirX < 0)
 	{
-		stepX = -1;
-		play->sideDistX = (play->posX - mapX) * play->deltaDistX;
+		ray->stepX = -1;
+		ray->sideDistX = (game->player->posX - game->map->player_x mapX) * ray->deltaDistX;
 	}
 	else
 	{
-		stepX = 1;
-		play->sideDistX = (mapX + 1.0 - play->posX) * play->deltaDistX;
+		ray->stepX = 1;
+		ray->sideDistX = (mapX + 1.0 - game->player->posX) * ray->deltaDistX;
 	}
-	if (rayDirY < 0)
+	if (ray->dirY < 0)
 	{
-		stepY = -1;
-		play->sideDistY = (play->posY - mapY) * play->deltaDistY;
+		ray->stepY = -1;
+		ray->sideDistY = (game->player->posY - mapY) * ray->deltaDistY;
 	}
 	else
 	{
-		stepY = 1;
-		play->sideDistY = (mapY + 1.0 - play->posY) * play->deltaDistY;
+		ray->stepY = 1;
+		ray->sideDistY = (mapY + 1.0 - game->player->posY) * ray->deltaDistY;
 	}
 }
 
-// need function to handle rotation
-void	rotate_c(t_game **game, char dir)
+/*rotates the camera plane in left or right
+	direction according to player input 
+*/
+void	rot_camera(t_game **game, char dir)
 {
 	t_player	*play;
 	double		oldDirX;
@@ -101,16 +136,16 @@ void	rotate_c(t_game **game, char dir)
 	oldPlaneX = play->planeX;
 	if (dir == 'l')
 	{
-		play->dirX = play->dirX * cos(ROTSPEED) - play->dirY * sin(ROTSPEED);
-		play->dirY = oldDirX * sin(ROTSPEED) + play->dirY * cos(ROTSPEED);
+		play->dirX = play->dirX * cos(ROTSPEED) - play->dirY * sin(ROTSPEED) *FOV;
+		play->dirY = oldDirX * sin(ROTSPEED) + play->dirY * cos(ROTSPEED) * FOV;
 		play->planeX = play->planeX * cos(ROTSPEED) - play->planeY
 			* sin(ROTSPEED);
 		play->planeY = oldPlaneX * sin(ROTSPEED) + play->planeY * cos(ROTSPEED);
 	}
 	else if (dir == 'r')
 	{
-		play->dirX = play->dirX * cos(-ROTSPEED) - play->dirY * sin(-ROTSPEED);
-		play->dirY = oldDirX * sin(-ROTSPEED) + play->dirY * cos(-ROTSPEED);
+		play->dirX = play->dirX * cos(-ROTSPEED) - play->dirY * sin(-ROTSPEED) * FOV;
+		play->dirY = oldDirX * sin(-ROTSPEED) + play->dirY * cos(-ROTSPEED) * FOV;
 		play->planeX = play->planeX * cos(-ROTSPEED) - play->planeY
 			* sin(-ROTSPEED);
 		play->planeY = oldPlaneX * sin(-ROTSPEED) + play->planeY
@@ -118,6 +153,13 @@ void	rotate_c(t_game **game, char dir)
 	}
 }
 
+
+
+/* updates the player position by checking if the 
+	next position is taken by a wall, still needs to check if 
+	the sides of the ray from player to wall intersect the collision 
+	box of the player when moving through
+*/
 void	move_pl(t_game **game, double y, double x, keys_t dir)
 {
 	t_player	*play;
@@ -141,14 +183,15 @@ void	move_pl(t_game **game, double y, double x, keys_t dir)
 				* MOVSPEED)][(int)x] == SPACE)
 			(*game)->player->posY -= play->dirY * MOVSPEED;
 	}
+	
 }
 
-// need a keyhook where the pos of player is updated
+
+// keyhook to process player input 
 void	cub_keyhook(mlx_key_data_t keydown, void *param)
 {
 	t_game	**game;
 
-	// needs while loop until EOF
 	game = (t_game *)param;
 	if (keydown.action == MLX_PRESS || keydown.action == MLX_REPEAT)
 	{
@@ -163,4 +206,40 @@ void	cub_keyhook(mlx_key_data_t keydown, void *param)
 		if (keydown.key == MLX_KEY_RIGHT || keydown.key == MLX_KEY_D)
 			rotate_c(game, 'r');
 	}
+}
+
+/*redraws black all over the scene to clear mlx img
+	for the next frame (no ghosting)
+*/ 
+void clear_scene(t_game *game)
+{
+	int x;
+	int y;
+	
+	y = 0;
+	while (y < SCREEN_HEIGHT)
+	{
+		x = 0;
+		while(x < SCREEN_WIDTH)
+		{
+			mlx_put_pixel(game->mlx, x, y, 0);
+			x++;
+		}
+		y++;
+	}
+}
+
+
+
+void render_scene(t_game *game, t_ray *ray)
+{
+	double oldtime;
+	double frame_time;
+
+	oldtime = mlx_get_time();
+	calc_side(game, ray);
+	dda(game, ray);
+	calc_delta(game, ray);
+	clear_scene(game);
+
 }

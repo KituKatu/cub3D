@@ -28,7 +28,6 @@
 # define READ_SIZE 42
 # define ROTSPEED 30
 # define MOVSPEED 2
-# define SHEIGHT 60
 
 # define TILE_SIZE 32
 # define FOV 0.66 // Same as wolfenstien
@@ -56,25 +55,43 @@ typedef struct s_map
 }				t_map;
 
 
-typedef struct s_player
+typedef struct s_ray
 {
-	int posX;
-	int posY;
+	double stepX;
+	double stepY;
 	double dirX;
 	double dirY;
-	double planeX;
-	double planeY;
 	double sideDistX;
 	double sideDistY;
 	double deltaDistX;
 	double deltaDistY;
+	double lineHeight; 
+}			t_ray;
+
+
+typedef struct s_player
+{
+	double posX;
+	double posY;
+	double dirX;
+	double dirY;
+	double planeX;
+	double planeY;
+	// double sideDistX;
+	// double sideDistY;
+	// double deltaDistX;
+	// double deltaDistY;
 } t_player; 
+
+
+
 
 typedef struct s_game
 {
 	mlx_t	*mlx;
 	t_map	*map;
 	t_player *player;
+	t_ray	*ray;
 }			t_game;
 
 /*Map Validation*/
