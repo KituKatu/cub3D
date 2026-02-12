@@ -55,7 +55,6 @@ void	calc_height(t_ray *ray, int side, int x, mlx_image_t *img)
 	drawEnd = ray->lineHeight/2 + SCREEN_HEIGHT /2;
 	if (drawEnd >= SCREEN_HEIGHT)
 		drawEnd = SCREEN_HEIGHT - 1;
-
 	while (drawStart < drawEnd)
 	{
 		mlx_put_pixel(img, x, drawStart, 0xFFFFFFFF);
@@ -268,7 +267,6 @@ void render_scene(void *ptr)
 	// double frame_time;
 
 	// oldtime = mlx_get_time();
-
 	clear_scene(game->img);
 	cast_ray(game, &ray, game->img);
 }	

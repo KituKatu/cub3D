@@ -29,6 +29,7 @@
 # define HORIZONTAL 1
 # define READ_SIZE 42
 # define ROTSPEED 0.52
+# define DEGREE 0.01745
 # define MOVSPEED 2
 
 # define TILE_SIZE 32
