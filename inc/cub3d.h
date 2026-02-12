@@ -6,7 +6,7 @@
 /*   By: jmcgrane <jmcgrane@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/14 17:31:12 by adecheri          #+#    #+#             */
-/*   Updated: 2026/02/12 12:14:26 by jmcgrane         ###   ########.fr       */
+/*   Updated: 2026/02/12 15:43:08 by jmcgrane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,7 +96,6 @@ int		dot_cub(char *file);
 int		read_map(t_map *map);
 bool	frst_last(char *line);
 void	map_setup(t_map *map);
-void	parse_map(t_map *map);
 char	**map_copy(t_map *map);
 int		empty_line(char *line);
 int		one_player(t_map *map);
@@ -108,6 +107,7 @@ int		validate_map(t_map *map);
 int		is_valid_char(t_map *map);
 int		read_map_again(t_map *map);
 void	map_dimensions(t_map *map);
+void	parse_map_first_line(t_map *map);
 void	floor_ceiling(t_map *map, char *line);
 void	create_grid(t_map *map, int i, int j);
 int		parse_identifier(char *line, t_map *map);
