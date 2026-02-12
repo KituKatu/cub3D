@@ -149,5 +149,7 @@ void	init_orient_E_W(t_game *game, t_player *player);
 void	move_pl(t_game *game, double y, double x, keys_t dir);
 void 	render_scene(void *game);
 
+void 	render_minimap(void *game_ptr);
+
 
 #endif

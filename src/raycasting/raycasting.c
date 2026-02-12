@@ -120,7 +120,9 @@ void	calc_side(t_game *game, t_ray *ray)
 }
 
 /*rotates the camera plane in left or right
-	direction according to player input 
+	changed macro ROTSPEED to reflect radians
+	in stead of degrees -> have to check out 
+	if the dirX are still alright -> might need PI conversion too
 */
 void	rot_camera(t_game *game, char dir)
 {

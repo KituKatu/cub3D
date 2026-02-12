@@ -28,7 +28,8 @@ int	main(int ac, char **av)
 		return (FAILURE);
 	}
 	init_game(av[1], &game);
-	mlx_loop_hook(game.mlx, render_scene, (void *)&game);
+	mlx_loop_hook(game.mlx, render_minimap, (void*)&game);
+	//mlx_loop_hook(game.mlx, render_scene, (void *)&game);
 	mlx_key_hook(game.mlx, cub_keyhook, (void*)&game);
 	mlx_loop(game.mlx);
 	mlx_terminate(game.mlx);
