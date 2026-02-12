@@ -270,10 +270,7 @@ void render_scene(t_game *game)
 	// calc_delta(game, ray);
 	img = mlx_new_image(game->mlx, SCREEN_WIDTH, SCREEN_HEIGHT);
 	if (!img || (mlx_image_to_window(game->mlx, img, 0, 0) < 0))
-	{
-		write(2, "Failed to load screen\n", 22);
-		return ; 
-	}
+		ft_exit_errc("Failed to load screen", (void*)&game, 'g');
 	cast_ray(game, &ray, img);
 	clear_scene(img);
 }	t_ray ray;

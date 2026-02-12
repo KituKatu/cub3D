@@ -29,10 +29,19 @@ void	free_cubmap(t_map **map)
 	}
 }
 
+void	free_cubgame(t_game **game)
+{
+	free_cubmap(&(*game)->map);
+	ft_safefree((void *)&(*game)->player);
+}
+
+
 void	ft_clean_cubed(void **ptr, char id)
 {
 	if (id == 'm')
 		free_cubmap((t_map **)ptr);
+	else if (id == 'g')
+		free_cubgame((t_game **)ptr);
 	else
 		ft_safefree(ptr);
 }
