@@ -25,10 +25,11 @@
 # define SPACE '0'
 # define SUCCESS 0
 # define FAILURE 1
+# define VERTICAL 0
+# define HORIZONTAL 1
 # define READ_SIZE 42
 # define ROTSPEED 30
 # define MOVSPEED 2
-# define SHEIGHT 60
 
 # define TILE_SIZE 32
 # define FOV 0.66 // Same as wolfenstien
@@ -57,26 +58,26 @@ typedef struct s_map
 	mlx_image_t	*img[4];
 }				t_map;
 
-typedef struct s_player
+typedef struct s_ray
 {
-	double	posX;
-	double	posY;
-	double	dirX;
-	double	dirY;
-	double	planeX;
-	double	planeY;
-	double	sideDistX;
-	double	sideDistY;
-	double	deltaDistX;
-	double	deltaDistY;
-}			t_player;
+	int posX;
+	int posY;
+	double dirX;
+	double dirY;
+	double planeX;
+	double planeY;
+	double sideDistX;
+	double sideDistY;
+	double deltaDistX;
+	double deltaDistY;
+} t_player; 
 
 typedef struct s_game
 {
-	mlx_t		*mlx;
-	t_map		*map;
-	t_player	*player;
-}				t_game;
+	mlx_t	*mlx;
+	t_map	*map;
+	t_player *player;
+}			t_game;
 
 /*Map Validation*/
 
