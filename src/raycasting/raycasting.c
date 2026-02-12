@@ -23,11 +23,11 @@ void calc_delta(t_game *game, t_ray *ray)
 	if (ray->dirX == 0)
 		ray->dirX = 1e30; 
 	else
-		ray->deltaDistX = abs(1/ray->dirX);  
+		ray->deltaDistX = fabs(1 / ray->dirX);  
 	if (ray->dirY == 0)
 		ray->dirY = 1e30;
 	else 
-		ray->deltaDistY = abs(1/ray->dirY);
+		ray->deltaDistY = fabs(1 / ray->dirY);
 }
 
 
@@ -42,7 +42,7 @@ void	calc_height(t_game *game, t_ray *ray, int side)
 
 	x = SCREEN_WIDTH/2;
 	//color = 16777215; //white decimal (0xFFFFFFFF)
-	if (side == 0)
+	if (side == VERTICAL)
 		perpWallDist = (ray->sideDistX - ray->deltaDistX);
 	else
 		perpWallDist = (ray->deltaDistX - ray->deltaDistY);
@@ -74,18 +74,17 @@ void	dda(t_game *game, t_ray *ray)
 	mapY = game->player->posY;
 	while (hit == false)
 	{
-		
 		if (ray->sideDistX < ray->deltaDistY)
 		{
 			ray->sideDistX += ray->deltaDistX;
 			mapX += ray->stepX;
-			side = 0;
+			side = VERTICAL;
 		}
 		else
 		{
 			ray->sideDistY += ray->deltaDistY;
 			mapY += ray->stepY;
-			side = 1;
+			side = HORIZONTAL;
 		}
 		if (game->map->grid[mapX][mapY] == WALL)
 			hit = true;
@@ -103,7 +102,7 @@ void	calc_side(t_game *game, t_ray *ray)
 	if (ray->dirX < 0)
 	{
 		ray->stepX = -1;
-		ray->sideDistX = (game->player->posX - game->map->player_x mapX) * ray->deltaDistX;
+		ray->sideDistX = (game->player->posX - game->map->player_x) * ray->deltaDistX;
 	}
 	else
 	{
@@ -233,12 +232,13 @@ void clear_scene(t_game *game)
 
 void render_scene(t_game *game, t_ray *ray)
 {
-	double oldtime;
-	double frame_time;
+	// double oldtime;
+	// double frame_time;
 
-	oldtime = mlx_get_time();
-	calc_side(game, ray);
+	// oldtime = mlx_get_time();
+
 	dda(game, ray);
+	calc_side(game, ray);
 	calc_delta(game, ray);
 	clear_scene(game);
 
