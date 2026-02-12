@@ -6,7 +6,7 @@
 /*   By: jmcgrane <jmcgrane@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/14 17:31:12 by adecheri          #+#    #+#             */
-/*   Updated: 2026/02/10 11:10:51 by jmcgrane         ###   ########.fr       */
+/*   Updated: 2026/02/12 12:12:02 by jmcgrane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ typedef struct s_ray
 	double sideDistY;
 	double deltaDistX;
 	double deltaDistY;
-} t_player; 
+} t_player;
 
 typedef struct s_game
 {
