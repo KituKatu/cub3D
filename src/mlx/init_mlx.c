@@ -44,20 +44,20 @@ int	fill_img_array(t_game *game)
 	return (SUCCESS);
 }
 
-int	init_game(char *mapfile)
+int	init_game(char *mapfile, t_game *game)
 {
-	t_game	game;
+	// t_game	game;
 
-	game.map = init_map(mapfile);
-	if (!game.map)
+	game->map = init_map(mapfile);
+	if (!game->map)
 		return (FAILURE);
-	game.mlx = mlx_init(game.map->x_len * TILE_SIZE,
-			game.map->y_len * TILE_SIZE, "Cub3D", false);
-	if (!game.mlx)
+	game->mlx = mlx_init(game->map->x_len * TILE_SIZE,
+			game->map->y_len * TILE_SIZE, "Cub3D", false);
+	if (!game->mlx)
 		return (ft_exit_errc("Can't initilize mlx", (void *)&game, 'g'));
-	if (fill_img_array(&game) == FAILURE)
+	if (fill_img_array(game) == FAILURE)
 		return (ft_exit_errc("Can't load wall texture", (void *)&game, 'w'));
-	mlx_loop(game.mlx);
-	mlx_terminate(game.mlx);
+	// mlx_loop(game.mlx);
+	// mlx_terminate(game.mlx);
 	return (SUCCESS);
 }

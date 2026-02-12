@@ -20,12 +20,18 @@ side the wall is facing (North, South, East, West
 
 int	main(int ac, char **av)
 {
+	t_game	game;
+
 	if (ac != 2)
 	{
 		ft_exit_error("Wrong no of arguments\n");
 		return (FAILURE);
 	}
-	init_game(av[1]);
+	init_game(av[1], &game);
+	render_scene(&game);
+	mlx_key_hook(game.mlx, cub_keyhook, (void*)&game);
+	mlx_loop(game.mlx);
+	mlx_terminate(game.mlx);
 	return (SUCCESS);
 }
 
