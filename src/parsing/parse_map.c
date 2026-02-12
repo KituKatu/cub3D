@@ -6,7 +6,7 @@
 /*   By: jmcgrane <jmcgrane@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/16 16:38:24 by adecheri          #+#    #+#             */
-/*   Updated: 2026/02/04 15:39:27 by jmcgrane         ###   ########.fr       */
+/*   Updated: 2026/02/12 15:22:27 by jmcgrane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,13 +44,13 @@ void	map_setup(t_map *map)
 	read_map_again(map);
 	if (one_player(map))
 		ft_exit_errc("Game is only one player", (void *)&map, 'p');
-	if (is_valid_char(map))
+	if (is_valid_char(map) == FAILURE)
 		ft_exit_errc("Invalid char in map", (void *)&map, 'p');
 	if (validate_map(map))
 		ft_exit_errc("floodfill failed", (void *)&map, 'f');
 }
 
-void	parse_map(t_map *map)
+void	parse_map_first_line(t_map *map)
 {
 	int	i;
 	int	j;

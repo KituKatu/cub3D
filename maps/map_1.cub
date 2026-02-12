@@ -3,11 +3,11 @@ SO ./textures/ocean.png
 WE ./textures/ocean.png
 EA ./textures/ocean.png
 
-F 120,200,0
-C 125,30,0
+F 220,200,0
+C 225,30,0
 
 11111
 10001
 10001
-10001
-111N1
+100N1
+11111
