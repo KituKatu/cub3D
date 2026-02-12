@@ -18,6 +18,40 @@
 	direction vector multiplies the pos of player in cert direction (length doesn't matter only dir)
 */
 
+int init_ray(t_game *game)
+{
+	t_ray *ray;
+	double cameraX;
+
+	ray = ft_calloc(1, sizeof(t_ray));
+	if (!ray)
+		return (FAILURE);
+	ray->mapX = game->player->posX;
+	ray->mapY = game->player->posY;	
+}
+
+void cast_ray(t_game *game, t_ray *ray)
+{
+	int x;
+	double cameraX;
+
+	x = 0; 
+	while (x < SCREEN_WIDTH)
+	{
+		cameraX = 2 * x / (double)SCREEN_WIDTH -1;
+		ray->dirX = game->player->dirX * game->player->planeX *cameraX;
+		ray->dirY = game->player->dirY * game->player->planeY *cameraX;
+		ray->mapX = game->player->posX;
+		ray->mapY = game->player->posY;
+		calc_side(game, ray);
+		dda(game, ray);
+		calc_delta(game, ray);
+		x++;
+	}
+}
+
+
+
 void calc_delta(t_game *game, t_ray *ray)
 {
 	if (ray->dirX == 0)
@@ -107,17 +141,17 @@ void	calc_side(t_game *game, t_ray *ray)
 	else
 	{
 		ray->stepX = 1;
-		ray->sideDistX = (mapX + 1.0 - game->player->posX) * ray->deltaDistX;
+		ray->sideDistX = (ray->mapX + 1.0 - game->player->posX) * ray->deltaDistX;
 	}
 	if (ray->dirY < 0)
 	{
 		ray->stepY = -1;
-		ray->sideDistY = (game->player->posY - mapY) * ray->deltaDistY;
+		ray->sideDistY = (game->player->posY - ray->mapY) * ray->deltaDistY;
 	}
 	else
 	{
 		ray->stepY = 1;
-		ray->sideDistY = (mapY + 1.0 - game->player->posY) * ray->deltaDistY;
+		ray->sideDistY = (ray->mapY + 1.0 - game->player->posY) * ray->deltaDistY;
 	}
 }
 
@@ -237,9 +271,10 @@ void render_scene(t_game *game, t_ray *ray)
 
 	// oldtime = mlx_get_time();
 
-	dda(game, ray);
-	calc_side(game, ray);
-	calc_delta(game, ray);
+	// dda(game, ray);
+	// calc_side(game, ray);
+	// calc_delta(game, ray);
+	cast_ray(game, ray);
 	clear_scene(game);
 
 }

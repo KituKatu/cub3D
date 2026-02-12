@@ -64,6 +64,8 @@ typedef struct s_ray
 	double stepY;
 	double dirX;
 	double dirY;
+	int 	mapX;
+	int		mapY;
 	double sideDistX;
 	double sideDistY;
 	double deltaDistX;
@@ -135,11 +137,11 @@ int		ft_exit_errc(const char *msg, void **ptr, char id);
 
 /*Ray Casting*/
 
-int		val_ray(t_game *game);
+void	dda(t_game *game, t_ray *ray);
 void	init_player(t_game *game);
-void	calc_dirX(t_player *play);
+void	calc_side(t_game *game, t_ray *ray);
 void	rot_camera(t_game **game, char dir);
-int		calc_height(t_game *game, t_ray *ray, int side);
+void	calc_height(t_game *game, t_ray *ray, int side);
 void	init_orient_N_S(t_game *game, t_player *player);
 void	init_orient_E_W(t_game *game, t_player *player);
 void	move_pl(t_game **game, double y, double x, keys_t dir);
