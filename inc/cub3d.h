@@ -102,7 +102,7 @@ int		empty_line(char *line);
 int		one_player(t_map *map);
 char	**init_grid(t_map *map);
 t_map	*init_map(char *mapname);
-int		init_game(char *mapfile);
+int		init_game(char *mapfile, t_game *game);
 int		parse_map_id(char *line);
 int		validate_map(t_map *map);
 int		is_valid_char(t_map *map);
@@ -137,15 +137,15 @@ int		ft_exit_errc(const char *msg, void **ptr, char id);
 
 /*Ray Casting*/
 
-void	dda(t_game *game, t_ray *ray);
+bool	dda(t_game *game, t_ray *ray);
 void	init_player(t_game *game);
 void	calc_side(t_game *game, t_ray *ray);
-void	rot_camera(t_game **game, char dir);
-void	calc_height(t_game *game, t_ray *ray, int side);
+void	rot_camera(t_game *game, char dir);
+void	calc_height(t_ray *ray, int side, int x, mlx_image_t *img);
 void	init_orient_N_S(t_game *game, t_player *player);
 void	init_orient_E_W(t_game *game, t_player *player);
-void	move_pl(t_game **game, double y, double x, keys_t dir);
-
+void	move_pl(t_game *game, double y, double x, keys_t dir);
+void 	render_scene(t_game *game);
 
 
 #endif
