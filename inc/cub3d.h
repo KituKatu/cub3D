@@ -28,7 +28,7 @@
 # define VERTICAL 0
 # define HORIZONTAL 1
 # define READ_SIZE 42
-# define ROTSPEED 30
+# define ROTSPEED 0.52
 # define MOVSPEED 2
 
 # define TILE_SIZE 32
@@ -85,9 +85,10 @@ typedef struct s_player
 
 typedef struct s_game
 {
-	mlx_t	*mlx;
-	t_map	*map;
-	t_player *player;
+	mlx_t		*mlx;
+	mlx_image_t *img;
+	t_map		*map;
+	t_player 	*player;
 }			t_game;
 
 /*Map Validation*/
@@ -145,7 +146,7 @@ void	calc_height(t_ray *ray, int side, int x, mlx_image_t *img);
 void	init_orient_N_S(t_game *game, t_player *player);
 void	init_orient_E_W(t_game *game, t_player *player);
 void	move_pl(t_game *game, double y, double x, keys_t dir);
-void 	render_scene(t_game *game);
+void 	render_scene(void *game);
 
 
 #endif

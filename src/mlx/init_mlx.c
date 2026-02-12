@@ -46,18 +46,22 @@ int	fill_img_array(t_game *game)
 
 int	init_game(char *mapfile, t_game *game)
 {
-	// t_game	game;
+	mlx_image_t *img;
 
 	game->map = init_map(mapfile);
 	if (!game->map)
 		return (FAILURE);
-	game->mlx = mlx_init(game->map->x_len * TILE_SIZE,
-			game->map->y_len * TILE_SIZE, "Cub3D", false);
+	game->mlx = mlx_init(SCREEN_WIDTH,
+			SCREEN_HEIGHT, "Cub3D", false);
 	if (!game->mlx)
 		return (ft_exit_errc("Can't initilize mlx", (void *)&game, 'g'));
 	if (fill_img_array(game) == FAILURE)
 		return (ft_exit_errc("Can't load wall texture", (void *)&game, 'w'));
-	// mlx_loop(game.mlx);
-	// mlx_terminate(game.mlx);
+	init_player(game);
+
+	img = mlx_new_image(game->mlx, SCREEN_WIDTH, SCREEN_HEIGHT);
+	if (!img || (mlx_image_to_window(game->mlx, img, 0, 0) < 0))
+		ft_exit_errc("Failed to load screen", (void*)&game, 'g');
+	game->img = img;
 	return (SUCCESS);
 }
