@@ -18,24 +18,12 @@
 	direction vector multiplies the pos of player in cert direction (length doesn't matter only dir)
 */
 
-int init_ray(t_game *game)
-{
-	t_ray *ray;
-	double cameraX;
-
-	ray = ft_calloc(1, sizeof(t_ray));
-	if (!ray)
-		return (FAILURE);
-	ray->mapX = game->player->posX;
-	ray->mapY = game->player->posY;	
-}
-
 void cast_ray(t_game *game, t_ray *ray)
 {
 	int x;
 	double cameraX;
 
-	x = 0; 
+	x = 0;
 	while (x < SCREEN_WIDTH)
 	{
 		cameraX = 2 * x / (double)SCREEN_WIDTH -1;
@@ -264,8 +252,12 @@ void clear_scene(t_game *game)
 
 
 
-void render_scene(t_game *game, t_ray *ray)
+void render_scene(t_game *game)
 {
+	t_ray ray;
+
+	ray.mapX = game->player->posX;
+	ray.mapY = game->player->posY;
 	// double oldtime;
 	// double frame_time;
 
@@ -274,7 +266,7 @@ void render_scene(t_game *game, t_ray *ray)
 	// dda(game, ray);
 	// calc_side(game, ray);
 	// calc_delta(game, ray);
-	cast_ray(game, ray);
+	cast_ray(game, &ray);
 	clear_scene(game);
 
 }
