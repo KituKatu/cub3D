@@ -31,6 +31,9 @@
 # define ROTSPEED 0.52
 # define DEGREE 0.01745
 # define MOVSPEED 2
+# define WHITE 0xFFFFFFFF
+# define BLUE 111184
+# define RED 0xCD7687
 
 # define TILE_SIZE 32
 # define FOV 0.66 // Same as wolfenstien
@@ -149,6 +152,7 @@ void	init_orient_E_W(t_game *game, t_player *player);
 void	move_pl(t_game *game, double y, double x, keys_t dir);
 void 	render_scene(void *game);
 
+void 	render_map(t_game *game);
 void 	render_minimap(void *game_ptr);
 
 

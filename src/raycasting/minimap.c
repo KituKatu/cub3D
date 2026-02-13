@@ -13,6 +13,28 @@
 #include "../../inc/cub3d.h"
 
 
+void render_box(t_game *game, int y, int x, int color)
+{
+    int offset;
+    int i;
+    int j;
+    
+    i = 0;
+    j = 0;
+    offset = 0;
+    while (i < TILE_SIZE)
+    {
+        j = 0;
+        while(j < TILE_SIZE)
+        {
+            mlx_put_pixel(game->img, x+j, y +i, color);
+            j++;
+        }
+        i++;
+    }
+
+}
+
 /*
     render 2D map for the minimap
     rn using textures of 1 wall for all walls
@@ -32,9 +54,10 @@ void render_map(t_game *game)
         while (x <game->map->x_len)
         {
             if (game->map->grid[y][x] == WALL)
-                mlx_image_to_window(game->mlx, game->map->img[0], x * TILE_SIZE, y * TILE_SIZE);
-            else if (game->map->grid[y][x] == SPACE)
-                mlx_image_to_window(game->mlx, game->img, x *TILE_SIZE,  y * TILE_SIZE);
+                render_box(game, y * TILE_SIZE, x * TILE_SIZE, BLUE);
+            else
+            // if (game->map->grid[y][x] == SPACE)
+                render_box(game, y * TILE_SIZE, x * TILE_SIZE, WHITE);
             x++;
         }
         y++;
@@ -52,6 +75,10 @@ void render_map(t_game *game)
 void render_miniplay(t_game *game)
 {
 
+    if (game->player)
+    {
+        render_box(game, game->player->posY * TILE_SIZE, game->player->posX * TILE_SIZE, RED); 
+    } 
 }
 
 
@@ -63,11 +90,10 @@ void render_miniplay(t_game *game)
 */
 void render_minimap(void *game_ptr)
 {
-    
     t_game *game;
     
     game = (t_game *)game_ptr;
-
+    render_miniplay(game);
     
 
 }

@@ -73,7 +73,7 @@ bool	dda(t_game *game, t_ray *ray)
 	while (hit == false)
 	{
 		if (ray->sideDistX < ray->deltaDistY)
-		{
+		{	
 			ray->sideDistX += ray->deltaDistX;
 			ray->mapX += ray->stepX;
 			side = VERTICAL;
@@ -204,6 +204,8 @@ void	cub_keyhook(mlx_key_data_t keydown, void *param)
 			rot_camera(game, 'l');
 		if (keydown.key == MLX_KEY_RIGHT || keydown.key == MLX_KEY_D)
 			rot_camera(game, 'r');
+		// if (keydown.key == MLX_KEY_M)
+		// 	toggle_minimap(game);
 	}
 	printf("PLAYER X: %d\n PLAYER Y: %d\n", game->player->posX, game->player->posY);
 	printf("PLAYER DIRX: %f\n PLAYER DIRY: %f\n", game->player->dirX, game->player->dirY);
