@@ -30,7 +30,7 @@
 # define READ_SIZE 42
 # define ROTSPEED 0.52
 # define DEGREE 0.01745
-# define MOVSPEED 2
+# define MOVSPEED 0.2
 # define WHITE 0xFFFFFFFF
 # define BLUE 111184
 # define RED 0xCD7687
@@ -154,6 +154,7 @@ void 	render_scene(void *game);
 
 void 	render_map(t_game *game);
 void 	render_minimap(void *game_ptr);
+void	render_miniplay(t_game *game);
 
 
 #endif

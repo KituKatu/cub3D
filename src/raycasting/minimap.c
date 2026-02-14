@@ -32,7 +32,6 @@ void render_box(t_game *game, int y, int x, int color)
         }
         i++;
     }
-
 }
 
 /*
@@ -71,13 +70,30 @@ void render_map(t_game *game)
     the player on the map 
     (prolly good to use a 
     triangle as dir vector)
+    -->needs to clear when updated
 */
 void render_miniplay(t_game *game)
-{
+{   
+    double vecX;
+    double vecY; 
+    vecX  = 0;
+    vecY = 0;
+    
 
     if (game->player)
     {
-        render_box(game, game->player->posY * TILE_SIZE, game->player->posX * TILE_SIZE, RED); 
+
+        while (vecY < 20)
+        {
+            while (vecX < 20)
+            {
+                mlx_put_pixel(game->img, game->player->posX * TILE_SIZE + vecX, game->player->posY * TILE_SIZE, RED);
+                vecX++;
+            }
+            mlx_put_pixel(game->img, game->player->posX * TILE_SIZE, game->player->posY * TILE_SIZE + vecY, RED);  
+            vecY++;
+        }
+        
     } 
 }
 

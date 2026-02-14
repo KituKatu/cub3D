@@ -57,7 +57,7 @@ void	calc_height(t_ray *ray, int side, int x, mlx_image_t *img)
 		drawEnd = SCREEN_HEIGHT - 1;
 	while (drawStart < drawEnd)
 	{
-		mlx_put_pixel(img, x, drawStart, 0xFFFFFFFF);
+		mlx_put_pixel(img, x, drawStart, WHITE);
 		drawStart++;
 	}
 }
@@ -207,6 +207,7 @@ void	cub_keyhook(mlx_key_data_t keydown, void *param)
 		// if (keydown.key == MLX_KEY_M)
 		// 	toggle_minimap(game);
 	}
+	//render_miniplay(game);
 	printf("PLAYER X: %d\n PLAYER Y: %d\n", game->player->posX, game->player->posY);
 	printf("PLAYER DIRX: %f\n PLAYER DIRY: %f\n", game->player->dirX, game->player->dirY);
 }
