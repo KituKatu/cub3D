@@ -74,27 +74,24 @@ void render_map(t_game *game)
 */
 void render_miniplay(t_game *game)
 {   
-    double vecX;
-    double vecY; 
-    vecX  = 0;
-    vecY = 0;
-    
+    int size;
+    int x;
+    int y; 
 
-    if (game->player)
+    size = 10;
+    x= -size  /2;
+    while (x < size)
     {
-
-        while (vecY < 20)
+        y =  -size /2;
+        while (y < size)
         {
-            while (vecX < 20)
-            {
-                mlx_put_pixel(game->img, game->player->posX * TILE_SIZE + vecX, game->player->posY * TILE_SIZE, RED);
-                vecX++;
-            }
-            mlx_put_pixel(game->img, game->player->posX * TILE_SIZE, game->player->posY * TILE_SIZE + vecY, RED);  
-            vecY++;
+            if (game->player->posX + x > 0 && game->player->posX + x < game->map->x_len && game->player->posY + y > 0 && game->player->posY + y < game->map->y_len)
+                mlx_put_pixel(game->img, game->player->posX * TILE_SIZE + x, game->player->posY * TILE_SIZE +y, RED);
+            y++;
         }
+        x++;
+    }
         
-    } 
 }
 
 

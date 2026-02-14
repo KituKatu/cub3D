@@ -39,7 +39,7 @@ void	calc_height(t_ray *ray, int side, int x, mlx_image_t *img)
 	double	perpWallDist;
 	int drawStart;
 	int drawEnd;
-	//color = 16777215; //white decimal (0xFFFFFFFF)
+
 	drawStart= 0;
 	drawEnd = 0; 
 
