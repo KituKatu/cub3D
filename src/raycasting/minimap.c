@@ -21,7 +21,7 @@ void render_box(t_game *game, int y, int x, int color)
     
     i = 0;
     j = 0;
-    offset = 0;
+    offset = 6;
     while (i < TILE_SIZE)
     {
         j = 0;
@@ -69,12 +69,15 @@ void render_ray(t_game *game, int color)
 {
     int drawStart;
     int size;
+    int x;
     
     drawStart = 0;
-    size = 8;
-    while(drawStart < size)
+    size = 24;
+    
+    while (drawStart < size/2)
     {
-        mlx_put_pixel(game->img, (game->player->posX * TILE_SIZE) + (drawStart * game->player->dirX), (game->player->posY * TILE_SIZE) + (drawStart *game->player->dirY), color);
+        x = (game->player->posX * TILE_SIZE);
+        mlx_put_pixel(game->img, x + (drawStart * game->player->dirX), (game->player->posY * TILE_SIZE) + (drawStart *game->player->dirY), color);
         drawStart++;
     }
 
@@ -91,14 +94,14 @@ void render_miniplay(t_game *game, int color)
     int x;
     int y; 
 
-    size = 12;
+    size = 10;
     x = -size  /2;
-    while (x < size)
+    while (x < size/2)
     {
         y =  -size /2;
-        while (y < size)
+        while (y < size/2)
         {
-            if (game->player->posX + x > 0 && game->player->posX + x < game->map->x_len && game->player->posY + y > 0 && game->player->posY + y < game->map->y_len)
+            if (game->player->posX + x > 0.0 && game->player->posX + x < game->map->x_len * 1.0 && game->player->posY + y > 0.0 && game->player->posY + y < game->map->y_len * 1.0)
                 mlx_put_pixel(game->img, game->player->posX * TILE_SIZE + x, game->player->posY * TILE_SIZE +y, color);
             y++;
         }
@@ -121,5 +124,13 @@ void render_minimap(void *game_ptr)
     
     game = (t_game *)game_ptr;
     render_miniplay(game, RED);
-    
+
+    t_ray ray;
+	ray.mapX = game->player->posX;
+	ray.mapY = game->player->posY;
+	ray.dirX = game->player->dirX;
+	ray.dirY = game->player->dirY;
+
+    cast_ray(game, &ray, game->img);
+    render_ray(game, YELLOW);
 }

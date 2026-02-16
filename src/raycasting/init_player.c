@@ -29,15 +29,15 @@ void	init_orient_N_S(t_game *game, t_player *player)
 {
 	if (game->map->orient == 'N')
 	{
-		player->dirX = 0;
-		player->dirY = -1;
+		player->dirX = 0.0;
+		player->dirY = -1.0;
 		player->planeX = 0.66;
 		player->planeY = 0.0;
 	}
 	else if (game->map->orient == 'S')
 	{
-		player->dirX = 0;
-		player->dirY = 1;
+		player->dirX = 0.0;
+		player->dirY = 1.0;
 		player->planeX = -0.66;
 		player->planeY = 0.0;
 	}
@@ -48,15 +48,15 @@ void	init_orient_E_W(t_game *game, t_player *player)
 {
 	if (game->map->orient == 'E')
 	{
-		player->dirX = 1;
-		player->dirY = 0;
+		player->dirX = 1.0;
+		player->dirY = 0.0;
 		player->planeX = 0.0;
 		player->planeY = 0.66;
 	}
 	else if (game->map->orient == 'W')
 	{
-		player->dirX = -1;
-		player->dirY = 0;
+		player->dirX = -1.0;
+		player->dirY = 0.0;
 		player->planeX = 0.0;
 		player->planeY = -0.66;
 	}

@@ -13,54 +13,6 @@
 #include "../../inc/cub3d.h"
 #include <time.h>
 
-/*calculate height of walls on grid by raycasting
-	calc vector of camera plane?
-	direction vector multiplies the pos of player in cert direction (length doesn't matter only dir)
-*/
-
-void calc_delta(t_ray *ray)
-{
-	if (ray->dirX == 0)
-		ray->dirX = 1e30; 
-	else
-		ray->deltaDistX = fabs(1.0 / ray->dirX);  
-	if (ray->dirY == 0)
-		ray->dirY = 1e30;
-	else 
-		ray->deltaDistY = fabs(1.0 / ray->dirY);
-}
-
-
-
-// returns the line height of the walls depending on x or y axis is hit by raycast
-// needs a struct for all the arguments
-void	calc_height(t_ray *ray, int side, int x, mlx_image_t *img)
-{
-	double	perpWallDist;
-	int		drawStart;
-	int		drawEnd;
-
-	drawStart= 0;
-	drawEnd = 0; 
-
-	if (side == VERTICAL)
-		perpWallDist = (ray->sideDistX - ray->deltaDistX);
-	else
-		perpWallDist = (ray->deltaDistY - ray->deltaDistY);
-	ray->lineHeight = (int)SCREEN_HEIGHT / perpWallDist;
-
-	drawStart = -ray->lineHeight/2 + SCREEN_HEIGHT /2;
-	if (drawStart < 0)
-		drawStart = 0; 
-	drawEnd = ray->lineHeight/2 + SCREEN_HEIGHT /2;
-	if (drawEnd >= SCREEN_HEIGHT)
-		drawEnd = SCREEN_HEIGHT - 1;
-	while (drawStart < drawEnd)
-	{
-		mlx_put_pixel(img, x, drawStart, WHITE);
-		drawStart++;
-	}
-}
 
 // calc if ray from camera plane hits wall
 // with side defining if the wall is NS or EW
@@ -90,34 +42,7 @@ bool	dda(t_game *game, t_ray *ray)
 	return (side);
 }
 
-/* calculate distance ray to wall
-	
-*/
-void	calc_side(t_game *game, t_ray *ray)
-{
-	
-	// calculate step and initial sideDist
-	if (ray->dirX < 0)
-	{
-		ray->stepX = -1;
-		ray->sideDistX = (game->player->posX - game->map->player_x) * ray->deltaDistX;
-	}
-	else
-	{
-		ray->stepX = 1;
-		ray->sideDistX = (ray->mapX + 1.0 - game->player->posX) * ray->deltaDistX;
-	}
-	if (ray->dirY < 0)
-	{
-		ray->stepY = -1;
-		ray->sideDistY = (game->player->posY - ray->mapY) * ray->deltaDistY;
-	}
-	else
-	{
-		ray->stepY = 1;
-		ray->sideDistY = (ray->mapY + 1.0 - game->player->posY) * ray->deltaDistY;
-	}
-}
+
 
 /*rotates the camera plane in left or right
 	changed macro ROTSPEED to reflect radians
@@ -166,11 +91,11 @@ void	move_pl(t_game *game, double y, double x, keys_t dir)
 	play = game->player;
 	if (dir == 'f')
 	{
-		if (game->map->grid[(int)y][(int)(x + play->dirX
-				* MOVSPEED)] == SPACE)
+		if (game->map->grid[(int)y][(int)(x + (play->dirX
+				* MOVSPEED))] == SPACE)
 			game->player->posX += play->dirX * MOVSPEED;
-		if (game->map->grid[(int)(y + play->dirY
-				* MOVSPEED)][(int)x] == SPACE)
+		if (game->map->grid[(int)(y + (play->dirY
+				* MOVSPEED))][(int)x] == SPACE)
 			game->player->posY += play->dirY * MOVSPEED;
 	}
 	else if (dir == 'b')
@@ -232,6 +157,10 @@ void cast_ray(t_game *game, t_ray *ray, mlx_image_t *img)
 	}
 }
 
+// void toggle_minimap(game)
+// {
+// 	mlx_image_to_window( );
+// }
 
 // keyhook to process player input 
 void	cub_keyhook(mlx_key_data_t keydown, void *param)
@@ -254,7 +183,7 @@ void	cub_keyhook(mlx_key_data_t keydown, void *param)
 		if (keydown.key == MLX_KEY_RIGHT || keydown.key == MLX_KEY_D)
 			rot_camera(game, 'r');
 		// if (keydown.key == MLX_KEY_M)
-		// 	toggle_minimap(game);
+		//  	toggle_minimap(game);
 	}
 	render_miniplay(game, RED);
 	render_ray(game, RED);

@@ -30,10 +30,12 @@
 # define READ_SIZE 42
 # define ROTSPEED 0.52
 # define DEGREE 0.01745
+# define PI 3.14159
 # define MOVSPEED 0.8
 # define WHITE 0xFFFFFFFF
 # define BLUE 111184
 # define RED 0xCD7687
+# define YELLOW 0xffff00
 
 # define TILE_SIZE 64
 # define FOV 0.66 // Same as wolfenstien
@@ -146,12 +148,15 @@ bool	dda(t_game *game, t_ray *ray);
 void	init_player(t_game *game);
 void	calc_side(t_game *game, t_ray *ray);
 void	rot_camera(t_game *game, char dir);
+void 	calc_delta(t_ray *ray);
 void	calc_height(t_ray *ray, int side, int x, mlx_image_t *img);
 void	init_orient_N_S(t_game *game, t_player *player);
 void	init_orient_E_W(t_game *game, t_player *player);
 void	move_pl(t_game *game, double y, double x, keys_t dir);
-void 	render_scene(void *game);
+void 	cast_ray(t_game *game, t_ray *ray, mlx_image_t *img);
 
+/*Rendering*/
+void 	render_scene(void *game);
 void 	render_map(t_game *game);
 void 	render_minimap(void *game_ptr);
 void 	render_ray(t_game *game, int color);

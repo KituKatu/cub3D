@@ -49,6 +49,7 @@ SRCS =	$(MAINDIR)main.c \
 		$(UTILDIR)free.c \
 		$(MLXDIR)init_mlx.c \
 		$(FFILL)floodfill.c \
+		$(RAYDIR)ray_utils.c \
  		$(RAYDIR)raycasting.c \
 		
 OBJS = $(SRCS:src/%.c=obj/%.o)
