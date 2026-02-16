@@ -37,9 +37,9 @@ void calc_delta(t_ray *ray)
 void	calc_height(t_ray *ray, int side, int x, mlx_image_t *img)
 {
 	double	perpWallDist;
-	int drawStart;
-	int drawEnd;
-	//color = 16777215; //white decimal (0xFFFFFFFF)
+	int		drawStart;
+	int		drawEnd;
+
 	drawStart= 0;
 	drawEnd = 0; 
 
@@ -57,7 +57,7 @@ void	calc_height(t_ray *ray, int side, int x, mlx_image_t *img)
 		drawEnd = SCREEN_HEIGHT - 1;
 	while (drawStart < drawEnd)
 	{
-		mlx_put_pixel(img, x, drawStart, 0xFFFFFFFF);
+		mlx_put_pixel(img, x, drawStart, WHITE);
 		drawStart++;
 	}
 }
@@ -73,7 +73,7 @@ bool	dda(t_game *game, t_ray *ray)
 	while (hit == false)
 	{
 		if (ray->sideDistX < ray->deltaDistY)
-		{
+		{	
 			ray->sideDistX += ray->deltaDistX;
 			ray->mapX += ray->stepX;
 			side = VERTICAL;
@@ -133,7 +133,7 @@ void	rot_camera(t_game *game, char dir)
 	play = game->player;
 	oldDirX = play->dirX;
 	oldPlaneX = play->planeX;
-	if (dir == 'l')
+	if (dir == 'r')
 	{
 		play->dirX = play->dirX * cos(ROTSPEED) - play->dirY * sin(ROTSPEED);
 		play->dirY = oldDirX * sin(ROTSPEED) + play->dirY * cos(ROTSPEED);
@@ -141,7 +141,7 @@ void	rot_camera(t_game *game, char dir)
 			* sin(ROTSPEED);
 		play->planeY = oldPlaneX * sin(ROTSPEED) + play->planeY * cos(ROTSPEED);
 	}
-	else if (dir == 'r')
+	else if (dir == 'l')
 	{
 		play->dirX = play->dirX * cos(-ROTSPEED) - play->dirY * sin(-ROTSPEED);
 		play->dirY = oldDirX * sin(-ROTSPEED) + play->dirY * cos(-ROTSPEED);
@@ -186,29 +186,6 @@ void	move_pl(t_game *game, double y, double x, keys_t dir)
 }
 
 
-// keyhook to process player input 
-void	cub_keyhook(mlx_key_data_t keydown, void *param)
-{
-	t_game	*game;
-
-	game = (t_game *)param;
-	if (keydown.action == MLX_PRESS || keydown.action == MLX_REPEAT)
-	{
-		if (keydown.key == MLX_KEY_ESCAPE)
-			mlx_close_window(game->mlx);
-		if (keydown.key == MLX_KEY_UP || keydown.key == MLX_KEY_W)
-			move_pl(game, game->player->posY, game->player->posX, 'f');
-		if (keydown.key == MLX_KEY_DOWN || keydown.key == MLX_KEY_S)
-			move_pl(game, game->player->posY, game->player->posX, 'b');
-		if (keydown.key == MLX_KEY_LEFT || keydown.key == MLX_KEY_A)
-			rot_camera(game, 'l');
-		if (keydown.key == MLX_KEY_RIGHT || keydown.key == MLX_KEY_D)
-			rot_camera(game, 'r');
-	}
-	printf("PLAYER X: %d\n PLAYER Y: %d\n", game->player->posX, game->player->posY);
-	printf("PLAYER DIRX: %f\n PLAYER DIRY: %f\n", game->player->dirX, game->player->dirY);
-}
-
 /*redraws black all over the scene to clear mlx img
 	for the next frame (no ghosting)
 	{
@@ -237,7 +214,7 @@ void cast_ray(t_game *game, t_ray *ray, mlx_image_t *img)
 	int x;
 	int side; 
 	double cameraX;
-
+	
 	x = 0;
 	side = -1;
 	while (x < SCREEN_WIDTH)
@@ -255,10 +232,38 @@ void cast_ray(t_game *game, t_ray *ray, mlx_image_t *img)
 	}
 }
 
+
+// keyhook to process player input 
+void	cub_keyhook(mlx_key_data_t keydown, void *param)
+{
+	t_game	*game;
+
+	game = (t_game *)param;
+	if (keydown.action == MLX_PRESS || keydown.action == MLX_REPEAT)
+	{
+		render_miniplay(game, WHITE);
+		if (keydown.key == MLX_KEY_ESCAPE)
+			mlx_close_window(game->mlx);
+		if (keydown.key == MLX_KEY_UP || keydown.key == MLX_KEY_W)
+			move_pl(game, game->player->posY, game->player->posX, 'f');
+		if (keydown.key == MLX_KEY_DOWN || keydown.key == MLX_KEY_S)
+			move_pl(game, game->player->posY, game->player->posX, 'b');
+		if (keydown.key == MLX_KEY_LEFT || keydown.key == MLX_KEY_A)
+			rot_camera(game, 'l');
+		if (keydown.key == MLX_KEY_RIGHT || keydown.key == MLX_KEY_D)
+			rot_camera(game, 'r');
+		// if (keydown.key == MLX_KEY_M)
+		// 	toggle_minimap(game);
+	}
+	//render_miniplay(game);
+	printf("PLAYER X: %f\n PLAYER Y: %f\n", game->player->posX, game->player->posY);
+	printf("PLAYER DIRX: %f\n PLAYER DIRY: %f\n", game->player->dirX, game->player->dirY);
+}
+
 void render_scene(void *ptr)
 {
 	t_game *game; 
-
+	
 	game = (t_game *)ptr; 
 	t_ray ray;
 	ray.mapX = game->player->posX;
@@ -267,7 +272,7 @@ void render_scene(void *ptr)
 	ray.dirY = game->player->dirY;
 	// double oldtime;
 	// double frame_time;
-
+	
 	// oldtime = mlx_get_time();
 	clear_scene(game->img);
 	cast_ray(game, &ray, game->img);

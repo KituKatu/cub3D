@@ -6,12 +6,33 @@
 /*   By: jmcgrane <jmcgrane@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/12 12:31:32 by jmcgrane          #+#    #+#             */
-/*   Updated: 2026/02/13 15:20:10 by jmcgrane         ###   ########.fr       */
+/*   Updated: 2026/02/16 12:34:10 by jmcgrane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/cub3d.h"
 
+
+void render_box(t_game *game, int y, int x, int color)
+{
+    int offset;
+    int i;
+    int j;
+    
+    i = 0;
+    j = 0;
+    offset = 0;
+    while (i < TILE_SIZE)
+    {
+        j = 0;
+        while(j < TILE_SIZE)
+        {
+            mlx_put_pixel(game->img, x+j, y +i, color);
+            j++;
+        }
+        i++;
+    }
+}
 
 /*
     render 2D map for the minimap
@@ -33,9 +54,10 @@ void render_map(t_game *game)
         while (x < game->map->x_len)
         {
             if (game->map->grid[y][x] == WALL)
-                mlx_image_to_window(game->mlx, game->map->img[0], x * TILE_SIZE, y * TILE_SIZE);
-            else if (game->map->grid[y][x] == SPACE)
-                mlx_image_to_window(game->mlx, game->img, x *TILE_SIZE,  y * TILE_SIZE);
+                render_box(game, y * TILE_SIZE, x * TILE_SIZE, BLUE);
+            else
+            // if (game->map->grid[y][x] == SPACE)
+                render_box(game, y * TILE_SIZE, x * TILE_SIZE, WHITE);
             x++;
         }
         y++;
@@ -49,11 +71,29 @@ void render_map(t_game *game)
     the player on the map 
     (prolly good to use a 
     triangle as dir vector)
+    -->needs to clear when updated
 */
-// void render_miniplay(t_game *game)
-// {
+void render_miniplay(t_game *game, int color)
+{   
+    int size;
+    int x;
+    int y; 
 
-// }
+    size = 12;
+    x= -size  /2;
+    while (x < size)
+    {
+        y =  -size /2;
+        while (y < size)
+        {
+            if (game->player->posX + x > 0 && game->player->posX + x < game->map->x_len && game->player->posY + y > 0 && game->player->posY + y < game->map->y_len)
+                mlx_put_pixel(game->img, game->player->posX * TILE_SIZE + x, game->player->posY * TILE_SIZE +y, color);
+            y++;
+        }
+        x++;
+    }
+        
+}
 
 
 /*
@@ -67,5 +107,10 @@ void render_minimap(void *game_ptr)
     t_game *game;
 
     game = (t_game *)game_ptr;
+<<<<<<< HEAD
 
+=======
+    render_miniplay(game, RED);
+    
+>>>>>>> 11f63c3046f99da06e9d9743c7d9f34b1aa350be
 }

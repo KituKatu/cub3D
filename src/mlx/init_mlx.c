@@ -58,7 +58,6 @@ int	init_game(char *mapfile, t_game *game)
 	if (fill_img_array(game) == FAILURE)
 		return (ft_exit_errc("Can't load wall texture", (void *)&game, 'w'));
 	init_player(game);
-
 	img = mlx_new_image(game->mlx, SCREEN_WIDTH, SCREEN_HEIGHT);
 	if (!img || (mlx_image_to_window(game->mlx, img, 0, 0) < 0))
 		ft_exit_errc("Failed to load screen", (void*)&game, 'g');
