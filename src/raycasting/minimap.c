@@ -6,7 +6,7 @@
 /*   By: jmcgrane <jmcgrane@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/12 12:31:32 by jmcgrane          #+#    #+#             */
-/*   Updated: 2026/02/16 14:02:32 by jmcgrane         ###   ########.fr       */
+/*   Updated: 2026/02/16 14:11:59 by jmcgrane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -124,10 +124,6 @@ void render_minimap(void *game_ptr)
 
     
     game = (t_game *)game_ptr;
-<<<<<<< HEAD
-    render_map(game);
-=======
->>>>>>> e4e58dff8964b1a684ce37fa97d79282a262249c
     render_miniplay(game, RED);
     
 }
