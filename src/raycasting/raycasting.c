@@ -6,7 +6,7 @@
 /*   By: jmcgrane <jmcgrane@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/16 16:38:38 by adecheri          #+#    #+#             */
-/*   Updated: 2026/02/06 13:31:40 by jmcgrane         ###   ########.fr       */
+/*   Updated: 2026/02/16 13:30:47 by jmcgrane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -241,7 +241,7 @@ void	cub_keyhook(mlx_key_data_t keydown, void *param)
 	game = (t_game *)param;
 	if (keydown.action == MLX_PRESS || keydown.action == MLX_REPEAT)
 	{
-		render_miniplay(game, WHITE);
+		// render_miniplay(game, WHITE);
 		if (keydown.key == MLX_KEY_ESCAPE)
 			mlx_close_window(game->mlx);
 		if (keydown.key == MLX_KEY_UP || keydown.key == MLX_KEY_W)

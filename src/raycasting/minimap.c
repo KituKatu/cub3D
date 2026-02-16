@@ -6,7 +6,7 @@
 /*   By: jmcgrane <jmcgrane@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/12 12:31:32 by jmcgrane          #+#    #+#             */
-/*   Updated: 2026/02/16 12:34:10 by jmcgrane         ###   ########.fr       */
+/*   Updated: 2026/02/16 13:37:18 by jmcgrane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,17 +77,22 @@ void render_miniplay(t_game *game, int color)
 {   
     int size;
     int x;
-    int y; 
+    int y;
+    int py;
+    int px;
 
     size = 12;
-    x= -size  /2;
-    while (x < size)
+    x = -size / 2;
+    px = (int)(game->player->posX * TILE_SIZE);
+    py = (int)(game->player->posY * TILE_SIZE);
+    while (x < size / 2)
     {
-        y =  -size /2;
-        while (y < size)
+        y =  -size / 2;
+        while (y < size / 2)
         {
-            if (game->player->posX + x > 0 && game->player->posX + x < game->map->x_len && game->player->posY + y > 0 && game->player->posY + y < game->map->y_len)
-                mlx_put_pixel(game->img, game->player->posX * TILE_SIZE + x, game->player->posY * TILE_SIZE +y, color);
+            if(px + x > 0 && px + x < game->map->x_len * TILE_SIZE
+                && py + y > 0 && py + y < game->map->y_len * TILE_SIZE)
+                mlx_put_pixel(game->img, px + x, py + y, color);
             y++;
         }
         x++;
@@ -107,10 +112,7 @@ void render_minimap(void *game_ptr)
     t_game *game;
 
     game = (t_game *)game_ptr;
-<<<<<<< HEAD
-
-=======
+    render_map(game);
     render_miniplay(game, RED);
     
->>>>>>> 11f63c3046f99da06e9d9743c7d9f34b1aa350be
 }
