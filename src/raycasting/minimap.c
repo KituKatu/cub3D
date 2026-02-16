@@ -72,13 +72,13 @@ void render_map(t_game *game)
     triangle as dir vector)
     -->needs to clear when updated
 */
-void render_miniplay(t_game *game)
+void render_miniplay(t_game *game, int color)
 {   
     int size;
     int x;
     int y; 
 
-    size = 10;
+    size = 12;
     x= -size  /2;
     while (x < size)
     {
@@ -86,7 +86,7 @@ void render_miniplay(t_game *game)
         while (y < size)
         {
             if (game->player->posX + x > 0 && game->player->posX + x < game->map->x_len && game->player->posY + y > 0 && game->player->posY + y < game->map->y_len)
-                mlx_put_pixel(game->img, game->player->posX * TILE_SIZE + x, game->player->posY * TILE_SIZE +y, RED);
+                mlx_put_pixel(game->img, game->player->posX * TILE_SIZE + x, game->player->posY * TILE_SIZE +y, color);
             y++;
         }
         x++;
@@ -106,7 +106,6 @@ void render_minimap(void *game_ptr)
     t_game *game;
     
     game = (t_game *)game_ptr;
-    render_miniplay(game);
+    render_miniplay(game, RED);
     
-
 }
