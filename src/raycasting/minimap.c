@@ -50,7 +50,7 @@ void render_map(t_game *game)
     y = 0;
     while(y < game->map->y_len)
     {
-        x = 0; 
+        x = 0;
         while (x < game->map->x_len)
         {
             if (game->map->grid[y][x] == WALL)
@@ -107,10 +107,6 @@ void render_minimap(void *game_ptr)
     t_game *game;
 
     game = (t_game *)game_ptr;
-<<<<<<< HEAD
-
-=======
     render_miniplay(game, RED);
     
->>>>>>> 11f63c3046f99da06e9d9743c7d9f34b1aa350be
 }
