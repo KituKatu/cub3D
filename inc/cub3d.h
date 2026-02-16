@@ -35,7 +35,7 @@
 # define BLUE 111184
 # define RED 0xCD7687
 
-# define TILE_SIZE 32
+# define TILE_SIZE 64
 # define FOV 0.66 // Same as wolfenstien
 # define SCREEN_WIDTH 1024 // Standard (4 : 3 aspect ratio)
 # define SCREEN_HEIGHT 768
@@ -162,8 +162,16 @@ void 	render_scene(void *game);
 
 void 	render_map(t_game *game);
 void 	render_minimap(void *game_ptr);
+<<<<<<< HEAD
 void	render_map(t_game *game);
+<<<<<<< HEAD
 void	render_miniplay(t_game *game, int color);
+=======
+=======
+void 	render_ray(t_game *game, int color);
+void	render_miniplay(t_game *game, int color);
+>>>>>>> anna
+>>>>>>> e4e58dff8964b1a684ce37fa97d79282a262249c
 
 
 #endif

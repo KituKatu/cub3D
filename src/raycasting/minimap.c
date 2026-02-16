@@ -6,7 +6,7 @@
 /*   By: jmcgrane <jmcgrane@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/12 12:31:32 by jmcgrane          #+#    #+#             */
-/*   Updated: 2026/02/16 13:37:18 by jmcgrane         ###   ########.fr       */
+/*   Updated: 2026/02/16 14:02:32 by jmcgrane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ void render_map(t_game *game)
     y = 0;
     while(y < game->map->y_len)
     {
-        x = 0; 
+        x = 0;
         while (x < game->map->x_len)
         {
             if (game->map->grid[y][x] == WALL)
@@ -66,12 +66,25 @@ void render_map(t_game *game)
 }
 
 
+void render_ray(t_game *game, int color)
+{
+    int drawStart;
+    int size;
+    
+    drawStart = 0;
+    size = 8;
+    while(drawStart < size)
+    {
+        mlx_put_pixel(game->img, (game->player->posX * TILE_SIZE) + (drawStart * game->player->dirX), (game->player->posY * TILE_SIZE) + (drawStart *game->player->dirY), color);
+        drawStart++;
+    }
+
+}
+
 /*
     renders representation of 
     the player on the map 
-    (prolly good to use a 
-    triangle as dir vector)
-    -->needs to clear when updated
+    (prolly good to use a triangle)
 */
 void render_miniplay(t_game *game, int color)
 {   
@@ -82,10 +95,8 @@ void render_miniplay(t_game *game, int color)
     int px;
 
     size = 12;
-    x = -size / 2;
-    px = (int)(game->player->posX * TILE_SIZE);
-    py = (int)(game->player->posY * TILE_SIZE);
-    while (x < size / 2)
+    x = -size  /2;
+    while (x < size)
     {
         y =  -size / 2;
         while (y < size / 2)
@@ -111,8 +122,12 @@ void render_minimap(void *game_ptr)
 {
     t_game *game;
 
+    
     game = (t_game *)game_ptr;
+<<<<<<< HEAD
     render_map(game);
+=======
+>>>>>>> e4e58dff8964b1a684ce37fa97d79282a262249c
     render_miniplay(game, RED);
     
 }
