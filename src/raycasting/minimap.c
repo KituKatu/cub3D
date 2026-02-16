@@ -6,7 +6,7 @@
 /*   By: jmcgrane <jmcgrane@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/12 12:31:32 by jmcgrane          #+#    #+#             */
-/*   Updated: 2026/02/12 12:31:55 by jmcgrane         ###   ########.fr       */
+/*   Updated: 2026/02/13 15:20:10 by jmcgrane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@
     Ideally this map is only rendered once and not 
     part of the loop
 */
+
 void render_map(t_game *game)
 {
     int x;
@@ -29,7 +30,7 @@ void render_map(t_game *game)
     while(y < game->map->y_len)
     {
         x = 0; 
-        while (x <game->map->x_len)
+        while (x < game->map->x_len)
         {
             if (game->map->grid[y][x] == WALL)
                 mlx_image_to_window(game->mlx, game->map->img[0], x * TILE_SIZE, y * TILE_SIZE);
@@ -49,10 +50,10 @@ void render_map(t_game *game)
     (prolly good to use a 
     triangle as dir vector)
 */
-void render_miniplay(t_game *game)
-{
+// void render_miniplay(t_game *game)
+// {
 
-}
+// }
 
 
 /*
@@ -63,11 +64,8 @@ void render_miniplay(t_game *game)
 */
 void render_minimap(void *game_ptr)
 {
-    
     t_game *game;
-    
-    game = (t_game *)game_ptr;
 
-    
+    game = (t_game *)game_ptr;
 
 }

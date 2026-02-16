@@ -6,7 +6,7 @@
 /*   By: jmcgrane <jmcgrane@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/14 17:31:12 by adecheri          #+#    #+#             */
-/*   Updated: 2026/02/12 15:43:08 by jmcgrane         ###   ########.fr       */
+/*   Updated: 2026/02/13 14:08:38 by jmcgrane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,13 +76,20 @@ typedef struct s_ray
 
 typedef struct s_player
 {
-	int		posX;
-	int		posY;
+	double	posX;
+	double	posY;
 	double	dirX;
 	double	dirY;
 	double	planeX;
 	double	planeY;
-}			t_player; 
+}			t_player;
+
+typedef struct	s_minimap
+{
+	mlx_image_t	*wall;
+	mlx_image_t	*floor;
+	mlx_image_t	*player;
+}				t_minimap;
 
 typedef struct s_game
 {
@@ -90,7 +97,8 @@ typedef struct s_game
 	mlx_image_t *img;
 	t_map		*map;
 	t_player 	*player;
-}			t_game;
+	t_minimap	minimap;
+}				t_game;
 
 /*Map Validation*/
 
@@ -150,6 +158,7 @@ void	move_pl(t_game *game, double y, double x, keys_t dir);
 void 	render_scene(void *game);
 
 void 	render_minimap(void *game_ptr);
+void	render_map(t_game *game);
 
 
 #endif

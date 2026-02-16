@@ -6,7 +6,7 @@
 /*   By: jmcgrane <jmcgrane@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/28 15:29:43 by jmcgrane          #+#    #+#             */
-/*   Updated: 2026/02/02 13:09:58 by jmcgrane         ###   ########.fr       */
+/*   Updated: 2026/02/13 12:48:41 by jmcgrane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,5 +63,6 @@ int	init_game(char *mapfile, t_game *game)
 	if (!img || (mlx_image_to_window(game->mlx, img, 0, 0) < 0))
 		ft_exit_errc("Failed to load screen", (void*)&game, 'g');
 	game->img = img;
+	render_map(game);
 	return (SUCCESS);
 }
