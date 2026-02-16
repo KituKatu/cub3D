@@ -66,12 +66,25 @@ void render_map(t_game *game)
 }
 
 
+void render_ray(t_game *game, int color)
+{
+    int drawStart;
+    int size;
+    
+    drawStart = 0;
+    size = 8;
+    while(drawStart < size)
+    {
+        mlx_put_pixel(game->img, (game->player->posX * TILE_SIZE) + (drawStart * game->player->dirX), (game->player->posY * TILE_SIZE) + (drawStart *game->player->dirY), color);
+        drawStart++;
+    }
+
+}
+
 /*
     renders representation of 
     the player on the map 
-    (prolly good to use a 
-    triangle as dir vector)
-    -->needs to clear when updated
+    (prolly good to use a triangle)
 */
 void render_miniplay(t_game *game, int color)
 {   
@@ -80,7 +93,7 @@ void render_miniplay(t_game *game, int color)
     int y; 
 
     size = 12;
-    x= -size  /2;
+    x = -size  /2;
     while (x < size)
     {
         y =  -size /2;
@@ -106,6 +119,7 @@ void render_minimap(void *game_ptr)
 {
     t_game *game;
 
+    
     game = (t_game *)game_ptr;
     render_miniplay(game, RED);
     
