@@ -6,7 +6,7 @@
 /*   By: jmcgrane <jmcgrane@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/12 12:31:32 by jmcgrane          #+#    #+#             */
-/*   Updated: 2026/02/16 14:02:32 by jmcgrane         ###   ########.fr       */
+/*   Updated: 2026/02/16 15:54:22 by jmcgrane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,31 +86,6 @@ void render_ray(t_game *game, int color)
     the player on the map 
     (prolly good to use a triangle)
 */
-void render_miniplay(t_game *game, int color)
-{   
-    int size;
-    int x;
-    int y;
-    int py;
-    int px;
-
-    size = 12;
-    x = -size  /2;
-    while (x < size)
-    {
-        y =  -size / 2;
-        while (y < size / 2)
-        {
-            if(px + x > 0 && px + x < game->map->x_len * TILE_SIZE
-                && py + y > 0 && py + y < game->map->y_len * TILE_SIZE)
-                mlx_put_pixel(game->img, px + x, py + y, color);
-            y++;
-        }
-        x++;
-    }
-        
-}
-
 
 /*
     render 2d map with player and 
@@ -124,10 +99,6 @@ void render_minimap(void *game_ptr)
 
     
     game = (t_game *)game_ptr;
-<<<<<<< HEAD
-    render_map(game);
-=======
->>>>>>> e4e58dff8964b1a684ce37fa97d79282a262249c
     render_miniplay(game, RED);
     
 }
