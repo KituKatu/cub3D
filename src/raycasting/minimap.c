@@ -6,7 +6,7 @@
 /*   By: jmcgrane <jmcgrane@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/12 12:31:32 by jmcgrane          #+#    #+#             */
-/*   Updated: 2026/02/17 12:13:42 by jmcgrane         ###   ########.fr       */
+/*   Updated: 2026/02/17 12:16:03 by jmcgrane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,27 @@ void render_ray(t_game *game, int color)
     the player on the map 
     (prolly good to use a triangle)
 */
+void render_miniplay(t_game *game, int color)
+{   
+    int size;
+    int x;
+    int y; 
 
+    size = 10;
+    x = -size  /2;
+    while (x < size/2)
+    {
+        y =  -size /2;
+        while (y < size/2)
+        {
+            if (game->player->posX + x > 0.0 && game->player->posX + x < game->map->x_len * 1.0 && game->player->posY + y > 0.0 && game->player->posY + y < game->map->y_len * 1.0)
+                mlx_put_pixel(game->img, game->player->posX * TILE_SIZE + x, game->player->posY * TILE_SIZE +y, color);
+            y++;
+        }
+        x++;
+    }
+        
+}
 /*
     render 2d map with player and 
     rays from player to walls (acc to FOV)
