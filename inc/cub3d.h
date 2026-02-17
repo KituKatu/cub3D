@@ -34,8 +34,8 @@
 # define MOVSPEED 0.8
 # define WHITE 0xFFFFFFFF
 # define BLUE 111184
-# define RED 0xCD7687
-# define YELLOW 0xffff00
+# define RED 0xFF033E
+# define YELLOW 0xFFFF00
 
 # define TILE_SIZE 64
 # define FOV 0.66 // Same as wolfenstien
@@ -169,7 +169,7 @@ void 	render_line(mlx_image_t *img, t_vertex line, t_vertex *position, int color
 void 	render_scene(void *game);
 void 	render_map(t_game *game);
 void 	render_minimap(void *game_ptr);
-void 	render_ray(t_game *game, int color);
+void 	render_ray(t_game *game, int size, int color);
 void	render_miniplay(t_game *game, int color);
 
 

@@ -53,8 +53,6 @@ void render_box(mlx_image_t *img, int y, int x, int color)
     render 2D map for the minimap
     rn using textures of 1 wall for all walls
     and general empty img for SPACE
-    Ideally this map is only rendered once and not 
-    part of the loop
 */
 void render_map(t_game *game)
 {
@@ -81,22 +79,22 @@ void render_map(t_game *game)
 
 
 
+
 /*
     renders single ray from player position
     into dirX and dirY
 */
-void render_ray(t_game *game, int color)
+void render_ray(t_game *game, int size, int color)
 {
     int drawStart;
-    int size;
-    int x;
+    t_vertex pos;
     
     drawStart = 0;
-    size = 24;
     while (drawStart < size/2)
     {
-        x = (game->player->posX * TILE_SIZE);
-        mlx_put_pixel(game->img, x + (drawStart * game->player->dirX), (game->player->posY * TILE_SIZE) + (drawStart *game->player->dirY), color);
+        pos.x = (game->player->posX * TILE_SIZE);
+        pos.y = (game->player->posY * TILE_SIZE);
+        mlx_put_pixel(game->img, pos.x + (drawStart * game->player->dirX), pos.y + (drawStart *game->player->dirY), color);
         drawStart++;
     }
     
@@ -130,6 +128,29 @@ void render_miniplay(t_game *game, int color)
 }
 
 
+void cast_mapray(t_game *game, t_ray *ray)
+{
+    int raycount;
+    // double aTan;
+    int side;
+    int size; 
+
+    raycount = 0;
+    size = 10;
+    while (raycount < 1)
+    {
+        calc_side(game, ray);
+        side = dda(game, ray);
+        calc_delta(ray);
+     	if (side == VERTICAL)
+		    size = (ray->sideDistX - ray->deltaDistX);
+	    else
+		    size = (ray->deltaDistY - ray->deltaDistY);
+        render_ray(game, size, RED);   
+        raycount++;
+    }
+}
+
 /*
     render 2d map with player and 
     rays from player to walls (acc to FOV)
@@ -150,6 +171,6 @@ void render_minimap(void *game_ptr)
 	ray.dirX = game->player->dirX;
 	ray.dirY = game->player->dirY;
 
-    cast_ray(game, &ray);
-    render_ray(game, YELLOW);
+    cast_mapray(game, &ray);
+    //render_ray(game, 24, RED);
 }
