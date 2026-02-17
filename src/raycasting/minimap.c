@@ -112,14 +112,14 @@ void render_miniplay(t_game *game, int color)
     int x;
     int y; 
 
-    size = 10;
+    size = 12;
     x = -size  /2;
     while (x < size/2)
     {
         y =  -size /2;
         while (y < size/2)
         {
-            if (game->player->posX + x > 0.0 && game->player->posX + x < game->map->x_len * 1.0 && game->player->posY + y > 0.0 && game->player->posY + y < game->map->y_len * 1.0)
+            if (game->player->posX + x > 0.0 && game->player->posX + x <= game->map->x_len * 1.0 && game->player->posY + y > 0.0 && game->player->posY + y <= game->map->y_len * 1.0)
                 mlx_put_pixel(game->img, game->player->posX * TILE_SIZE + x, game->player->posY * TILE_SIZE +y, color);
             y++;
         }
@@ -128,6 +128,29 @@ void render_miniplay(t_game *game, int color)
         
 }
 
+
+void cast_mapray(t_game *game, t_ray *ray)
+{
+    int raycount;
+    // double aTan;
+    int side;
+    int size; 
+
+    raycount = 0;
+    size = 10;
+    while (raycount < 1)
+    {
+        calc_side(game, ray);
+        side = dda(game, ray);
+        calc_delta(ray);
+     	if (side == VERTICAL)
+		    size = (ray->sideDistX - ray->deltaDistX);
+	    else
+		    size = (ray->deltaDistY - ray->deltaDistY);
+        render_ray(game, size, RED);   
+        raycount++;
+    }
+}
 
 /*
     render 2d map with player and 

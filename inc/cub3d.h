@@ -175,6 +175,7 @@ t_vertex	calc_height(t_ray *ray, int side);
 void		init_orient_N_S(t_game *game, t_player *player);
 void		init_orient_E_W(t_game *game, t_player *player);
 void		move_pl(t_game *game, double y, double x, keys_t dir);
+void 		cast_mapray(t_game *game, t_ray *ray);
 void 		cast_ray(t_game *game, t_ray *ray);
 
 /*Rendering*/

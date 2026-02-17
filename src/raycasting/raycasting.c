@@ -28,6 +28,7 @@ bool	dda(t_game *game, t_ray *ray)
 	hit = false; 
 	while (hit == false)
 	{
+		calc_side(game, ray);
 		if (ray->sideDistX < ray->deltaDistY)
 		{	
 			ray->sideDistX += ray->deltaDistX;
@@ -192,7 +193,7 @@ void	cub_keyhook(mlx_key_data_t keydown, void *param)
 	render_ray(game, 24, RED);
 	printf("PLAYER X: %f\n PLAYER Y: %f\n", game->player->posX, game->player->posY);
 	printf("PLAYER DIRX: %f\n PLAYER DIRY: %f\n", game->player->dirX, game->player->dirY);
-	printf("PLAYER PLANEX: %f\n PLAYER PLANEY: %f\n", game->player->planeX, game->player->planeY);
+	// printf("PLAYER PLANEX: %f\n PLAYER PLANEY: %f\n", game->player->planeX, game->player->planeY);
 }
 
 void render_scene(void *ptr)
