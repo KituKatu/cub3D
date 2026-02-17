@@ -79,7 +79,6 @@ void render_map(t_game *game)
 
 
 
-
 /*
     renders single ray from player position
     into dirX and dirY
@@ -94,7 +93,8 @@ void render_ray(t_game *game, int size, int color)
     {
         pos.x = (game->player->posX * TILE_SIZE);
         pos.y = (game->player->posY * TILE_SIZE);
-        mlx_put_pixel(game->img, pos.x + (drawStart * game->player->dirX), pos.y + (drawStart *game->player->dirY), color);
+        if (game->map->grid[(int)(pos.y + (drawStart *game->player->dirY))/64][(int)(pos.x + (drawStart * game->player->dirX))/64] != WALL)
+            mlx_put_pixel(game->img, pos.x + (drawStart * game->player->dirX), pos.y + (drawStart *game->player->dirY), color);
         drawStart++;
     }
     
