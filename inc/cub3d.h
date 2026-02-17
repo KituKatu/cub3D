@@ -182,7 +182,7 @@ void 	render_line(mlx_image_t *img, t_vertex line, t_vertex *position, int color
 void 	render_scene(void *game);
 void 	render_map(t_game *game);
 void 	render_minimap(void *game_ptr);
-void 	render_ray(t_game *game, int color);
+void 	render_ray(t_game *game, int size, int color);
 void	render_miniplay(t_game *game, int color);
 
 
