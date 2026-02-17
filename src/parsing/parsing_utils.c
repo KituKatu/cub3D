@@ -6,7 +6,7 @@
 /*   By: jmcgrane <jmcgrane@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/23 12:52:50 by jmcgrane          #+#    #+#             */
-/*   Updated: 2026/02/12 15:41:08 by jmcgrane         ###   ########.fr       */
+/*   Updated: 2026/02/17 13:34:36 by jmcgrane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,45 +27,61 @@ int	parse_map_id(char *line)
 	else if (ft_strncmp(line, "WE ", 3) == 0)
 		return (SUCCESS);
 	else if (ft_strchr(line, WALL))
-		return (FAILURE);
+		return (MAP_START);
 	return (SUCCESS);
 }
 
 int	parse_identifier(char *line, t_map *map)
 {
 	if ((ft_strncmp(line, "F ", 2) == 0) || (ft_strncmp(line, "C ", 2) == 0))
-		floor_ceiling(map, line);
+	{
+		if(floor_ceiling(map, line) == FAILURE)
+			return (FAILURE);
+	}
 	else if (ft_strncmp(line, "NO ", 3) == 0)
-		map->north = ft_strtrim(line + 3, "\n\t ");
+	{
+		if (north_path(map, line) == FAILURE)
+			return (FAILURE);
+	}
 	else if (ft_strncmp(line, "SO ", 3) == 0)
-		map->south = ft_strtrim(line + 3, "\n\t ");
+	{
+		if (south_path(map, line) == FAILURE)
+			return (FAILURE);
+	}
 	else if (ft_strncmp(line, "EA ", 3) == 0)
-		map->east = ft_strtrim(line + 3, "\n\t ");
+	{
+		if (east_path(map, line) == FAILURE)
+			return (FAILURE);
+	}
 	else if (ft_strncmp(line, "WE ", 3) == 0)
-		map->west = ft_strtrim(line + 3, "\n\t ");
+	{
+		if (west_path(map, line) == FAILURE)
+			return (FAILURE);
+	}
 	else if (ft_strchr(line, WALL))
-		return (FAILURE);
+		return (MAP_START);
 	return (SUCCESS);
 }
 
-void	floor_ceiling(t_map *map, char *line)
+int	floor_ceiling(t_map *map, char *line)
 {
 	if (ft_strncmp(line, "F ", 2) == 0)
 	{
 		if (map->floor_check > 0)
-			return ;
+			return (FAILURE);
 		map->floor_check++;
-		line = ft_strtrim(line + 2, "\n\t ");
+		line = ft_strtrim(line + 2, "\n\t\r ");
 		map->floor = parse_color(line, map);
 	}
 	else if (ft_strncmp(line, "C ", 2) == 0)
 	{
 		if (map->ceiling_check > 0)
-			return ;
+			return (FAILURE);
 		map->ceiling_check++;
-		line = ft_strtrim(line + 2, "\n\t ");
+		line = ft_strtrim(line + 2, "\n\t\r ");
 		map->ceiling = parse_color(line, map);
 	}
+	return (SUCCESS);
 }
 
 void	map_dimensions(t_map *map)

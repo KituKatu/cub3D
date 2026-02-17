@@ -1,7 +1,7 @@
-NO ./textures/ocean.png
-SO ./textures/ocean.png
-WE ./textures/ocean.png
-EA ./textures/ocean.png
+NO ./textures/seamless_1.png
+SO ./textures/seamless_1.png
+WE ./textures/seamless_1.png
+EA ./textures/seamless_1.png
 
 F 149,200,0
 C 125,30,0

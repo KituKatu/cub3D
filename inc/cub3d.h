@@ -6,7 +6,7 @@
 /*   By: jmcgrane <jmcgrane@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/14 17:31:12 by adecheri          #+#    #+#             */
-/*   Updated: 2026/02/17 12:13:23 by jmcgrane         ###   ########.fr       */
+/*   Updated: 2026/02/17 13:34:00 by jmcgrane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@
 # define SPACE '0'
 # define SUCCESS 0
 # define FAILURE 1
+# define MAP_START 2
 # define VERTICAL 0
 # define HORIZONTAL 1
 # define READ_SIZE 42
@@ -114,15 +115,19 @@ int		empty_line(char *line);
 int		one_player(t_map *map);
 char	**init_grid(t_map *map);
 t_map	*init_map(char *mapname);
-int		init_game(char *mapfile, t_game *game);
 int		parse_map_id(char *line);
 int		validate_map(t_map *map);
 int		is_valid_char(t_map *map);
 int		read_map_again(t_map *map);
 void	map_dimensions(t_map *map);
 void	parse_map_first_line(t_map *map);
-void	floor_ceiling(t_map *map, char *line);
+int		east_path(t_map *map, char *line);
+int		west_path(t_map *map, char *line);
+int		north_path(t_map *map, char *line);
+int		south_path(t_map *map, char *line);
+int		floor_ceiling(t_map *map, char *line);
 void	create_grid(t_map *map, int i, int j);
+int		init_game(char *mapfile, t_game *game);
 int		parse_identifier(char *line, t_map *map);
 int		floodfill(t_map *map, char **map_copy, int x, int y);
 
