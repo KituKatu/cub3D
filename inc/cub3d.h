@@ -31,15 +31,25 @@
 # define READ_SIZE 42
 # define ROTSPEED 0.52
 # define DEGREE 0.01745
+# define PI 3.14159
 # define MOVSPEED 0.8
 # define WHITE 0xFFFFFFFF
 # define BLUE 111184
-# define RED 0xCD7687
+# define RED 0xFF033E
+# define YELLOW 0xFFFF00
 
 # define TILE_SIZE 64
 # define FOV 0.66 // Same as wolfenstien
 # define SCREEN_WIDTH 1024 // Standard (4 : 3 aspect ratio)
 # define SCREEN_HEIGHT 768
+
+
+typedef struct s_vertex
+{
+	int x;
+	int y;
+}	t_vertex;
+
 
 typedef struct s_map
 {
@@ -99,6 +109,7 @@ typedef struct s_game
 {
 	mlx_t		*mlx;
 	mlx_image_t *img;
+	mlx_image_t *map_img;
 	t_map		*map;
 	t_player 	*player;
 	t_minimap	minimap;
@@ -155,19 +166,22 @@ int		ft_exit_errc(const char *msg, void **ptr, char id);
 
 /*Ray Casting*/
 
-bool	dda(t_game *game, t_ray *ray);
-void	init_player(t_game *game);
-void	calc_side(t_game *game, t_ray *ray);
-void	rot_camera(t_game *game, char dir);
-void	calc_height(t_ray *ray, int side, int x, mlx_image_t *img);
-void	init_orient_N_S(t_game *game, t_player *player);
-void	init_orient_E_W(t_game *game, t_player *player);
-void	move_pl(t_game *game, double y, double x, keys_t dir);
-void 	render_scene(void *game);
+bool		dda(t_game *game, t_ray *ray);
+void		init_player(t_game *game);
+void		calc_side(t_game *game, t_ray *ray);
+void		rot_camera(t_game *game, char dir);
+void 		calc_delta(t_ray *ray);
+t_vertex	calc_height(t_ray *ray, int side);
+void		init_orient_N_S(t_game *game, t_player *player);
+void		init_orient_E_W(t_game *game, t_player *player);
+void		move_pl(t_game *game, double y, double x, keys_t dir);
+void 		cast_ray(t_game *game, t_ray *ray);
 
+/*Rendering*/
+void 	render_line(mlx_image_t *img, t_vertex line, t_vertex *position, int color);
+void 	render_scene(void *game);
 void 	render_map(t_game *game);
 void 	render_minimap(void *game_ptr);
-void	render_map(t_game *game);
 void 	render_ray(t_game *game, int color);
 void	render_miniplay(t_game *game, int color);
 
