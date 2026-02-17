@@ -83,3 +83,4 @@ void	calc_side(t_game *game, t_ray *ray)
 		ray->sideDistY = (ray->mapY + 1.0 - game->player->posY) * ray->deltaDistY;
 	}
 }
+
