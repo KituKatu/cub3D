@@ -6,7 +6,7 @@
 /*   By: jmcgrane <jmcgrane@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/16 16:38:38 by adecheri          #+#    #+#             */
-/*   Updated: 2026/02/16 14:02:36 by jmcgrane         ###   ########.fr       */
+/*   Updated: 2026/02/17 12:14:01 by jmcgrane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -281,4 +281,3 @@ void render_scene(void *ptr)
 	clear_scene(game->img);
 	cast_ray(game, &ray, game->img);
 }	
-render_map(game);
