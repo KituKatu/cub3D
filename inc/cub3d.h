@@ -42,6 +42,14 @@
 # define SCREEN_WIDTH 1024 // Standard (4 : 3 aspect ratio)
 # define SCREEN_HEIGHT 768
 
+
+typedef struct s_vertex
+{
+	int x;
+	int y;
+}	t_vertex;
+
+
 typedef struct s_map
 {
 	int			fd;
@@ -93,6 +101,7 @@ typedef struct s_game
 {
 	mlx_t		*mlx;
 	mlx_image_t *img;
+	mlx_image_t *map_img;
 	t_map		*map;
 	t_player 	*player;
 }			t_game;
@@ -144,18 +153,19 @@ int		ft_exit_errc(const char *msg, void **ptr, char id);
 
 /*Ray Casting*/
 
-bool	dda(t_game *game, t_ray *ray);
-void	init_player(t_game *game);
-void	calc_side(t_game *game, t_ray *ray);
-void	rot_camera(t_game *game, char dir);
-void 	calc_delta(t_ray *ray);
-void	calc_height(t_ray *ray, int side, int x, mlx_image_t *img);
-void	init_orient_N_S(t_game *game, t_player *player);
-void	init_orient_E_W(t_game *game, t_player *player);
-void	move_pl(t_game *game, double y, double x, keys_t dir);
-void 	cast_ray(t_game *game, t_ray *ray, mlx_image_t *img);
+bool		dda(t_game *game, t_ray *ray);
+void		init_player(t_game *game);
+void		calc_side(t_game *game, t_ray *ray);
+void		rot_camera(t_game *game, char dir);
+void 		calc_delta(t_ray *ray);
+t_vertex	calc_height(t_ray *ray, int side);
+void		init_orient_N_S(t_game *game, t_player *player);
+void		init_orient_E_W(t_game *game, t_player *player);
+void		move_pl(t_game *game, double y, double x, keys_t dir);
+void 		cast_ray(t_game *game, t_ray *ray);
 
 /*Rendering*/
+void 	render_line(mlx_image_t *img, t_vertex line, t_vertex *position, int color);
 void 	render_scene(void *game);
 void 	render_map(t_game *game);
 void 	render_minimap(void *game_ptr);

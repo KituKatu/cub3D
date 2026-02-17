@@ -13,6 +13,10 @@
 #include "../../inc/cub3d.h"
 #include <time.h>
 
+//TODO: make func to check intersecting rays with play->mov -->walls
+//TODO: rendering rays from play->pos until wall=hit 
+
+
 
 // calc if ray from camera plane hits wall
 // with side defining if the wall is NS or EW
@@ -77,8 +81,6 @@ void	rot_camera(t_game *game, char dir)
 	}
 }
 
-
-
 /* updates the player position by checking if the 
 	next position is taken by a wall, still needs to check if 
 	the sides of the ray from player to wall intersect the collision 
@@ -113,7 +115,6 @@ void	move_pl(t_game *game, double y, double x, keys_t dir)
 
 /*redraws black all over the scene to clear mlx img
 	for the next frame (no ghosting)
-	{
 */ 
 void clear_scene(mlx_image_t *img)
 {
@@ -134,32 +135,34 @@ void clear_scene(mlx_image_t *img)
 }
 
 
-void cast_ray(t_game *game, t_ray *ray, mlx_image_t *img)
+void cast_ray(t_game *game, t_ray *ray)
 {
-	int x;
 	int side; 
 	double cameraX;
+	t_vertex line_h;
+	t_vertex position;
 	
-	x = 0;
+	position.x = 0;
 	side = -1;
-	while (x < SCREEN_WIDTH)
+	while (position.x < SCREEN_WIDTH)
 	{
-		cameraX = 2 * x / (double)SCREEN_WIDTH -1;
+		cameraX = 2 * position.x / (double)SCREEN_WIDTH -1;
 		ray->dirX = game->player->dirX * game->player->planeX *cameraX;
 		ray->dirY = game->player->dirY * game->player->planeY *cameraX;
 		ray->mapX = game->player->posX;
 		ray->mapY = game->player->posY;
 		calc_side(game, ray);
 		side = dda(game, ray);
-		calc_height(ray, side, x, img);
+		line_h = calc_height(ray, side);
 		calc_delta(ray);
-		x++;
+		render_line(game->img, line_h, &position, WHITE);
+		position.x++;
 	}
 }
 
 // void toggle_minimap(game)
 // {
-// 	mlx_image_to_window( );
+	
 // }
 
 // keyhook to process player input 
@@ -190,7 +193,6 @@ void	cub_keyhook(mlx_key_data_t keydown, void *param)
 	printf("PLAYER X: %f\n PLAYER Y: %f\n", game->player->posX, game->player->posY);
 	printf("PLAYER DIRX: %f\n PLAYER DIRY: %f\n", game->player->dirX, game->player->dirY);
 	printf("PLAYER PLANEX: %f\n PLAYER PLANEY: %f\n", game->player->planeX, game->player->planeY);
-
 }
 
 void render_scene(void *ptr)
@@ -203,10 +205,10 @@ void render_scene(void *ptr)
 	ray.mapY = game->player->posY;
 	ray.dirX = game->player->dirX;
 	ray.dirY = game->player->dirY;
+
 	// double oldtime;
 	// double frame_time;
-	
 	// oldtime = mlx_get_time();
 	clear_scene(game->img);
-	cast_ray(game, &ray, game->img);
+	cast_ray(game, &ray);
 }	

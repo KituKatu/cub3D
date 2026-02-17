@@ -12,8 +12,6 @@
 
 #include "../../inc/cub3d.h"
 
-
-
 /*calculate height of walls on grid by raycasting
 	calc vector of camera plane?
 	direction vector multiplies the pos of player in cert direction (length doesn't matter only dir)
@@ -35,14 +33,13 @@ void calc_delta(t_ray *ray)
 
 // returns the line height of the walls depending on x or y axis is hit by raycast
 // needs a struct for all the arguments
-void	calc_height(t_ray *ray, int side, int x, mlx_image_t *img)
+t_vertex	calc_height(t_ray *ray, int side)
 {
 	double	perpWallDist;
-	int		drawStart;
-	int		drawEnd;
+	t_vertex line; 
 
-	drawStart= 0;
-	drawEnd = 0; 
+	line.x = 0;
+	line.y = 0; 
 
 	if (side == VERTICAL)
 		perpWallDist = (ray->sideDistX - ray->deltaDistX);
@@ -50,25 +47,20 @@ void	calc_height(t_ray *ray, int side, int x, mlx_image_t *img)
 		perpWallDist = (ray->deltaDistY - ray->deltaDistY);
 	ray->lineHeight = (int)SCREEN_HEIGHT / perpWallDist;
 
-	drawStart = -ray->lineHeight/2 + SCREEN_HEIGHT /2;
-	if (drawStart < 0)
-		drawStart = 0; 
-	drawEnd = ray->lineHeight/2 + SCREEN_HEIGHT /2;
-	if (drawEnd >= SCREEN_HEIGHT)
-		drawEnd = SCREEN_HEIGHT - 1;
-	while (drawStart < drawEnd)
-	{
-		mlx_put_pixel(img, x, drawStart, WHITE);
-		drawStart++;
-	}
+	line.x = -ray->lineHeight/2 + SCREEN_HEIGHT /2;
+	if (line.x < 0)
+		line.x = 0; 
+	line.y = ray->lineHeight/2 + SCREEN_HEIGHT /2;
+	if (line.y >= SCREEN_HEIGHT)
+		line.y = SCREEN_HEIGHT - 1;
+	return (line);
 }
 
-/* calculate distance ray to wall
-	
+/* calculate where ray intersects 
+	with either y or x axis on the mapgrid	
 */
 void	calc_side(t_game *game, t_ray *ray)
 {
-	
 	// calculate step and initial sideDist
 	if (ray->dirX < 0)
 	{

@@ -12,8 +12,23 @@
 
 #include "../../inc/cub3d.h"
 
+//renders line at position.x from line.x until line.y in color
+void render_line(mlx_image_t *img, t_vertex line, t_vertex *position, int color)
+{
+    int drawStart; 
+    int drawEnd;
 
-void render_box(t_game *game, int y, int x, int color)
+    drawStart = line.x;
+    drawEnd = line.y;
+ 	while (drawStart < drawEnd)
+	{
+		mlx_put_pixel(img, position->x, drawStart, color);
+		drawStart++;
+	}
+}
+
+//renders a box from the 
+void render_box(mlx_image_t *img, int y, int x, int color)
 {
     int offset;
     int i;
@@ -27,7 +42,7 @@ void render_box(t_game *game, int y, int x, int color)
         j = 0;
         while(j < TILE_SIZE)
         {
-            mlx_put_pixel(game->img, x+j, y +i, color);
+            mlx_put_pixel(img, x+j, y +i, color);
             j++;
         }
         i++;
@@ -43,28 +58,33 @@ void render_box(t_game *game, int y, int x, int color)
 */
 void render_map(t_game *game)
 {
-    int x;
-    int y;
+    t_vertex pos;
 
-    y = 0;
-    while(y < game->map->y_len)
+    pos.y = 0;
+    game->map_img = mlx_new_image(game->mlx, SCREEN_WIDTH/2, SCREEN_HEIGHT/2);
+    while (pos.y < game->map->y_len)
     {
-        x = 0; 
-        while (x <game->map->x_len)
+        pos.x = 0; 
+        while (pos.x <game->map->x_len)
         {
-            if (game->map->grid[y][x] == WALL)
-                render_box(game, y * TILE_SIZE, x * TILE_SIZE, BLUE);
+            if (game->map->grid[pos.y][pos.x] == WALL)
+                render_box(game->img, pos.y * TILE_SIZE, pos.x * TILE_SIZE, BLUE);
             else
             // if (game->map->grid[y][x] == SPACE)
-                render_box(game, y * TILE_SIZE, x * TILE_SIZE, WHITE);
-            x++;
+                render_box(game->img, pos.y * TILE_SIZE, pos.x * TILE_SIZE, WHITE);
+            pos.x++;
         }
-        y++;
+        pos.y++;
     }
 
 }
 
 
+
+/*
+    renders single ray from player position
+    into dirX and dirY
+*/
 void render_ray(t_game *game, int color)
 {
     int drawStart;
@@ -73,14 +93,13 @@ void render_ray(t_game *game, int color)
     
     drawStart = 0;
     size = 24;
-    
     while (drawStart < size/2)
     {
         x = (game->player->posX * TILE_SIZE);
         mlx_put_pixel(game->img, x + (drawStart * game->player->dirX), (game->player->posY * TILE_SIZE) + (drawStart *game->player->dirY), color);
         drawStart++;
     }
-
+    
 }
 
 /*
@@ -131,6 +150,6 @@ void render_minimap(void *game_ptr)
 	ray.dirX = game->player->dirX;
 	ray.dirY = game->player->dirY;
 
-    cast_ray(game, &ray, game->img);
+    cast_ray(game, &ray);
     render_ray(game, YELLOW);
 }
