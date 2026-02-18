@@ -63,7 +63,7 @@ void	rot_camera(t_game *game, char dir)
 	play = game->player;
 	oldDirX = play->dirX;
 	oldPlaneX = play->planeX;
-	if (dir == 'r')
+	if (dir == 'l')
 	{
 		play->dirX = play->dirX * cos(ROTSPEED) - play->dirY * sin(ROTSPEED);
 		play->dirY = oldDirX * sin(ROTSPEED) + play->dirY * cos(ROTSPEED);
@@ -71,7 +71,7 @@ void	rot_camera(t_game *game, char dir)
 			* sin(ROTSPEED);
 		play->planeY = oldPlaneX * sin(ROTSPEED) + play->planeY * cos(ROTSPEED);
 	}
-	else if (dir == 'l')
+	else if (dir == 'r')
 	{
 		play->dirX = play->dirX * cos(-ROTSPEED) - play->dirY * sin(-ROTSPEED);
 		play->dirY = oldDirX * sin(-ROTSPEED) + play->dirY * cos(-ROTSPEED);
@@ -152,10 +152,10 @@ void cast_ray(t_game *game, t_ray *ray)
 		ray->dirY = game->player->dirY * game->player->planeY *cameraX;
 		ray->mapX = game->player->posX;
 		ray->mapY = game->player->posY;
+		calc_delta(ray);
 		calc_side(game, ray);
 		side = dda(game, ray);
 		line_h = calc_height(ray, side);
-		calc_delta(ray);
 		render_line(game->img, line_h, &position, WHITE);
 		position.x++;
 	}
