@@ -6,7 +6,7 @@
 /*   By: jmcgrane <jmcgrane@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/28 15:29:43 by jmcgrane          #+#    #+#             */
-/*   Updated: 2026/02/18 12:44:09 by jmcgrane         ###   ########.fr       */
+/*   Updated: 2026/02/18 12:46:43 by jmcgrane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ int	wall_textures(t_game *game)
 	{
 		mlx_delete_texture(game->texture.north);
 		return (FAILURE);
-	}	
+	}
 	game->texture.east = mlx_load_png(game->map->east);
 	if (!game->texture.east)
 	{
@@ -43,7 +43,7 @@ int	wall_textures(t_game *game)
 
 int	init_game(char *mapfile, t_game *game)
 {
-	mlx_image_t *img;
+	mlx_image_t	*img;
 
 	game->map = init_map(mapfile);
 	if (!game->map)
@@ -57,7 +57,7 @@ int	init_game(char *mapfile, t_game *game)
 	init_player(game);
 	img = mlx_new_image(game->mlx, SCREEN_WIDTH, SCREEN_HEIGHT);
 	if (!img || (mlx_image_to_window(game->mlx, img, 0, 0) < 0))
-		ft_exit_errc("Failed to load screen", (void*)&game, 'g');
+		ft_exit_errc("Failed to load screen", (void *)&game, 'g');
 	game->img = img;
 	render_map(game);
 	return (SUCCESS);
