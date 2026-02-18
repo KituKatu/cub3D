@@ -141,8 +141,7 @@ void cast_ray(t_game *game, t_ray *ray)
 	t_vertex line_h;
 	t_vertex position;
 	
-	position.x = 0;
-	position.y = SCREEN_HEIGHT/2;
+	position.x = 1;
 	side = -1;
 	while (position.x < SCREEN_WIDTH)
 	{
@@ -154,17 +153,14 @@ void cast_ray(t_game *game, t_ray *ray)
 
 		calc_delta(ray);
 		side = dda(game, ray);
-		calc_wallDist(ray, side); 
+		calc_wallDist(ray, side);
 		line_h = calc_height(ray);
+		// line_h.x += (SCREEN_HEIGHT/2);
 		render_line(game->img, line_h, &position, WHITE);
 		position.x++;
 	}
 }
 
-// void toggle_minimap(game)
-// {
-	
-// }
 
 // keyhook to process player input 
 void	cub_keyhook(mlx_key_data_t keydown, void *param)
@@ -202,6 +198,7 @@ void render_scene(void *ptr)
 	
 	game = (t_game *)ptr; 
 	t_ray ray;
+
 	ray.mapX = game->player->posX;
 	ray.mapY = game->player->posY;
 	ray.dirX = game->player->dirX;

@@ -16,7 +16,6 @@
 	calc vector of camera plane?
 	direction vector multiplies the pos of player in cert direction (length doesn't matter only dir)
 */
-
 void calc_delta(t_ray *ray)
 {
 	if (ray->dirX == 0)
@@ -35,7 +34,7 @@ void calc_wallDist(t_ray *ray, int side)
 	if (side == VERTICAL)
 		ray->perpWallDist = (ray->sideDistX - ray->deltaDistX);
 	else
-		ray->perpWallDist = (ray->sideDistY - ray->deltaDistY); //ray->perpWallDist = (ray->mapY - game->player->posY + (1 - ray->stepY) / ray->dirY); 
+		ray->perpWallDist = (ray->sideDistY - ray->deltaDistY);
 	printf("WALL DIST = %f\n", ray->perpWallDist);
 }
 
