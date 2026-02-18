@@ -40,8 +40,8 @@
 
 # define TILE_SIZE 64
 # define FOV 0.66 // Same as wolfenstien
-# define SCREEN_WIDTH 1024 // Standard (4 : 3 aspect ratio)
-# define SCREEN_HEIGHT 768
+# define SCREEN_WIDTH 2048 // Standard (4 : 3 aspect ratio)
+# define SCREEN_HEIGHT 1536
 
 
 typedef struct s_vertex
