@@ -6,7 +6,7 @@
 /*   By: jmcgrane <jmcgrane@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/14 17:31:12 by adecheri          #+#    #+#             */
-/*   Updated: 2026/02/18 12:51:21 by jmcgrane         ###   ########.fr       */
+/*   Updated: 2026/02/18 13:20:45 by jmcgrane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -147,12 +147,12 @@ int		east_path(t_map *map, char *line);
 int		west_path(t_map *map, char *line);
 int		north_path(t_map *map, char *line);
 int		south_path(t_map *map, char *line);
+int		is_valid_map(t_map *map, char *line);
 int		floor_ceiling(t_map *map, char *line);
 void	create_grid(t_map *map, int i, int j);
 int		init_game(char *mapfile, t_game *game);
 int		parse_identifier(char *line, t_map *map);
 int		floodfill(t_map *map, char **map_copy, int x, int y);
-
 
 /*Map colors*/
 

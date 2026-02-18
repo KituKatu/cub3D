@@ -6,7 +6,7 @@
 /*   By: jmcgrane <jmcgrane@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/17 12:29:08 by jmcgrane          #+#    #+#             */
-/*   Updated: 2026/02/18 12:52:00 by jmcgrane         ###   ########.fr       */
+/*   Updated: 2026/02/18 13:19:18 by jmcgrane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,27 +80,21 @@ int	west_path(t_map *map, char *line)
 	return (SUCCESS);
 }
 
-int	n_s_e_w(t_map *map, char *line)
+int	parse_map_id(char *line)
 {
-	if (ft_strncmp(line, "NO ", 3) == 0)
-	{
-		if (north_path(map, line) == FAILURE)
-			return (FAILURE);
-	}
+	if (ft_strncmp(line, "F ", 2) == 0)
+		return (SUCCESS);
+	else if (ft_strncmp(line, "C ", 2) == 0)
+		return (SUCCESS);
+	else if (ft_strncmp(line, "NO ", 3) == 0)
+		return (SUCCESS);
 	else if (ft_strncmp(line, "SO ", 3) == 0)
-	{
-		if (south_path(map, line) == FAILURE)
-			return (FAILURE);
-	}
+		return (SUCCESS);
 	else if (ft_strncmp(line, "EA ", 3) == 0)
-	{
-		if (east_path(map, line) == FAILURE)
-			return (FAILURE);
-	}
+		return (SUCCESS);
 	else if (ft_strncmp(line, "WE ", 3) == 0)
-	{
-		if (west_path(map, line) == FAILURE)
-			return (FAILURE);
-	}
+		return (SUCCESS);
+	else if (ft_strchr(line, WALL))
+		return (MAP_START);
 	return (SUCCESS);
 }
