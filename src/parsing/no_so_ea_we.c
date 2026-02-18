@@ -6,7 +6,7 @@
 /*   By: jmcgrane <jmcgrane@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/17 12:29:08 by jmcgrane          #+#    #+#             */
-/*   Updated: 2026/02/18 13:19:18 by jmcgrane         ###   ########.fr       */
+/*   Updated: 2026/02/18 15:36:15 by jmcgrane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,5 +96,7 @@ int	parse_map_id(char *line)
 		return (SUCCESS);
 	else if (ft_strchr(line, WALL))
 		return (MAP_START);
+	else
+		return (FAILURE);
 	return (SUCCESS);
 }

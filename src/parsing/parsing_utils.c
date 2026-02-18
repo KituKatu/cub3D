@@ -6,7 +6,7 @@
 /*   By: jmcgrane <jmcgrane@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/23 12:52:50 by jmcgrane          #+#    #+#             */
-/*   Updated: 2026/02/18 13:24:19 by jmcgrane         ###   ########.fr       */
+/*   Updated: 2026/02/18 15:54:27 by jmcgrane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,14 +19,16 @@ int	parse_identifier(char *line, t_map *map)
 		if (floor_ceiling(map, line) == FAILURE)
 			return (FAILURE);
 	}
-	if (ft_strncmp(line, "NO ", 3) == 0 || ft_strncmp(line, "SO ", 3) == 0
-		|| ft_strncmp(line, "EA ", 3) == 0 || ft_strncmp(line, "WE ", 3) == 0)
+	else if (ft_strncmp(line, "NO ", 3) == 0 || ft_strncmp(line, "SO ", 3) == 0
+			|| ft_strncmp(line, "EA ", 3) == 0 || ft_strncmp(line, "WE ", 3) == 0)
 	{
 		if (n_s_e_w(map, line) == FAILURE)
 			return (FAILURE);
 	}
 	else if (ft_strchr(line, WALL))
 		return (MAP_START);
+	else
+		return (FAILURE);
 	return (SUCCESS);
 }
 
