@@ -41,7 +41,7 @@ bool	dda(t_game *game, t_ray *ray)
 			ray->mapY += ray->stepY;
 			side = HORIZONTAL;
 		}
-		if (game->map->grid[ray->mapY][ray->mapX] == WALL)
+		if (game->map->grid[(int)ray->mapY][(int)ray->mapX] == WALL)
 			hit = true; 
 	}
 	return (side);
@@ -63,18 +63,17 @@ void	rot_camera(t_game *game, char dir)
 	play = game->player;
 	oldDirX = play->dirX;
 	oldPlaneX = play->planeX;
-	if (dir == 'l')
+	if (dir == 'r')
 	{
-		play->dirX = play->dirX * cos(ROTSPEED) - play->dirY * sin(ROTSPEED);
-		play->dirY = oldDirX * sin(ROTSPEED) + play->dirY * cos(ROTSPEED);
-		play->planeX = play->planeX * cos(ROTSPEED) - play->planeY
-			* sin(ROTSPEED);
+		play->dirX = (play->dirX * cos(ROTSPEED) - play->dirY * sin(ROTSPEED));
+		play->dirY = (oldDirX * sin(ROTSPEED) + play->dirY * cos(ROTSPEED));
+		play->planeX = play->planeX * cos(ROTSPEED) - play->planeY * sin(ROTSPEED);
 		play->planeY = oldPlaneX * sin(ROTSPEED) + play->planeY * cos(ROTSPEED);
 	}
-	else if (dir == 'r')
+	else if (dir == 'l')
 	{
-		play->dirX = play->dirX * cos(-ROTSPEED) - play->dirY * sin(-ROTSPEED);
-		play->dirY = oldDirX * sin(-ROTSPEED) + play->dirY * cos(-ROTSPEED);
+		play->dirX = (play->dirX * cos(-ROTSPEED) - play->dirY * sin(-ROTSPEED));
+		play->dirY = (oldDirX * sin(-ROTSPEED) + play->dirY * cos(-ROTSPEED));
 		play->planeX = play->planeX * cos(-ROTSPEED) - play->planeY
 			* sin(-ROTSPEED);
 		play->planeY = oldPlaneX * sin(-ROTSPEED) + play->planeY
@@ -110,7 +109,6 @@ void	move_pl(t_game *game, double y, double x, keys_t dir)
 				* MOVSPEED)][(int)x] == SPACE)
 			game->player->posY -= play->dirY * MOVSPEED;
 	}
-	
 }
 
 
@@ -144,18 +142,20 @@ void cast_ray(t_game *game, t_ray *ray)
 	t_vertex position;
 	
 	position.x = 0;
+	position.y = SCREEN_HEIGHT/2;
 	side = -1;
 	while (position.x < SCREEN_WIDTH)
 	{
 		cameraX = 2 * position.x / (double)SCREEN_WIDTH -1;
-		ray->dirX = game->player->dirX * game->player->planeX *cameraX;
-		ray->dirY = game->player->dirY * game->player->planeY *cameraX;
+		ray->dirX = game->player->dirX + game->player->planeX *cameraX;
+		ray->dirY = game->player->dirY + game->player->planeY *cameraX;
 		ray->mapX = game->player->posX;
 		ray->mapY = game->player->posY;
+
 		calc_delta(ray);
-		calc_side(game, ray);
 		side = dda(game, ray);
-		line_h = calc_height(ray, side);
+		calc_wallDist(ray, side); 
+		line_h = calc_height(ray);
 		render_line(game->img, line_h, &position, WHITE);
 		position.x++;
 	}
