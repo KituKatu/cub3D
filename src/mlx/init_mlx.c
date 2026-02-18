@@ -6,41 +6,38 @@
 /*   By: jmcgrane <jmcgrane@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/28 15:29:43 by jmcgrane          #+#    #+#             */
-/*   Updated: 2026/02/13 12:48:41 by jmcgrane         ###   ########.fr       */
+/*   Updated: 2026/02/18 12:44:09 by jmcgrane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/cub3d.h"
 
-mlx_image_t	*load_wall_texture(t_game *game, char *path)
+int	wall_textures(t_game *game)
 {
-	mlx_image_t		*img;
-	mlx_texture_t	*texture;
-
-	texture = mlx_load_png(path);
-	if (!texture)
-		return (NULL);
-	img = mlx_texture_to_image(game->mlx, texture);
-	mlx_delete_texture(texture);
-	if (!img)
-		return (NULL);
-	return (img);
-}
-
-int	fill_img_array(t_game *game)
-{
-	game->map->img[0] = load_wall_texture(game, game->map->north);
-	if (!game->map->img[0])
+	game->texture.north = mlx_load_png(game->map->north);
+	if (!game->texture.north)
 		return (FAILURE);
-	game->map->img[1] = load_wall_texture(game, game->map->south);
-	if (!game->map->img[1])
+	game->texture.south = mlx_load_png(game->map->south);
+	if (!game->texture.south)
+	{
+		mlx_delete_texture(game->texture.north);
 		return (FAILURE);
-	game->map->img[2] = load_wall_texture(game, game->map->east);
-	if (!game->map->img[2])
+	}	
+	game->texture.east = mlx_load_png(game->map->east);
+	if (!game->texture.east)
+	{
+		mlx_delete_texture(game->texture.north);
+		mlx_delete_texture(game->texture.south);
 		return (FAILURE);
-	game->map->img[3] = load_wall_texture(game, game->map->west);
-	if (!game->map->img[3])
+	}
+	game->texture.west = mlx_load_png(game->map->west);
+	if (!game->texture.west)
+	{
+		mlx_delete_texture(game->texture.north);
+		mlx_delete_texture(game->texture.south);
+		mlx_delete_texture(game->texture.east);
 		return (FAILURE);
+	}
 	return (SUCCESS);
 }
 
@@ -55,7 +52,7 @@ int	init_game(char *mapfile, t_game *game)
 			SCREEN_HEIGHT, "Cub3D", false);
 	if (!game->mlx)
 		return (ft_exit_errc("Can't initilize mlx", (void *)&game, 'g'));
-	if (fill_img_array(game) == FAILURE)
+	if (wall_textures(game) == FAILURE)
 		return (ft_exit_errc("Can't load wall texture", (void *)&game, 'w'));
 	init_player(game);
 	img = mlx_new_image(game->mlx, SCREEN_WIDTH, SCREEN_HEIGHT);
@@ -65,3 +62,35 @@ int	init_game(char *mapfile, t_game *game)
 	render_map(game);
 	return (SUCCESS);
 }
+
+// mlx_image_t	*load_wall_texture(t_game *game, char *path)
+// {
+// 	mlx_image_t		*img;
+// 	mlx_texture_t	*texture;
+
+// 	texture = mlx_load_png(path);
+// 	if (!texture)
+// 		return (NULL);
+// 	img = mlx_texture_to_image(game->mlx, texture);
+// 	mlx_delete_texture(texture);
+// 	if (!img)
+// 		return (NULL);
+// 	return (img);
+// }
+
+// int	fill_img_array(t_game *game)
+// {
+// 	game->map->img[0] = load_wall_texture(game, game->map->north);
+// 	if (!game->map->img[0])
+// 		return (FAILURE);
+// 	game->map->img[1] = load_wall_texture(game, game->map->south);
+// 	if (!game->map->img[1])
+// 		return (FAILURE);
+// 	game->map->img[2] = load_wall_texture(game, game->map->east);
+// 	if (!game->map->img[2])
+// 		return (FAILURE);
+// 	game->map->img[3] = load_wall_texture(game, game->map->west);
+// 	if (!game->map->img[3])
+// 		return (FAILURE);
+// 	return (SUCCESS);
+// }
