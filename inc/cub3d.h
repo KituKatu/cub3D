@@ -28,7 +28,7 @@
 # define VERTICAL 0
 # define HORIZONTAL 1
 # define READ_SIZE 42
-# define ROTSPEED 0.52
+# define ROTSPEED 0.26179 //0.5235
 # define DEGREE 0.01745
 # define PI 3.14159
 # define MOVSPEED 0.8
@@ -166,6 +166,7 @@ void 		cast_mapray(t_game *game, t_ray *ray);
 void 		cast_ray(t_game *game, t_ray *ray);
 
 /*Rendering*/
+void 	clear_scene(mlx_image_t *img);
 void 	render_line(mlx_image_t *img, t_vertex line, t_vertex *position, int color);
 void 	render_scene(void *game);
 void 	render_map(t_game *game);

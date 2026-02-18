@@ -44,13 +44,13 @@ t_vertex	calc_height(t_ray *ray, int side)
 	if (side == VERTICAL)
 		perpWallDist = (ray->sideDistX - ray->deltaDistX);
 	else
-		perpWallDist = (ray->deltaDistY - ray->deltaDistY);
+		perpWallDist = (ray->sideDistY - ray->deltaDistY);
 	ray->lineHeight = (int)SCREEN_HEIGHT / perpWallDist;
 
-	line.x = -ray->lineHeight/2 + SCREEN_HEIGHT /2;
+	line.x = -ray->lineHeight/2 + (SCREEN_HEIGHT /2);
 	if (line.x < 0)
 		line.x = 0; 
-	line.y = ray->lineHeight/2 + SCREEN_HEIGHT /2;
+	line.y = ray->lineHeight/2 + (SCREEN_HEIGHT /2);
 	if (line.y >= SCREEN_HEIGHT)
 		line.y = SCREEN_HEIGHT - 1;
 	return (line);

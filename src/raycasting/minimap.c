@@ -78,6 +78,13 @@ void render_map(t_game *game)
 }
 
 
+bool valid_space(t_game *game, double y, double x)
+{
+    if (y > 0.0 && x > 0.0 && ((game->map->grid[(int)y][(int)x] == SPACE) || (game->map->grid[(int)y][(int)x] == 'N') || (game->map->grid[(int)y][(int)x] == 'E') || (game->map->grid[(int)y][(int)x] == 'S') || (game->map->grid[(int)y][(int)x] == 'W')))
+        return (true);
+    return (false);
+}
+
 
 /*
     renders single ray from player position
@@ -88,12 +95,12 @@ void render_ray(t_game *game, int size, int color)
     int drawStart;
     t_vertex pos;
     
-    drawStart = 0;
+    drawStart = 1;
     while (drawStart < size/2)
     {
         pos.x = (game->player->posX * TILE_SIZE);
         pos.y = (game->player->posY * TILE_SIZE);
-        if (game->map->grid[(int)(pos.y + (drawStart *game->player->dirY))/64][(int)(pos.x + (drawStart * game->player->dirX))/64] != WALL)
+        if (valid_space(game, (pos.y + (drawStart *game->player->dirY))/64, (pos.x + (drawStart * game->player->dirX))/64))
             mlx_put_pixel(game->img, pos.x + (drawStart * game->player->dirX), pos.y + (drawStart *game->player->dirY), color);
         drawStart++;
     }
@@ -118,7 +125,7 @@ void render_miniplay(t_game *game, int color)
         y =  -size /2;
         while (y < size/2)
         {
-            if (game->player->posX + x > 0.0 && game->player->posX + x <= game->map->x_len * 1.0 && game->player->posY + y > 0.0 && game->player->posY + y <= game->map->y_len * 1.0)
+            if (game->player->posX + x > 0.0 && game->player->posX + x < game->map->x_len * 1.0 && game->player->posY + y > 0.0 && game->player->posY + y < game->map->y_len * 1.0)
                 mlx_put_pixel(game->img, game->player->posX * TILE_SIZE + x, game->player->posY * TILE_SIZE +y, color);
             y++;
         }
@@ -140,24 +147,29 @@ void render_miniplay(t_game *game, int color)
 void cast_mapray(t_game *game, t_ray *ray)
 {
     int raycount;
-    double side;
-    int size; 
+    int side;
+    double size; 
 
     raycount = 0;
     size = 10;
+
     while (raycount < 1)
     {
         calc_delta(ray);
         calc_side(game, ray);
-       // printf("RAY DISTX = %f\n RAY DISTY = %f\n", ray->sideDistX, ray->sideDistY);
+        // printf("RAY DISTX = %f\n RAY DISTY = %f\n", ray->sideDistX, ray->sideDistY);
         side = dda(game, ray);
         if (side == VERTICAL)
             size = ray->sideDistX;
 	    else
             size = ray->sideDistY;
-        printf("SIZE = %d\n", size);
-        render_ray(game, size *2 *TILE_SIZE, RED);
+        render_ray(game, size *2 * TILE_SIZE, WHITE);
+        render_ray(game, size *2 * TILE_SIZE, RED);
+        printf("RAY SIZE = %f\n", size);
+        printf("SIDE = %d\n", side);
+        //render_ray(game, size *2 * TILE_SIZE, WHITE);
         calc_delta(ray);
+        //ray->dirX += DEGREE;
         raycount++;
     }
 }
@@ -171,17 +183,19 @@ void cast_mapray(t_game *game, t_ray *ray)
 void render_minimap(void *game_ptr)
 {
     t_game *game;
+    t_ray ray;
 
-    
     game = (t_game *)game_ptr;
     render_miniplay(game, RED);
 
-    t_ray ray;
 	ray.mapX = game->player->posX;
 	ray.mapY = game->player->posY;
 	ray.dirX = game->player->dirX;
 	ray.dirY = game->player->dirY;
 
+    clear_scene(game->img);
+    render_map(game);
     cast_mapray(game, &ray);
-    //render_ray(game, 24, RED);
+    //render_scene(game);
+    cast_ray(game, &ray);
 }
