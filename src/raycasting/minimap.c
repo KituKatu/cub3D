@@ -63,7 +63,7 @@ void render_map(t_game *game)
     game->map_img = mlx_new_image(game->mlx, SCREEN_WIDTH/2, SCREEN_HEIGHT/2);
     while (pos.y < game->map->y_len)
     {
-        pos.x = 0; 
+        pos.x = 0;
         while (pos.x <game->map->x_len)
         {
             if (game->map->grid[pos.y][pos.x] == WALL)
@@ -144,7 +144,6 @@ void cast_mapray(t_game *game, t_ray *ray)
 
     raycount = 0;
     size = 10;
-
     while (raycount < 1)
     {
         calc_delta(ray);
@@ -154,11 +153,10 @@ void cast_mapray(t_game *game, t_ray *ray)
      	if (side == VERTICAL)
 		    size = (ray->sideDistX - ray->deltaDistX);
 	    else
-            size = ray->sideDistY;
+            size = ray->sideDistY - ray->deltaDistY;
         //render_ray(game, size *2 * TILE_SIZE, WHITE);
         render_ray(game, size *2 * TILE_SIZE, RED);
         printf("RAY SIZE = %f\n", size);
-        printf("SIDE = %d\n", side);
         //render_ray(game, size *2 * TILE_SIZE, WHITE);
         calc_delta(ray);
         //ray->dirX += DEGREE;
@@ -188,6 +186,6 @@ void render_minimap(void *game_ptr)
     render_map(game);
     render_miniplay(game, RED);
     cast_mapray(game, &ray);
-    //render_scene(game);
     cast_ray(game, &ray);
+    //render_scene(game);
 }

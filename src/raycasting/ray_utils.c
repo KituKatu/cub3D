@@ -30,29 +30,35 @@ void calc_delta(t_ray *ray)
 }
 
 
+void calc_wallDist(t_ray *ray, int side)
+{
+	if (side == VERTICAL)
+		ray->perpWallDist = (ray->sideDistX - ray->deltaDistX);
+	else
+		ray->perpWallDist = (ray->sideDistY - ray->deltaDistY); //ray->perpWallDist = (ray->mapY - game->player->posY + (1 - ray->stepY) / ray->dirY); 
+	printf("WALL DIST = %f\n", ray->perpWallDist);
+}
+
 
 // returns the line height of the walls depending on x or y axis is hit by raycast
 // needs a struct for all the arguments
-t_vertex	calc_height(t_ray *ray, int side)
+t_vertex	calc_height(t_ray *ray)
 {
-	double	perpWallDist;
-	t_vertex line; 
+	t_vertex line;
+	double line_h;
 
 	line.x = 0;
 	line.y = 0; 
-
-	if (side == VERTICAL)
-		perpWallDist = (ray->sideDistX - ray->deltaDistX);
-	else
-		perpWallDist = (ray->sideDistY - ray->deltaDistY);
-	ray->lineHeight = (int)SCREEN_HEIGHT / perpWallDist;
-
-	line.x = -ray->lineHeight/2 + (SCREEN_HEIGHT /2);
+	line_h = (int)SCREEN_HEIGHT / ray->perpWallDist;
+	//printf("LINE H = %f\n", line_h);
+	line.x = -line_h/2 + (SCREEN_HEIGHT /2);
 	if (line.x < 0)
 		line.x = 0; 
-	line.y = ray->lineHeight/2 + (SCREEN_HEIGHT /2);
+	line.y = line_h/2 + (SCREEN_HEIGHT /2);
 	if (line.y >= SCREEN_HEIGHT)
 		line.y = SCREEN_HEIGHT - 1;
+	// printf("LINE X = %d\n", line.x);
+	// printf("LINE Y = %d\n", line.y);
 	return (line);
 }
 
