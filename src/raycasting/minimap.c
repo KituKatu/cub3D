@@ -81,7 +81,7 @@ void render_map(t_game *game)
 
 bool valid_space(t_game *game, double y, double x)
 {
-    if (y > 0.0 && x > 0.0 && ((game->map->grid[(int)y][(int)x] == SPACE) || (game->map->grid[(int)y][(int)x] == 'N') || (game->map->grid[(int)y][(int)x] == 'E') || (game->map->grid[(int)y][(int)x] == 'S') || (game->map->grid[(int)y][(int)x] == 'W')))
+    if (y > 0 && x > 0 && ((game->map->grid[(int)y][(int)x] == SPACE) || (game->map->grid[(int)y][(int)x] == 'N') || (game->map->grid[(int)y][(int)x] == 'E') || (game->map->grid[(int)y][(int)x] == 'S') || (game->map->grid[(int)y][(int)x] == 'W')))
         return (true);
     return (false);
 }
@@ -102,7 +102,7 @@ void render_ray(t_game *game, int size, int color)
         pos.x = (game->player->posX * TILE_SIZE);
         pos.y = (game->player->posY * TILE_SIZE);
         if (valid_space(game, (pos.y + (drawStart *game->player->dirY))/64, (pos.x + (drawStart * game->player->dirX))/64))
-            mlx_put_pixel(game->img, pos.x + (drawStart * game->player->dirX), pos.y + (drawStart *game->player->dirY), color);
+            mlx_put_pixel(game->img, pos.x + (drawStart * game->player->dirX), pos.y + (drawStart * game->player->dirY), color);
         drawStart++;
     }
     
@@ -147,15 +147,15 @@ void cast_mapray(t_game *game, t_ray *ray)
 
     while (raycount < 1)
     {
+        calc_delta(ray);
         calc_side(game, ray);
         // printf("RAY DISTX = %f\n RAY DISTY = %f\n", ray->sideDistX, ray->sideDistY);
         side = dda(game, ray);
-        calc_delta(ray);
      	if (side == VERTICAL)
 		    size = (ray->sideDistX - ray->deltaDistX);
 	    else
             size = ray->sideDistY;
-        render_ray(game, size *2 * TILE_SIZE, WHITE);
+        //render_ray(game, size *2 * TILE_SIZE, WHITE);
         render_ray(game, size *2 * TILE_SIZE, RED);
         printf("RAY SIZE = %f\n", size);
         printf("SIDE = %d\n", side);
@@ -178,15 +178,15 @@ void render_minimap(void *game_ptr)
     t_ray ray;
 
     game = (t_game *)game_ptr;
-    render_miniplay(game, RED);
-
+    
 	ray.mapX = game->player->posX;
 	ray.mapY = game->player->posY;
 	ray.dirX = game->player->dirX;
 	ray.dirY = game->player->dirY;
-
+    
     clear_scene(game->img);
     render_map(game);
+    render_miniplay(game, RED);
     cast_mapray(game, &ray);
     //render_scene(game);
     cast_ray(game, &ray);
