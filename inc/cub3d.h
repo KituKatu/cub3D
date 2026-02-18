@@ -6,7 +6,7 @@
 /*   By: jmcgrane <jmcgrane@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/14 17:31:12 by adecheri          #+#    #+#             */
-/*   Updated: 2026/02/18 12:35:28 by jmcgrane         ###   ########.fr       */
+/*   Updated: 2026/02/18 12:51:21 by jmcgrane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -141,6 +141,7 @@ int		is_valid_char(t_map *map);
 int		read_map_again(t_map *map);
 void	map_dimensions(t_map *map);
 int		wall_textures(t_game *game);
+int		n_s_e_w(t_map *map, char *line);
 void	parse_map_first_line(t_map *map);
 int		east_path(t_map *map, char *line);
 int		west_path(t_map *map, char *line);

@@ -6,7 +6,7 @@
 /*   By: jmcgrane <jmcgrane@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/17 12:29:08 by jmcgrane          #+#    #+#             */
-/*   Updated: 2026/02/17 13:27:46 by jmcgrane         ###   ########.fr       */
+/*   Updated: 2026/02/18 12:52:00 by jmcgrane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,5 +77,30 @@ int	west_path(t_map *map, char *line)
 		return (FAILURE);
 	}
 	close(fd);
+	return (SUCCESS);
+}
+
+int	n_s_e_w(t_map *map, char *line)
+{
+	if (ft_strncmp(line, "NO ", 3) == 0)
+	{
+		if (north_path(map, line) == FAILURE)
+			return (FAILURE);
+	}
+	else if (ft_strncmp(line, "SO ", 3) == 0)
+	{
+		if (south_path(map, line) == FAILURE)
+			return (FAILURE);
+	}
+	else if (ft_strncmp(line, "EA ", 3) == 0)
+	{
+		if (east_path(map, line) == FAILURE)
+			return (FAILURE);
+	}
+	else if (ft_strncmp(line, "WE ", 3) == 0)
+	{
+		if (west_path(map, line) == FAILURE)
+			return (FAILURE);
+	}
 	return (SUCCESS);
 }
