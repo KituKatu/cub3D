@@ -1,7 +1,7 @@
 NO ./textures/seamless_1.png
 SO ./textures/seamless_1.png
-WE ./textures/seamless_1.png
-EA ./textures/seamless_1.png
+WE ./textures/seamless_3.png
+EA ./textures/seamless_3.png
 
 F 220,200,0
 C 225,30,0
