@@ -6,7 +6,7 @@
 /*   By: jmcgrane <jmcgrane@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/16 16:38:38 by adecheri          #+#    #+#             */
-/*   Updated: 2026/02/17 12:14:01 by jmcgrane         ###   ########.fr       */
+/*   Updated: 2026/02/20 13:12:57 by jmcgrane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -153,6 +153,7 @@ void cast_ray(t_game *game, t_ray *ray)
 
 		calc_delta(ray);
 		side = dda(game, ray);
+		ray->side = side;
 		calc_wallDist(ray, side);
 		line_h = calc_height(ray);
 		// line_h.x += (SCREEN_HEIGHT/2);
