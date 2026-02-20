@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                         ::::::::           */
-/*   ray_utils.c                                         :+:    :+:           */
-/*                                                      +:+                   */
-/*   By: adecheri <marvin@42.fr>                       +#+                    */
-/*                                                    +#+                     */
-/*   Created: 2026/02/11 12:29:32 by adecheri       #+#    #+#                */
-/*   Updated: 2026/02/11 12:29:33 by adecheri       ########   odam.nl        */
+/*                                                        :::      ::::::::   */
+/*   ray_utils.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: jmcgrane <jmcgrane@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/02/11 12:29:32 by adecheri          #+#    #+#             */
+/*   Updated: 2026/02/20 14:23:21 by jmcgrane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,7 @@ t_vertex	calc_height(t_ray *ray)
 	line.x = 0;
 	line.y = 0; 
 	line_h = (int)SCREEN_HEIGHT / ray->perpWallDist;
+	ray->line_height = (int)line_h;
 	//printf("LINE H = %f\n", line_h);
 	line.x = -line_h/2 + (SCREEN_HEIGHT /2);
 	if (line.x < 0)
