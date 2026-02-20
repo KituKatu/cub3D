@@ -6,7 +6,7 @@
 #    By: jmcgrane <jmcgrane@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2026/01/14 17:10:46 by adecheri          #+#    #+#              #
-#    Updated: 2026/02/17 12:42:18 by jmcgrane         ###   ########.fr        #
+#    Updated: 2026/02/20 14:33:49 by jmcgrane         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -46,6 +46,7 @@ SRCS =	$(MAINDIR)main.c \
 		$(PARSDIR)no_so_ea_we.c \
 		$(RAYDIR)minimap.c \
 		$(RAYDIR)init_player.c \
+		$(RAYDIR)textures.c \
 		$(UTILDIR)error.c \
 		$(UTILDIR)free.c \
 		$(MLXDIR)init_mlx.c \

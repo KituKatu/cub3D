@@ -6,7 +6,7 @@
 /*   By: jmcgrane <jmcgrane@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/14 17:31:12 by adecheri          #+#    #+#             */
-/*   Updated: 2026/02/20 14:20:55 by jmcgrane         ###   ########.fr       */
+/*   Updated: 2026/02/20 14:32:27 by jmcgrane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -192,6 +192,8 @@ void		init_orient_E_W(t_game *game, t_player *player);
 void		move_pl(t_game *game, double y, double x, keys_t dir);
 void 		cast_mapray(t_game *game, t_ray *ray);
 void 		cast_ray(t_game *game, t_ray *ray);
+void		render_textured_line(t_game *game, t_ray *ray, t_vertex line,
+									t_vertex *pos);
 
 /*Rendering*/
 void 	clear_scene(mlx_image_t *img);

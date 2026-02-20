@@ -6,7 +6,7 @@
 /*   By: jmcgrane <jmcgrane@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/16 16:38:38 by adecheri          #+#    #+#             */
-/*   Updated: 2026/02/20 13:12:57 by jmcgrane         ###   ########.fr       */
+/*   Updated: 2026/02/20 14:33:11 by jmcgrane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -157,7 +157,8 @@ void cast_ray(t_game *game, t_ray *ray)
 		calc_wallDist(ray, side);
 		line_h = calc_height(ray);
 		// line_h.x += (SCREEN_HEIGHT/2);
-		render_line(game->img, line_h, &position, WHITE);
+		// render_line(game->img, line_h, &position, WHITE);
+		render_textured_line(game, ray, line_h, &position);
 		position.x++;
 	}
 }
