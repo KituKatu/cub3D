@@ -6,7 +6,7 @@
 /*   By: jmcgrane <jmcgrane@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/14 17:31:12 by adecheri          #+#    #+#             */
-/*   Updated: 2026/02/20 13:12:16 by jmcgrane         ###   ########.fr       */
+/*   Updated: 2026/02/20 14:20:55 by jmcgrane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ typedef struct s_vertex
 }	t_vertex;
 
 
-typedef struct s_map
+typedef struct	s_map
 {
 	int			fd;
 	char		*north;
@@ -73,25 +73,25 @@ typedef struct s_map
 	mlx_image_t	*img[4];
 }				t_map;
 
-typedef struct s_ray
+typedef struct	s_ray
 {
-	double stepX;
-	double stepY;
-	double dirX;
-	double dirY;
-	int mapX;
-	int mapY;
-	double sideDistX;
-	double sideDistY;
-	double deltaDistX;
-	double deltaDistY;
-	double perpWallDist; 
-	double wallx;
-	int	   line_height;
-	int    side;
+	double	stepX;
+	double	stepY;
+	double	dirX;
+	double	dirY;
+	int		mapX;
+	int		mapY;
+	double	sideDistX;
+	double	sideDistY;
+	double	deltaDistX;
+	double	deltaDistY;
+	double	perpWallDist; 
+	double	wallx;
+	int		line_height;
+	int		side;
 }			t_ray;
 
-typedef struct s_player
+typedef struct	s_player
 {
 	double	posX;
 	double	posY;
