@@ -6,7 +6,7 @@
 /*   By: jmcgrane <jmcgrane@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/16 16:38:38 by adecheri          #+#    #+#             */
-/*   Updated: 2026/02/24 12:44:41 by jmcgrane         ###   ########.fr       */
+/*   Updated: 2026/02/24 14:40:15 by jmcgrane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,8 @@ bool	dda(t_game *game, t_ray *ray)
 	hit = false; 
 	while (hit == false)
 	{
-		if (ray->sideDistX < ray->deltaDistY)
+		calc_side(game, ray);
+		if (ray->sideDistX < ray->sideDistY)
 		{	
 			ray->sideDistX += ray->deltaDistX;
 			ray->mapX += ray->stepX;

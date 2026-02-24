@@ -6,7 +6,7 @@
 /*   By: jmcgrane <jmcgrane@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/11 12:29:32 by adecheri          #+#    #+#             */
-/*   Updated: 2026/02/20 14:23:21 by jmcgrane         ###   ########.fr       */
+/*   Updated: 2026/02/24 14:40:14 by jmcgrane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,13 +18,13 @@
 */
 void calc_delta(t_ray *ray)
 {
-	if (ray->dirX == 0.0)
-		ray->dirX = 1e30; 
+	if (ray->dirX == 0)
+		ray->deltaDistX = 1e30;
 	else
-		ray->deltaDistX = fabs(1.0 / ray->dirX);  
-	if (ray->dirY == 0.0)
-		ray->dirY = 1e30;
-	else 
+		ray->deltaDistX = fabs(1.0 / ray->dirX);
+	if (ray->dirY == 0)
+		ray->deltaDistY = 1e30;
+	else
 		ray->deltaDistY = fabs(1.0 / ray->dirY);
 }
 
