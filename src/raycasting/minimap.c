@@ -150,6 +150,8 @@ void cast_mapray(t_game *game, t_ray *ray)
     double size; 
 
     raycount = 0;
+    ray->mapX = game->player->posX;
+	ray->mapY = game->player->posY;
     while (raycount < 1)
     {
         calc_delta(ray);
@@ -162,7 +164,7 @@ void cast_mapray(t_game *game, t_ray *ray)
             size = ray->sideDistY - ray->deltaDistY;
         //render_ray(game, size *2 * TILE_SIZE, WHITE);
         render_ray(game, size *2 * TILE_SIZE, RED);
-        printf("RAY SIZE = %f\n", size);
+        printf("PANEL X = %f\n, PANEL Y = %f\n", game->player->planeX, game->player->planeY);
         //render_ray(game, size *2 * TILE_SIZE, WHITE);
         //calc_delta(ray);
         //ray->dirX += DEGREE;
@@ -182,8 +184,8 @@ void render_minimap(void *game_ptr)
     t_ray ray;
 
     game = (t_game *)game_ptr;
-	ray.mapX = game->player->posX;
-	ray.mapY = game->player->posY;
+	// ray.mapX = game->player->posX;
+	// ray.mapY = game->player->posY;
 	ray.dirX = game->player->dirX;
 	ray.dirY = game->player->dirY;
     

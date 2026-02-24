@@ -17,7 +17,7 @@
 //TODO: rendering rays from play->pos until wall=hit 
 
 
-
+//&& (ray->mapX > 0 || ray->mapY > 0 || ray->mapX < game->map->x_len || ray->mapY < game->map->y_len)
 // calc if ray from camera plane hits wall
 // with side defining if the wall is NS or EW
 bool	dda(t_game *game, t_ray *ray)
@@ -26,9 +26,9 @@ bool	dda(t_game *game, t_ray *ray)
 	bool	side;
 
 	hit = false; 
+	
 	while (hit == false)
 	{
-		calc_side(game, ray);
 		if (ray->sideDistX < ray->deltaDistY)
 		{	
 			ray->sideDistX += ray->deltaDistX;
@@ -141,7 +141,7 @@ void cast_ray(t_game *game, t_ray *ray)
 	t_vertex line_h;
 	t_vertex position;
 	
-	position.x = 1;
+	position.x = 0;
 	side = -1;
 	while (position.x < SCREEN_WIDTH)
 	{
@@ -150,15 +150,16 @@ void cast_ray(t_game *game, t_ray *ray)
 		ray->dirY = game->player->dirY + game->player->planeY *cameraX;
 		ray->mapX = game->player->posX;
 		ray->mapY = game->player->posY;
-
+	//	printf("RAYMAPX = %d\n RAYMAPY = %d\n", ray->mapX, ray->mapY);
 		calc_delta(ray);
+		calc_side(game, ray);
 		side = dda(game, ray);
 		ray->side = side;
 		calc_wallDist(ray, side);
 		line_h = calc_height(ray);
 		// line_h.x += (SCREEN_HEIGHT/2);
 		render_line(game->img, line_h, &position, WHITE);
-		// render_textured_line(game, ray, line_h, &position);
+		render_textured_line(game, ray, line_h, &position);
 		position.x++;
 	}
 }
@@ -190,7 +191,7 @@ void	cub_keyhook(mlx_key_data_t keydown, void *param)
 	render_miniplay(game, RED);
 	render_ray(game, 24, RED);
 	printf("PLAYER X: %f\n PLAYER Y: %f\n", game->player->posX, game->player->posY);
-	printf("PLAYER DIRX: %f\n PLAYER DIRY: %f\n", game->player->dirX, game->player->dirY);
+	// printf("PLAYER DIRX: %f\n PLAYER DIRY: %f\n", game->player->dirX, game->player->dirY);
 	// printf("PLAYER PLANEX: %f\n PLAYER PLANEY: %f\n", game->player->planeX, game->player->planeY);
 }
 
@@ -201,8 +202,8 @@ void render_scene(void *ptr)
 	game = (t_game *)ptr; 
 	t_ray ray;
 
-	ray.mapX = game->player->posX;
-	ray.mapY = game->player->posY;
+	// ray.mapX = game->player->posX;
+	// ray.mapY = game->player->posY;
 	ray.dirX = game->player->dirX;
 	ray.dirY = game->player->dirY;
 
