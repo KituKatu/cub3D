@@ -74,10 +74,10 @@ void render_map(t_game *game)
         while (pos.x <game->map->x_len)
         {
             if (game->map->grid[pos.y][pos.x] == WALL)
-                render_box(game->img, (pos.y * TILE_SIZE)/off, (pos.x * TILE_SIZE)/off, BLUE);
+                render_box(game->img, (pos.y * TILE_SIZE)*0.25, (pos.x * TILE_SIZE)*0.25, BLUE);
             else
             // if (game->map->grid[y][x] == SPACE)
-                render_box(game->img, (pos.y * TILE_SIZE)/off, (pos.x * TILE_SIZE)/off, WHITE);
+                render_box(game->img, (pos.y * TILE_SIZE)*0.25, (pos.x * TILE_SIZE)*0.25, WHITE);
             pos.x++;
         }
         pos.y++;
@@ -163,7 +163,7 @@ void cast_mapray(t_game *game, t_ray *ray)
 	    else
             size = ray->sideDistY - ray->deltaDistY;
         //render_ray(game, size *2 * TILE_SIZE, WHITE);
-        render_ray(game, size *2 * TILE_SIZE, RED);
+        render_ray(game, size/2 * TILE_SIZE, RED);
         //printf("PANEL X = %f\n, PANEL Y = %f\n", game->player->planeX, game->player->planeY);
         //render_ray(game, size *2 * TILE_SIZE, WHITE);
         //calc_delta(ray);
@@ -190,9 +190,9 @@ void render_minimap(void *game_ptr)
 	ray.dirY = game->player->dirY;
     
     clear_scene(game->img);
+    cast_ray(game, &ray);
     render_map(game);
     render_miniplay(game, RED);
     cast_mapray(game, &ray);
-    cast_ray(game, &ray);
     //render_scene(game);
 }

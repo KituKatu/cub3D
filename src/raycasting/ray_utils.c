@@ -29,9 +29,6 @@ void calc_delta(t_ray *ray)
 }
 
 
-// 	ray->perpWallDist = (ray->mapX - game->player->posX + (1 - ray->stepX) / 2) / ray->dirX;
-// else 
-// 	ray->perpWallDist = (ray->mapY - game->player->posY + (1 - ray->stepX) / 2) / ray->dirY;
 void calc_wallDist(t_game *game, t_ray *ray, int side)
 {
 	if (side == VERTICAL)

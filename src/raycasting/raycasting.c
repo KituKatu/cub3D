@@ -150,13 +150,12 @@ void cast_ray(t_game *game, t_ray *ray)
 		ray->dirY = game->player->dirY + game->player->planeY *cameraX;
 		ray->mapX = game->player->posX;
 		ray->mapY = game->player->posY;
-	//	printf("RAYMAPX = %d\n RAYMAPY = %d\n", ray->mapX, ray->mapY);
 		calc_delta(ray);
 		calc_side(game, ray);
 		side = dda(game, ray);
 		ray->side = side;
 		calc_wallDist(game, ray, side);
-		printf("PERPWALL = %f\n", ray->perpWallDist);
+	//	printf("PERPWALL = %f\n", ray->perpWallDist);
 		line_h = calc_height(ray);
 		// line_h.x += (SCREEN_HEIGHT/2);
 		render_line(game->img, line_h, &position, WHITE);
