@@ -6,7 +6,7 @@
 /*   By: jmcgrane <jmcgrane@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/14 17:31:12 by adecheri          #+#    #+#             */
-/*   Updated: 2026/02/20 14:44:01 by jmcgrane         ###   ########.fr       */
+/*   Updated: 2026/02/24 15:27:35 by jmcgrane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -177,6 +177,7 @@ void	cub_keyhook(mlx_key_data_t keydown, void *param);
 
 void	ft_clean_cubed(void **ptr, char id);
 int		ft_exit_errc(const char *msg, void **ptr, char id);
+void	free_cubgame(t_game **game);
 
 /*Ray Casting*/
 

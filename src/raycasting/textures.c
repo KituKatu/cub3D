@@ -63,6 +63,13 @@ void	render_textured_line(t_game *game, t_ray *ray, t_vertex line,
         tex_x = tex->width - tex_x - 1;
     if (ray->side == HORIZONTAL && ray->dirY < 0)
         tex_x = tex->width - tex_x - 1;
+    y = 0;
+    while (y < line.x)
+    {
+        mlx_put_pixel(game->img, pos->x, y,
+            (game->map->ceiling << 8) | 0xFF);
+        y++;
+    }
     step = (double)tex->height / ray->line_height;
     tex_pos = (line.x - SCREEN_HEIGHT / 2 + ray->line_height / 2) * step;
     y = line.x;
@@ -71,6 +78,12 @@ void	render_textured_line(t_game *game, t_ray *ray, t_vertex line,
         tex_y = (int)tex_pos % tex->height;
         tex_pos += step;
         mlx_put_pixel(game->img, pos->x, y, get_tex_pixel(tex, tex_x, tex_y));
+        y++;
+    }
+    while (y < SCREEN_HEIGHT)
+    {
+        mlx_put_pixel(game->img, pos->x, y,
+            (game->map->floor << 8) | 0xFF);
         y++;
     }
 }

@@ -6,7 +6,7 @@
 /*   By: jmcgrane <jmcgrane@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/14 17:13:00 by adecheri          #+#    #+#             */
-/*   Updated: 2026/02/04 12:39:46 by jmcgrane         ###   ########.fr       */
+/*   Updated: 2026/02/24 15:28:20 by jmcgrane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@ side the wall is facing (North, South, East, West
 int	main(int ac, char **av)
 {
 	t_game	game;
+	t_game	*gptr;
 
 	if (ac != 2)
 	{
@@ -33,6 +34,8 @@ int	main(int ac, char **av)
 //	mlx_loop_hook(game.mlx, render_scene, (void *)&game);
 	mlx_key_hook(game.mlx, cub_keyhook, (void*)&game);
 	mlx_loop(game.mlx);
+	gptr = &game;
+	free_cubgame(&gptr);
 	mlx_terminate(game.mlx);
 	return (SUCCESS);
 }

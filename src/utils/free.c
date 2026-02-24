@@ -18,15 +18,11 @@ void	free_cubmap(t_map **map)
 
 	i = 0;
 	ft_safefree((void *)&(*map)->line);
+	ft_safefree((void *)&(*map)->name);
 	ft_safefree((void *)&(*map)->north);
 	ft_safefree((void *)&(*map)->east);
 	ft_safefree((void *)&(*map)->south);
 	ft_safefree((void *)&(*map)->west);
-	// while((*map)->grid)
-	// {
-	// 	ft_safefree((void *)&(*map)->grid[i]);
-	// 	i++;
-	// }
 	if ((*map)->grid)
 	{
 		while((*map)->grid[i])
@@ -36,10 +32,24 @@ void	free_cubmap(t_map **map)
 		}
 		ft_safefree((void *)&(*map)->grid);
 	}
+	ft_safefree((void *)map);
+}
+
+static void	free_textures(t_game **game)
+{
+	if ((*game)->texture.north)
+		mlx_delete_texture((*game)->texture.north);
+	if ((*game)->texture.south)
+		mlx_delete_texture((*game)->texture.south);
+	if ((*game)->texture.east)
+		mlx_delete_texture((*game)->texture.east);
+	if ((*game)->texture.west)
+		mlx_delete_texture((*game)->texture.west);
 }
 
 void	free_cubgame(t_game **game)
 {
+	free_textures(game);
 	free_cubmap(&(*game)->map);
 	ft_safefree((void *)&(*game)->player);
 }

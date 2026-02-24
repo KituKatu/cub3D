@@ -55,6 +55,7 @@ int	floor_ceiling(t_map *map, char *line)
 		line = ft_strtrim(line + 2, "\n\t\r ");
 		map->ceiling = parse_color(line, map);
 	}
+	ft_safefree((void *)&map->line);
 	return (SUCCESS);
 }
 

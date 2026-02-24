@@ -30,11 +30,7 @@ t_map	*init_map(char *mapname)
 	}
 	map->name = map_path;
 	if (read_map(map) == FAILURE)
-	{
-		ft_safefree((void *)&map_path);
 		ft_exit_errc("Can't read mapfile", (void *)&map, 'm');
-	}
-	ft_safefree((void *)&map_path);
 	return (map);
 }
 
@@ -56,6 +52,7 @@ int	read_map(t_map *map)
 		if (ret == MAP_START)
 		{
 			map_setup(map);
+			ft_safefree((void *)&map->line);
 			break ;
 		}
 		else if (ret == FAILURE)
