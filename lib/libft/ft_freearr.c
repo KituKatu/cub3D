@@ -21,6 +21,6 @@ void	ft_freearr(void **array)
 		i = -1;
 		while (array[++i])
 			ft_safefree(&array[i]);
-		ft_safefree(array);
+		free(array);
 	}
 }
