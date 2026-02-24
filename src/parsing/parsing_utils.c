@@ -6,7 +6,7 @@
 /*   By: jmcgrane <jmcgrane@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/23 12:52:50 by jmcgrane          #+#    #+#             */
-/*   Updated: 2026/02/18 15:54:27 by jmcgrane         ###   ########.fr       */
+/*   Updated: 2026/02/24 13:29:21 by jmcgrane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,8 +106,8 @@ void	map_dimensions(t_map *map)
 	}
 	map->x_len = width;
 	map->y_len = height;
-	// if (map->x_len > 116 || map->y_len > 60)
-	// 	ft_exit_errc("Map size error!", (void *)&map, 's');
+	if (map->x_len > 116 || map->y_len > 40)
+		ft_exit_errc("Map size error!", (void *)&map, 's');
 	close(map->fd);
 }
 

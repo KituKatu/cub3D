@@ -6,7 +6,7 @@
 /*   By: jmcgrane <jmcgrane@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/16 16:38:38 by adecheri          #+#    #+#             */
-/*   Updated: 2026/02/24 12:44:41 by jmcgrane         ###   ########.fr       */
+/*   Updated: 2026/02/24 14:40:15 by jmcgrane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ bool	dda(t_game *game, t_ray *ray)
 	while (hit == false)
 	{
 		calc_side(game, ray);
-		if (ray->sideDistX < ray->deltaDistY)
+		if (ray->sideDistX < ray->sideDistY)
 		{	
 			ray->sideDistX += ray->deltaDistX;
 			ray->mapX += ray->stepX;
@@ -141,7 +141,7 @@ void cast_ray(t_game *game, t_ray *ray)
 	t_vertex line_h;
 	t_vertex position;
 	
-	position.x = 1;
+	position.x = 0;
 	side = -1;
 	while (position.x < SCREEN_WIDTH)
 	{
