@@ -41,6 +41,7 @@ int	validate_map(t_map *map)
 		}
 		y++;
 	}
+	ft_freearr((void *)copy);
 	return (result);
 }
 

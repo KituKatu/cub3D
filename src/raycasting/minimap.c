@@ -6,7 +6,7 @@
 /*   By: jmcgrane <jmcgrane@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/12 12:31:32 by jmcgrane          #+#    #+#             */
-/*   Updated: 2026/02/17 12:16:03 by jmcgrane         ###   ########.fr       */
+/*   Updated: 2026/02/24 14:58:52 by jmcgrane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -141,7 +141,6 @@ void render_miniplay(t_game *game, int color)
     }
         
 }
-
 
 void cast_mapray(t_game *game, t_ray *ray)
 {

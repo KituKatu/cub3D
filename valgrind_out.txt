@@ -1,0 +1,78 @@
+==151890== Memcheck, a memory error detector
+==151890== Copyright (C) 2002-2017, and GNU GPL'd, by Julian Seward et al.
+==151890== Using Valgrind-3.18.1 and LibVEX; rerun with -h for copyright info
+==151890== Command: ./cub3D jack.cub
+==151890== 
+==151890== 
+==151890== Process terminating with default action of signal 15 (SIGTERM)
+==151890==    at 0x4A5EF0E: futex_wake (futex-internal.h:209)
+==151890==    by 0x4A5EF0E: __pthread_once_slow (pthread_once.c:127)
+==151890==    by 0x5AC81B6: ??? (in /usr/lib/x86_64-linux-gnu/dri/radeonsi_dri.so)
+==151890==    by 0x6111680: ??? (in /usr/lib/x86_64-linux-gnu/dri/radeonsi_dri.so)
+==151890==    by 0x5AC125B: ??? (in /usr/lib/x86_64-linux-gnu/dri/radeonsi_dri.so)
+==151890==    by 0x59075E1: ??? (in /usr/lib/x86_64-linux-gnu/libGLX_mesa.so.0.0.0)
+==151890==    by 0x58F8F80: ??? (in /usr/lib/x86_64-linux-gnu/libGLX_mesa.so.0.0.0)
+==151890==    by 0x58F5ADB: ??? (in /usr/lib/x86_64-linux-gnu/libGLX_mesa.so.0.0.0)
+==151890==    by 0x4888404: glfwCreateWindow (in /usr/lib/x86_64-linux-gnu/libglfw.so.3.3)
+==151890==    by 0x407B8E: mlx_init (in /home/jmcgrane/Documents/cub3d/cub3D)
+==151890==    by 0x4044E0: init_game (in /home/jmcgrane/Documents/cub3d/cub3D)
+==151890==    by 0x40250A: main (in /home/jmcgrane/Documents/cub3d/cub3D)
+==151890== 
+==151890== HEAP SUMMARY:
+==151890==     in use at exit: 1,435,370 bytes in 6,912 blocks
+==151890==   total heap usage: 9,360 allocs, 2,448 frees, 2,418,230 bytes allocated
+==151890== 
+==151890== 31 bytes in 1 blocks are definitely lost in loss record 508 of 3,458
+==151890==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==151890==    by 0x405E3F: ft_substr (ft_substr.c:26)
+==151890==    by 0x406656: extract_line (get_next_line.c:24)
+==151890==    by 0x406889: get_next_line (get_next_line.c:79)
+==151890==    by 0x40320E: read_map (in /home/jmcgrane/Documents/cub3d/cub3D)
+==151890==    by 0x403172: init_map (in /home/jmcgrane/Documents/cub3d/cub3D)
+==151890==    by 0x4044BF: init_game (in /home/jmcgrane/Documents/cub3d/cub3D)
+==151890==    by 0x40250A: main (in /home/jmcgrane/Documents/cub3d/cub3D)
+==151890== 
+==151890== 32 bytes in 1 blocks are definitely lost in loss record 614 of 3,458
+==151890==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==151890==    by 0x405783: ft_split (ft_split.c:98)
+==151890==    by 0x402CB4: parse_color (in /home/jmcgrane/Documents/cub3d/cub3D)
+==151890==    by 0x402E97: floor_ceiling (in /home/jmcgrane/Documents/cub3d/cub3D)
+==151890==    by 0x402DEE: parse_identifier (in /home/jmcgrane/Documents/cub3d/cub3D)
+==151890==    by 0x40322F: read_map (in /home/jmcgrane/Documents/cub3d/cub3D)
+==151890==    by 0x403172: init_map (in /home/jmcgrane/Documents/cub3d/cub3D)
+==151890==    by 0x4044BF: init_game (in /home/jmcgrane/Documents/cub3d/cub3D)
+==151890==    by 0x40250A: main (in /home/jmcgrane/Documents/cub3d/cub3D)
+==151890== 
+==151890== 32 bytes in 1 blocks are definitely lost in loss record 615 of 3,458
+==151890==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==151890==    by 0x405783: ft_split (ft_split.c:98)
+==151890==    by 0x402CB4: parse_color (in /home/jmcgrane/Documents/cub3d/cub3D)
+==151890==    by 0x402ECF: floor_ceiling (in /home/jmcgrane/Documents/cub3d/cub3D)
+==151890==    by 0x402DEE: parse_identifier (in /home/jmcgrane/Documents/cub3d/cub3D)
+==151890==    by 0x40322F: read_map (in /home/jmcgrane/Documents/cub3d/cub3D)
+==151890==    by 0x403172: init_map (in /home/jmcgrane/Documents/cub3d/cub3D)
+==151890==    by 0x4044BF: init_game (in /home/jmcgrane/Documents/cub3d/cub3D)
+==151890==    by 0x40250A: main (in /home/jmcgrane/Documents/cub3d/cub3D)
+==151890== 
+==151890== 160 bytes in 1 blocks are definitely lost in loss record 3,247 of 3,458
+==151890==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==151890==    by 0x40535C: ft_calloc (ft_calloc.c:21)
+==151890==    by 0x404699: map_copy (in /home/jmcgrane/Documents/cub3d/cub3D)
+==151890==    by 0x4045B0: validate_map (in /home/jmcgrane/Documents/cub3d/cub3D)
+==151890==    by 0x402618: map_setup (in /home/jmcgrane/Documents/cub3d/cub3D)
+==151890==    by 0x403241: read_map (in /home/jmcgrane/Documents/cub3d/cub3D)
+==151890==    by 0x403172: init_map (in /home/jmcgrane/Documents/cub3d/cub3D)
+==151890==    by 0x4044BF: init_game (in /home/jmcgrane/Documents/cub3d/cub3D)
+==151890==    by 0x40250A: main (in /home/jmcgrane/Documents/cub3d/cub3D)
+==151890== 
+==151890== LEAK SUMMARY:
+==151890==    definitely lost: 255 bytes in 4 blocks
+==151890==    indirectly lost: 0 bytes in 0 blocks
+==151890==      possibly lost: 0 bytes in 0 blocks
+==151890==    still reachable: 290,864 bytes in 30 blocks
+==151890==         suppressed: 1,144,251 bytes in 6,878 blocks
+==151890== Reachable blocks (those to which a pointer was found) are not shown.
+==151890== To see them, rerun with: --leak-check=full --show-leak-kinds=all
+==151890== 
+==151890== For lists of detected and suppressed errors, rerun with: -s
+==151890== ERROR SUMMARY: 4 errors from 4 contexts (suppressed: 580 from 580)
