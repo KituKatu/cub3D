@@ -41,7 +41,7 @@
 # define TILE_SIZE 64
 # define FOV 0.66 // Same as wolfenstien
 # define SCREEN_WIDTH 2048 // Standard (4 : 3 aspect ratio)
-# define SCREEN_HEIGHT 1536
+# define SCREEN_HEIGHT 1436
 
 
 typedef struct s_vertex
@@ -79,8 +79,8 @@ typedef struct	s_ray
 	double	stepY;
 	double	dirX;
 	double	dirY;
-	int		mapX;
-	int		mapY;
+	double	mapX;
+	double	mapY;
 	double	sideDistX;
 	double	sideDistY;
 	double	deltaDistX;
@@ -185,8 +185,8 @@ void		init_player(t_game *game);
 void		calc_side(t_game *game, t_ray *ray);
 void		rot_camera(t_game *game, char dir);
 void 		calc_delta(t_ray *ray);
-void		calc_wallDist(t_ray *ray, int side);
-t_vertex		calc_height(t_ray *ray);
+void		calc_wallDist(t_game *game, t_ray *ray, int side);
+t_vertex	calc_height(t_ray *ray);
 void		init_orient_N_S(t_game *game, t_player *player);
 void		init_orient_E_W(t_game *game, t_player *player);
 void		move_pl(t_game *game, double y, double x, keys_t dir);

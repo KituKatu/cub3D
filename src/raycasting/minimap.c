@@ -164,7 +164,7 @@ void cast_mapray(t_game *game, t_ray *ray)
             size = ray->sideDistY - ray->deltaDistY;
         //render_ray(game, size *2 * TILE_SIZE, WHITE);
         render_ray(game, size *2 * TILE_SIZE, RED);
-        printf("PANEL X = %f\n, PANEL Y = %f\n", game->player->planeX, game->player->planeY);
+        //printf("PANEL X = %f\n, PANEL Y = %f\n", game->player->planeX, game->player->planeY);
         //render_ray(game, size *2 * TILE_SIZE, WHITE);
         //calc_delta(ray);
         //ray->dirX += DEGREE;

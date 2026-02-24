@@ -26,7 +26,6 @@ bool	dda(t_game *game, t_ray *ray)
 	bool	side;
 
 	hit = false; 
-	
 	while (hit == false)
 	{
 		if (ray->sideDistX < ray->deltaDistY)
@@ -41,7 +40,7 @@ bool	dda(t_game *game, t_ray *ray)
 			ray->mapY += ray->stepY;
 			side = HORIZONTAL;
 		}
-		if (game->map->grid[(int)ray->mapY][(int)ray->mapX] == WALL)
+		if (game->map->grid[(int)(ray->mapY)][(int)(ray->mapX)] == WALL)
 			hit = true; 
 	}
 	return (side);
@@ -93,20 +92,20 @@ void	move_pl(t_game *game, double y, double x, keys_t dir)
 	play = game->player;
 	if (dir == 'f')
 	{
-		if (game->map->grid[(int)y][(int)(x + (play->dirX
+		if (game->map->grid[(int)floor(y)][(int)floor(x + (play->dirX
 				* MOVSPEED))] == SPACE)
 			game->player->posX += play->dirX * MOVSPEED;
-		if (game->map->grid[(int)(y + (play->dirY
-				* MOVSPEED))][(int)x] == SPACE)
+		if (game->map->grid[(int)floor(y + (play->dirY
+				* MOVSPEED))][(int)floor(x)] == SPACE)
 			game->player->posY += play->dirY * MOVSPEED;
 	}
 	else if (dir == 'b')
 	{
-		if (game->map->grid[(int)y][(int)(x - play->dirX
+		if (game->map->grid[(int)y][(int)floor(x - play->dirX
 				* MOVSPEED)] == SPACE)
 			game->player->posX -= play->dirX * MOVSPEED;
-		if (game->map->grid[(int)(y - play->dirY
-				* MOVSPEED)][(int)x] == SPACE)
+		if (game->map->grid[(int)floor(y - play->dirY
+				* MOVSPEED)][(int)floor(x)] == SPACE)
 			game->player->posY -= play->dirY * MOVSPEED;
 	}
 }
@@ -155,10 +154,11 @@ void cast_ray(t_game *game, t_ray *ray)
 		calc_side(game, ray);
 		side = dda(game, ray);
 		ray->side = side;
-		calc_wallDist(ray, side);
+		calc_wallDist(game, ray, side);
+		printf("PERPWALL = %f\n", ray->perpWallDist);
 		line_h = calc_height(ray);
 		// line_h.x += (SCREEN_HEIGHT/2);
-		// render_line(game->img, line_h, &position, WHITE);
+		render_line(game->img, line_h, &position, WHITE);
 		render_textured_line(game, ray, line_h, &position);
 		position.x++;
 	}

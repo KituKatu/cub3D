@@ -18,11 +18,11 @@
 */
 void calc_delta(t_ray *ray)
 {
-	if (ray->dirX == 0)
+	if (ray->dirX == 0.0)
 		ray->dirX = 1e30; 
 	else
 		ray->deltaDistX = fabs(1.0 / ray->dirX);  
-	if (ray->dirY == 0)
+	if (ray->dirY == 0.0)
 		ray->dirY = 1e30;
 	else 
 		ray->deltaDistY = fabs(1.0 / ray->dirY);
@@ -32,14 +32,20 @@ void calc_delta(t_ray *ray)
 // 	ray->perpWallDist = (ray->mapX - game->player->posX + (1 - ray->stepX) / 2) / ray->dirX;
 // else 
 // 	ray->perpWallDist = (ray->mapY - game->player->posY + (1 - ray->stepX) / 2) / ray->dirY;
-void calc_wallDist(t_ray *ray, int side)
+void calc_wallDist(t_game *game, t_ray *ray, int side)
 {
 	if (side == VERTICAL)
-		ray->perpWallDist = (ray->sideDistX - ray->deltaDistX);
-	else
-		ray->perpWallDist = (ray->sideDistY - ray->deltaDistY);
+		ray->perpWallDist = (ray->mapX - game->player->posX + (1 - ray->stepX) / 2) / ray->dirX;
+	else 
+		ray->perpWallDist = (ray->mapY - game->player->posY + (1 - ray->stepY) / 2) / ray->dirY;
+	
+	// 	ray->perpWallDist = (ray->sideDistX - ray->deltaDistX);
+	// else
+	// 	ray->perpWallDist = (ray->sideDistY - ray->deltaDistY);
 //	printf("WALL DIST = %f\n", ray->perpWallDist);
 }
+
+
 
 
 // returns the line height of the walls depending on x or y axis is hit by raycast
