@@ -29,6 +29,7 @@
 # define VERTICAL 0
 # define HORIZONTAL 1
 # define READ_SIZE 42
+# define MAPOFFSET 0.25
 # define ROTSPEED 0.26179 //0.5235
 # define DEGREE 0.01745
 # define PI 3.14159

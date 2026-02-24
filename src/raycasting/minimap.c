@@ -12,14 +12,13 @@
 
 #include "../../inc/cub3d.h"
 
+
 //renders line at position.x from line.x until line.y in color
 void render_line(mlx_image_t *img, t_vertex line, t_vertex *position, int color)
 {
     int drawStart; 
     int drawEnd;
-    // int offset;
 
-    // offset = SCREEN_HEIGHT/4;
     drawStart = line.x;
     drawEnd = line.y;
  	while (drawStart < drawEnd)
@@ -44,7 +43,7 @@ void render_box(mlx_image_t *img, int y, int x, int color)
         j = 0;
         while(j < TILE_SIZE)
         {
-            mlx_put_pixel(img, x+j, y +i, color);
+            mlx_put_pixel(img, x+j, y+i, color);
             j++;
         }
         i++;
@@ -59,25 +58,18 @@ void render_box(mlx_image_t *img, int y, int x, int color)
 void render_map(t_game *game)
 {
     t_vertex pos;
-    int offset_x;
-    int offset_y;
-    int off;
 
-    offset_x = SCREEN_WIDTH/4;
-    offset_y = SCREEN_HEIGHT/4;
     pos.y = 0;
-    off = 2; 
-    game->map_img = mlx_new_image(game->mlx, offset_x, offset_y);
     while (pos.y < game->map->y_len)
     {
         pos.x = 0;
         while (pos.x <game->map->x_len)
         {
             if (game->map->grid[pos.y][pos.x] == WALL)
-                render_box(game->img, (pos.y * TILE_SIZE)*0.25, (pos.x * TILE_SIZE)*0.25, BLUE);
+                render_box(game->img, (pos.y * TILE_SIZE)*MAPOFFSET, (pos.x * TILE_SIZE)*MAPOFFSET, BLUE);
             else
             // if (game->map->grid[y][x] == SPACE)
-                render_box(game->img, (pos.y * TILE_SIZE)*0.25, (pos.x * TILE_SIZE)*0.25, WHITE);
+                render_box(game->img, (pos.y * TILE_SIZE)*MAPOFFSET, (pos.x * TILE_SIZE)*MAPOFFSET, WHITE);
             pos.x++;
         }
         pos.y++;
@@ -85,11 +77,13 @@ void render_map(t_game *game)
 
 }
 
-
+//&& game->player->dirY < 0 
 bool valid_space(t_game *game, double y, double x)
 {
-    if (y > 0 && x > 0 && ((game->map->grid[(int)y][(int)x] == SPACE) || (game->map->grid[(int)y][(int)x] == 'N') || (game->map->grid[(int)y][(int)x] == 'E') || (game->map->grid[(int)y][(int)x] == 'S') || (game->map->grid[(int)y][(int)x] == 'W')))
+    if (y > 0 && x > 0 && ((game->map->grid[(int)(y)][(int)x] == SPACE) || (game->map->grid[(int)y][(int)x] == 'N') || (game->map->grid[(int)y][(int)x] == 'E') || (game->map->grid[(int)y][(int)x] == 'S') || (game->map->grid[(int)y][(int)x] == 'W')))
         return (true);
+    // else if (y > 0 && x > 0 && game->player->dirX < 0 && ((game->map->grid[(int)floor(y)][(int)x] == SPACE) || (game->map->grid[(int)y][(int)x] == 'N') || (game->map->grid[(int)y][(int)x] == 'E') || (game->map->grid[(int)y][(int)x] == 'S') || (game->map->grid[(int)y][(int)x] == 'W')))
+    //     return (true);
     return (false);
 }
 
@@ -164,7 +158,6 @@ void cast_mapray(t_game *game, t_ray *ray)
         //render_ray(game, size *2 * TILE_SIZE, WHITE);
         render_ray(game, size/2 * TILE_SIZE, RED);
         //printf("PANEL X = %f\n, PANEL Y = %f\n", game->player->planeX, game->player->planeY);
-        //render_ray(game, size *2 * TILE_SIZE, WHITE);
         //calc_delta(ray);
         //ray->dirX += DEGREE;
         raycount++;

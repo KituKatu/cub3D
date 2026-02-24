@@ -93,20 +93,20 @@ void	move_pl(t_game *game, double y, double x, keys_t dir)
 	play = game->player;
 	if (dir == 'f')
 	{
-		if (game->map->grid[(int)floor(y)][(int)floor(x + (play->dirX
+		if (game->map->grid[(int)(y)][(int)(x + (play->dirX
 				* MOVSPEED))] == SPACE)
 			game->player->posX += play->dirX * MOVSPEED;
-		if (game->map->grid[(int)floor(y + (play->dirY
-				* MOVSPEED))][(int)floor(x)] == SPACE)
+		if (game->map->grid[(int)(y + (play->dirY
+				* MOVSPEED))][(int)(x)] == SPACE)
 			game->player->posY += play->dirY * MOVSPEED;
 	}
 	else if (dir == 'b')
 	{
-		if (game->map->grid[(int)y][(int)floor(x - play->dirX
+		if (game->map->grid[(int)y][(int)(x - play->dirX
 				* MOVSPEED)] == SPACE)
 			game->player->posX -= play->dirX * MOVSPEED;
-		if (game->map->grid[(int)floor(y - play->dirY
-				* MOVSPEED)][(int)floor(x)] == SPACE)
+		if (game->map->grid[(int)(y - play->dirY
+				* MOVSPEED)][(int)(x)] == SPACE)
 			game->player->posY -= play->dirY * MOVSPEED;
 	}
 }
@@ -157,13 +157,20 @@ void cast_ray(t_game *game, t_ray *ray)
 		calc_wallDist(game, ray, side);
 	//	printf("PERPWALL = %f\n", ray->perpWallDist);
 		line_h = calc_height(ray);
-		// line_h.x += (SCREEN_HEIGHT/2);
 		render_line(game->img, line_h, &position, WHITE);
 		render_textured_line(game, ray, line_h, &position);
 		position.x++;
 	}
 }
 
+void toggle_minimap(t_game *game)
+{
+	if (game->map_img->enabled)
+		game->map_img->enabled = false;
+	else 
+		game->map_img->enabled = true;
+
+}
 
 // keyhook to process player input 
 void	cub_keyhook(mlx_key_data_t keydown, void *param)
@@ -185,8 +192,8 @@ void	cub_keyhook(mlx_key_data_t keydown, void *param)
 			rot_camera(game, 'l');
 		if (keydown.key == MLX_KEY_RIGHT || keydown.key == MLX_KEY_D)
 			rot_camera(game, 'r');
-		// if (keydown.key == MLX_KEY_M)
-		//  	toggle_minimap(game);
+		if (keydown.key == MLX_KEY_M)
+		 	toggle_minimap(game);
 	}
 	render_miniplay(game, RED);
 	render_ray(game, 24, RED);
@@ -212,4 +219,7 @@ void render_scene(void *ptr)
 	// oldtime = mlx_get_time();
 	clear_scene(game->img);
 	cast_ray(game, &ray);
+	if (game->map_img->enabled)
+		render_minimap(game);
+   // cast_mapray(game, &ray);
 }	
