@@ -143,8 +143,8 @@ void cast_mapray(t_game *game, t_ray *ray)
     double size; 
 
     raycount = 0;
-    ray->mapX = game->player->posX;
-	ray->mapY = game->player->posY;
+    ray->mapX = (int)game->player->posX;
+	ray->mapY = (int)game->player->posY;
     while (raycount < 1)
     {
         calc_delta(ray);

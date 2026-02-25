@@ -6,7 +6,7 @@
 /*   By: jmcgrane <jmcgrane@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/11 12:29:32 by adecheri          #+#    #+#             */
-/*   Updated: 2026/02/24 14:40:14 by jmcgrane         ###   ########.fr       */
+/*   Updated: 2026/02/25 12:29:04 by jmcgrane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,14 +32,13 @@ void calc_delta(t_ray *ray)
 void calc_wallDist(t_game *game, t_ray *ray, int side)
 {
 	if (side == VERTICAL)
-		ray->perpWallDist = (ray->mapX - game->player->posX + (1 - ray->stepX) / 2) / ray->dirX;
-	else 
-		ray->perpWallDist = (ray->mapY - game->player->posY + (1 - ray->stepY) / 2) / ray->dirY;
-	
-	// 	ray->perpWallDist = (ray->sideDistX - ray->deltaDistX);
-	// else
-	// 	ray->perpWallDist = (ray->sideDistY - ray->deltaDistY);
-//	printf("WALL DIST = %f\n", ray->perpWallDist);
+		ray->perpWallDist = (ray->mapX - game->player->posX
+			+ (1 - ray->stepX) / 2) / ray->dirX;
+	else
+		ray->perpWallDist = (ray->mapY - game->player->posY
+			+ (1 - ray->stepY) / 2) / ray->dirY;
+	if (ray->perpWallDist < 0.0001)
+		ray->perpWallDist = 0.0001;
 }
 
 

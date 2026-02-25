@@ -6,7 +6,7 @@
 /*   By: jmcgrane <jmcgrane@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/16 16:38:38 by adecheri          #+#    #+#             */
-/*   Updated: 2026/02/24 15:26:08 by jmcgrane         ###   ########.fr       */
+/*   Updated: 2026/02/25 12:29:15 by jmcgrane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,14 +23,14 @@
 bool	dda(t_game *game, t_ray *ray)
 {
 	bool	hit;
-	bool	side;
+	int		side;
 
-	hit = false; 
+	hit = false;
+	side = 0;
 	while (hit == false)
 	{
-		calc_side(game, ray);
 		if (ray->sideDistX < ray->sideDistY)
-		{	
+		{
 			ray->sideDistX += ray->deltaDistX;
 			ray->mapX += ray->stepX;
 			side = VERTICAL;
@@ -41,8 +41,11 @@ bool	dda(t_game *game, t_ray *ray)
 			ray->mapY += ray->stepY;
 			side = HORIZONTAL;
 		}
+		if ((int)ray->mapX < 0 || (int)ray->mapX >= game->map->x_len
+			|| (int)ray->mapY < 0 || (int)ray->mapY >= game->map->y_len)
+			break ;
 		if (game->map->grid[(int)(ray->mapY)][(int)(ray->mapX)] == WALL)
-			hit = true; 
+			hit = true;
 	}
 	return (side);
 }
@@ -93,20 +96,20 @@ void	move_pl(t_game *game, double y, double x, keys_t dir)
 	play = game->player;
 	if (dir == 'f')
 	{
-		if (game->map->grid[(int)(y)][(int)(x + (play->dirX
-				* MOVSPEED))] == SPACE)
+		if (game->map->grid[(int)floor(y)][(int)floor(x + (play->dirX
+				* MOVSPEED))] != WALL)
 			game->player->posX += play->dirX * MOVSPEED;
-		if (game->map->grid[(int)(y + (play->dirY
-				* MOVSPEED))][(int)(x)] == SPACE)
+		if (game->map->grid[(int)floor(y + (play->dirY
+				* MOVSPEED))][(int)floor(x)] != WALL)
 			game->player->posY += play->dirY * MOVSPEED;
 	}
 	else if (dir == 'b')
 	{
-		if (game->map->grid[(int)y][(int)(x - play->dirX
-				* MOVSPEED)] == SPACE)
+		if (game->map->grid[(int)floor(y)][(int)floor(x - play->dirX
+				* MOVSPEED)] != WALL)
 			game->player->posX -= play->dirX * MOVSPEED;
-		if (game->map->grid[(int)(y - play->dirY
-				* MOVSPEED)][(int)(x)] == SPACE)
+		if (game->map->grid[(int)floor(y - play->dirY
+				* MOVSPEED)][(int)floor(x)] != WALL)
 			game->player->posY -= play->dirY * MOVSPEED;
 	}
 }
@@ -145,11 +148,11 @@ void cast_ray(t_game *game, t_ray *ray)
 	side = -1;
 	while (position.x < SCREEN_WIDTH)
 	{
-		cameraX = 2 * position.x / (double)SCREEN_WIDTH -1;
-		ray->dirX = game->player->dirX + game->player->planeX *cameraX;
-		ray->dirY = game->player->dirY + game->player->planeY *cameraX;
-		ray->mapX = game->player->posX;
-		ray->mapY = game->player->posY;
+		cameraX = 2 * position.x / (double)SCREEN_WIDTH - 1;
+		ray->dirX = game->player->dirX + game->player->planeX * cameraX;
+		ray->dirY = game->player->dirY + game->player->planeY * cameraX;
+		ray->mapX = (int)game->player->posX;
+		ray->mapY = (int)game->player->posY;
 		calc_delta(ray);
 		calc_side(game, ray);
 		side = dda(game, ray);
@@ -157,7 +160,6 @@ void cast_ray(t_game *game, t_ray *ray)
 		calc_wallDist(game, ray, side);
 	//	printf("PERPWALL = %f\n", ray->perpWallDist);
 		line_h = calc_height(ray);
-		render_line(game->img, line_h, &position, WHITE);
 		render_textured_line(game, ray, line_h, &position);
 		position.x++;
 	}

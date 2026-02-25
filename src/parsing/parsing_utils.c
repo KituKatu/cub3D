@@ -95,6 +95,7 @@ void	map_dimensions(t_map *map)
 	while (map->line[i] && map->line[i] != '\n')
 		i++;
 	width = i;
+	ft_safefree((void *)&map->line);
 	while ((map->line = get_next_line(map->fd)))
 	{
 		i = 0;
