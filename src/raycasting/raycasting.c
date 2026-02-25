@@ -89,7 +89,7 @@ void	rot_camera(t_game *game, char dir)
 	the sides of the ray from player to wall intersect the collision 
 	box of the player when moving through
 */
-void	move_pl(t_game *game, double y, double x, keys_t dir)
+void	move_plfb(t_game *game, double y, double x, keys_t dir)
 {
 	t_player	*play;
 
@@ -111,6 +111,36 @@ void	move_pl(t_game *game, double y, double x, keys_t dir)
 		if (game->map->grid[(int)floor(y - play->dirY
 				* MOVSPEED)][(int)floor(x)] != WALL)
 			game->player->posY -= play->dirY * MOVSPEED;
+	}
+}
+
+/* updates the player position by checking if the 
+	next position is taken by a wall, still needs to check if 
+	the sides of the ray from player to wall intersect the collision 
+	box of the player when moving through
+*/
+void	move_pllr(t_game *game, double y, double x, keys_t dir)
+{
+	t_player	*play;
+
+	play = game->player;
+	if (dir == 'l')
+	{
+		if (game->map->grid[(int)floor(y)][(int)floor(x + (play->dirX
+				* MOVSPEED))] != WALL)
+			game->player->posX += play->dirX * MOVSPEED;
+		if (game->map->grid[(int)floor(y - (play->dirY
+				* MOVSPEED))][(int)floor(x)] != WALL)
+			game->player->posY -= play->dirY * MOVSPEED;
+	}
+	else if (dir == 'r')
+	{
+		if (game->map->grid[(int)floor(y)][(int)floor(x - play->dirX
+				* MOVSPEED)] != WALL)
+			game->player->posX -= play->dirX * MOVSPEED;
+		if (game->map->grid[(int)floor(y + play->dirY
+				* MOVSPEED)][(int)floor(x)] != WALL)
+			game->player->posY += play->dirY * MOVSPEED;
 	}
 }
 
@@ -171,7 +201,6 @@ void toggle_minimap(t_game *game)
 		game->map_img->enabled = false;
 	else 
 		game->map_img->enabled = true;
-
 }
 
 // keyhook to process player input 
@@ -187,12 +216,16 @@ void	cub_keyhook(mlx_key_data_t keydown, void *param)
 		if (keydown.key == MLX_KEY_ESCAPE)
 			mlx_close_window(game->mlx);
 		if (keydown.key == MLX_KEY_UP || keydown.key == MLX_KEY_W)
-			move_pl(game, game->player->posY, game->player->posX, 'f');
+			move_plfb(game, game->player->posY, game->player->posX, 'f');
 		if (keydown.key == MLX_KEY_DOWN || keydown.key == MLX_KEY_S)
-			move_pl(game, game->player->posY, game->player->posX, 'b');
-		if (keydown.key == MLX_KEY_LEFT || keydown.key == MLX_KEY_A)
+			move_plfb(game, game->player->posY, game->player->posX, 'b');
+		if (keydown.key == MLX_KEY_A)
+			move_pllr(game, game->player->posY, game->player->posX, 'l');
+		if (keydown.key == MLX_KEY_D)
+			move_pllr(game, game->player->posY, game->player->posX, 'r');
+		if (keydown.key == MLX_KEY_LEFT)
 			rot_camera(game, 'l');
-		if (keydown.key == MLX_KEY_RIGHT || keydown.key == MLX_KEY_D)
+		if (keydown.key == MLX_KEY_RIGHT)
 			rot_camera(game, 'r');
 		if (keydown.key == MLX_KEY_M)
 		 	toggle_minimap(game);

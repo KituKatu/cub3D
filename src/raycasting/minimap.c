@@ -149,7 +149,6 @@ void cast_mapray(t_game *game, t_ray *ray)
     {
         calc_delta(ray);
         calc_side(game, ray);
-        // printf("RAY DISTX = %f\n RAY DISTY = %f\n", ray->sideDistX, ray->sideDistY);
         side = dda(game, ray);
      	if (side == VERTICAL)
 		    size = (ray->sideDistX - ray->deltaDistX);
@@ -157,8 +156,6 @@ void cast_mapray(t_game *game, t_ray *ray)
             size = ray->sideDistY - ray->deltaDistY;
         //render_ray(game, size *2 * TILE_SIZE, WHITE);
         render_ray(game, size/2 * TILE_SIZE, RED);
-        //printf("PANEL X = %f\n, PANEL Y = %f\n", game->player->planeX, game->player->planeY);
-        //calc_delta(ray);
         //ray->dirX += DEGREE;
         raycount++;
     }
@@ -186,5 +183,4 @@ void render_minimap(void *game_ptr)
     render_map(game);
     render_miniplay(game, RED);
     cast_mapray(game, &ray);
-    //render_scene(game);
 }

@@ -62,8 +62,6 @@ t_vertex	calc_height(t_ray *ray)
 	line.y = line_h/2 + (SCREEN_HEIGHT /2);
 	if (line.y >= SCREEN_HEIGHT)
 		line.y = SCREEN_HEIGHT - 1;
-	// printf("LINE X = %d\n", line.x);
-	// printf("LINE Y = %d\n", line.y);
 	return (line);
 }
 
