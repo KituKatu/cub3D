@@ -21,6 +21,7 @@ void	init_player(t_game *game)
 		ft_exit_errc("Failed to init player", (void *)&game, 'g');
 	player->posX = game->map->player_x + 0.5; // +0.5 for center of tile
 	player->posY = game->map->player_y + 0.5;
+	game->map->grid[game->map->player_y][game->map->player_x] = SPACE;
 	init_orient_N_S(game, player);
 	game->player = player;
 }
