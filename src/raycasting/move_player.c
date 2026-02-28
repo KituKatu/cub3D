@@ -93,8 +93,6 @@ bool val_step(t_game *game, t_vertex pos, double delta)
 
 
 
-
-
 /* updates the player position by checking if the 
 	next position is taken by a wall, still needs to check if 
 	the sides of the ray from player to wall intersect the collision 
@@ -104,28 +102,26 @@ bool val_step(t_game *game, t_vertex pos, double delta)
 void	move_lr(t_game *game, double y, double x, keys_t dir)
 {
 	t_player	*play;
-	double		delta;
+	double		dx;
+	double 		dy;
 
 	play = game->player;
-	delta = 0;
-
+	dx = ( play->dirX * MOVSPEED);
+	dy = ( play->dirY * MOVSPEED);
+	printf("DIRX = %f\n, DIRY = %f\n", dx, dy);
 	if (dir == 'l')
 	{
-		delta = (play->planeX * play->dirX * MOVSPEED);
-		if (game->map->grid[(int)floor(y)][(int)floor(x + delta)] != WALL)
-			game->player->posX -= delta;
-		if (game->map->grid[(int)floor(y - play->planeY * (play->dirY
-				* MOVSPEED))][(int)floor(x)] != WALL)
-			game->player->posY += play->planeY * play->dirY * MOVSPEED;
+		if (game->map->grid[(int)floor(y)][(int)floor(x - dy)] != WALL)
+			game->player->posX += dy;
+		if (game->map->grid[(int)floor(y + dx)][(int)floor(x)] != WALL)
+			game->player->posY -= dx; 
 	}
 	else if (dir == 'r')
 	{
-		if (game->map->grid[(int)floor(y)][(int)floor(x - play->planeX * play->dirX
-				* MOVSPEED)] != WALL)
-			game->player->posX += play->planeX * play->dirX * MOVSPEED;
-		if (game->map->grid[(int)floor(y +  play->planeY * play->dirY
-				* MOVSPEED)][(int)floor(x)] != WALL)
-			game->player->posY -= play->planeY * play->dirY * MOVSPEED;
+		if (game->map->grid[(int)floor(y)][(int)floor(x + dy)] != WALL)
+			game->player->posX -= dy;
+		if (game->map->grid[(int)floor(y - dx)][(int)floor(x)] != WALL)
+			game->player->posY += dx;
 	}
 }
 
@@ -166,7 +162,7 @@ void	cub_keyhook(mlx_key_data_t keydown, void *param)
 	}
 	render_miniplay(game, RED);
 	render_ray(game, 24, RED);
-	printf("PLAYER X: %f\n PLAYER Y: %f\n", game->player->posX, game->player->posY);
+//	printf("PLAYER X: %f\n PLAYER Y: %f\n", game->player->posX, game->player->posY);
 	// printf("PLAYER DIRX: %f\n PLAYER DIRY: %f\n", game->player->dirX, game->player->dirY);
 	// printf("PLAYER PLANEX: %f\n PLAYER PLANEY: %f\n", game->player->planeX, game->player->planeY);
 }
