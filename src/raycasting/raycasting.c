@@ -114,8 +114,6 @@ void render_scene(void *ptr)
 	// ray.mapY = game->player->posY;
 	ray.dirX = game->player->dirX;
 	ray.dirY = game->player->dirY;
-
-
 	clear_scene(game->img);
 	cast_ray(game, &ray);
 	if (game->map_img->enabled)
