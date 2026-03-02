@@ -42,8 +42,6 @@ void calc_wallDist(t_game *game, t_ray *ray, int side)
 }
 
 
-
-
 // returns the line height of the walls depending on x or y axis is hit by raycast
 // needs a struct for all the arguments
 t_vertex	calc_height(t_ray *ray)
@@ -62,10 +60,9 @@ t_vertex	calc_height(t_ray *ray)
 	line.y = line_h/2 + (SCREEN_HEIGHT /2);
 	if (line.y >= SCREEN_HEIGHT)
 		line.y = SCREEN_HEIGHT - 1;
-	// printf("LINE X = %d\n", line.x);
-	// printf("LINE Y = %d\n", line.y);
 	return (line);
 }
+
 
 /* calculate where ray intersects 
 	with either y or x axis on the mapgrid	

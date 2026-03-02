@@ -29,6 +29,7 @@
 # define VERTICAL 0
 # define HORIZONTAL 1
 # define READ_SIZE 42
+# define MAPOFFSET 0.25
 # define ROTSPEED 0.26179 //0.5235
 # define DEGREE 0.01745
 # define PI 3.14159
@@ -190,7 +191,8 @@ void		calc_wallDist(t_game *game, t_ray *ray, int side);
 t_vertex	calc_height(t_ray *ray);
 void		init_orient_N_S(t_game *game, t_player *player);
 void		init_orient_E_W(t_game *game, t_player *player);
-void		move_pl(t_game *game, double y, double x, keys_t dir);
+void		move_fb(t_game *game, double y, double x, keys_t dir);
+void		move_lr(t_game *game, double y, double x, keys_t dir);
 void 		cast_mapray(t_game *game, t_ray *ray);
 void 		cast_ray(t_game *game, t_ray *ray);
 void		render_textured_line(t_game *game, t_ray *ray, t_vertex line,
@@ -202,8 +204,8 @@ void 	render_line(mlx_image_t *img, t_vertex line, t_vertex *position, int color
 void 	render_scene(void *game);
 void 	render_map(t_game *game);
 void 	render_minimap(void *game_ptr);
+void 	render_miniplay(t_game *game, int color);
 void 	render_ray(t_game *game, int size, int color);
-void	render_miniplay(t_game *game, int color);
 
 
 #endif

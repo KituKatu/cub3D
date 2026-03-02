@@ -59,7 +59,9 @@ int	init_game(char *mapfile, t_game *game)
 	if (!img || (mlx_image_to_window(game->mlx, img, 0, 0) < 0))
 		ft_exit_errc("Failed to load screen", (void *)&game, 'g');
 	game->img = img;
-	render_map(game);
+	game->map_img = mlx_new_image(game->mlx, SCREEN_WIDTH* MAPOFFSET, SCREEN_HEIGHT* MAPOFFSET);
+	if (!game->map_img || (mlx_image_to_window(game->mlx, game->map_img, 0, 0) < 0))
+		ft_exit_errc("Failed to load screen", (void *)&game, 'g');
 	return (SUCCESS);
 }
 

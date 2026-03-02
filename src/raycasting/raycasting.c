@@ -14,7 +14,6 @@
 #include <time.h>
 
 //TODO: make func to check intersecting rays with play->mov -->walls
-//TODO: rendering rays from play->pos until wall=hit 
 
 
 //&& (ray->mapX > 0 || ray->mapY > 0 || ray->mapX < game->map->x_len || ray->mapY < game->map->y_len)
@@ -48,70 +47,6 @@ bool	dda(t_game *game, t_ray *ray)
 			hit = true;
 	}
 	return (side);
-}
-
-
-
-/*rotates the camera plane in left or right
-	changed macro ROTSPEED to reflect radians
-	in stead of degrees -> have to check out 
-	if the dirX are still alright -> might need PI conversion too
-*/
-void	rot_camera(t_game *game, char dir)
-{
-	t_player	*play;
-	double		oldDirX;
-	double		oldPlaneX;
-
-	play = game->player;
-	oldDirX = play->dirX;
-	oldPlaneX = play->planeX;
-	if (dir == 'r')
-	{
-		play->dirX = (play->dirX * cos(ROTSPEED) - play->dirY * sin(ROTSPEED));
-		play->dirY = (oldDirX * sin(ROTSPEED) + play->dirY * cos(ROTSPEED));
-		play->planeX = play->planeX * cos(ROTSPEED) - play->planeY * sin(ROTSPEED);
-		play->planeY = oldPlaneX * sin(ROTSPEED) + play->planeY * cos(ROTSPEED);
-	}
-	else if (dir == 'l')
-	{
-		play->dirX = (play->dirX * cos(-ROTSPEED) - play->dirY * sin(-ROTSPEED));
-		play->dirY = (oldDirX * sin(-ROTSPEED) + play->dirY * cos(-ROTSPEED));
-		play->planeX = play->planeX * cos(-ROTSPEED) - play->planeY
-			* sin(-ROTSPEED);
-		play->planeY = oldPlaneX * sin(-ROTSPEED) + play->planeY
-			* cos(-ROTSPEED);
-	}
-}
-
-/* updates the player position by checking if the 
-	next position is taken by a wall, still needs to check if 
-	the sides of the ray from player to wall intersect the collision 
-	box of the player when moving through
-*/
-void	move_pl(t_game *game, double y, double x, keys_t dir)
-{
-	t_player	*play;
-
-	play = game->player;
-	if (dir == 'f')
-	{
-		if (game->map->grid[(int)floor(y)][(int)floor(x + (play->dirX
-				* MOVSPEED))] != WALL)
-			game->player->posX += play->dirX * MOVSPEED;
-		if (game->map->grid[(int)floor(y + (play->dirY
-				* MOVSPEED))][(int)floor(x)] != WALL)
-			game->player->posY += play->dirY * MOVSPEED;
-	}
-	else if (dir == 'b')
-	{
-		if (game->map->grid[(int)floor(y)][(int)floor(x - play->dirX
-				* MOVSPEED)] != WALL)
-			game->player->posX -= play->dirX * MOVSPEED;
-		if (game->map->grid[(int)floor(y - play->dirY
-				* MOVSPEED)][(int)floor(x)] != WALL)
-			game->player->posY -= play->dirY * MOVSPEED;
-	}
 }
 
 
@@ -166,35 +101,7 @@ void cast_ray(t_game *game, t_ray *ray)
 }
 
 
-// keyhook to process player input 
-void	cub_keyhook(mlx_key_data_t keydown, void *param)
-{
-	t_game	*game;
 
-	game = (t_game *)param;
-	if (keydown.action == MLX_PRESS || keydown.action == MLX_REPEAT)
-	{
-		render_miniplay(game, WHITE);
-		render_ray(game, 24, WHITE);
-		if (keydown.key == MLX_KEY_ESCAPE)
-			mlx_close_window(game->mlx);
-		if (keydown.key == MLX_KEY_UP || keydown.key == MLX_KEY_W)
-			move_pl(game, game->player->posY, game->player->posX, 'f');
-		if (keydown.key == MLX_KEY_DOWN || keydown.key == MLX_KEY_S)
-			move_pl(game, game->player->posY, game->player->posX, 'b');
-		if (keydown.key == MLX_KEY_LEFT || keydown.key == MLX_KEY_A)
-			rot_camera(game, 'l');
-		if (keydown.key == MLX_KEY_RIGHT || keydown.key == MLX_KEY_D)
-			rot_camera(game, 'r');
-		// if (keydown.key == MLX_KEY_M)
-		//  	toggle_minimap(game);
-	}
-	render_miniplay(game, RED);
-	render_ray(game, 24, RED);
-	printf("PLAYER X: %f\n PLAYER Y: %f\n", game->player->posX, game->player->posY);
-	// printf("PLAYER DIRX: %f\n PLAYER DIRY: %f\n", game->player->dirX, game->player->dirY);
-	// printf("PLAYER PLANEX: %f\n PLAYER PLANEY: %f\n", game->player->planeX, game->player->planeY);
-}
 
 void render_scene(void *ptr)
 {
@@ -207,10 +114,9 @@ void render_scene(void *ptr)
 	// ray.mapY = game->player->posY;
 	ray.dirX = game->player->dirX;
 	ray.dirY = game->player->dirY;
-
-	// double oldtime;
-	// double frame_time;
-	// oldtime = mlx_get_time();
 	clear_scene(game->img);
 	cast_ray(game, &ray);
+	if (game->map_img->enabled)
+		render_minimap(game);
+   // cast_mapray(game, &ray);
 }	
