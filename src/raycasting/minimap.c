@@ -52,8 +52,7 @@ void render_box(mlx_image_t *img, int y, int x, int color)
 
 /*
     render 2D map for the minimap
-    rn using textures of 1 wall for all walls
-    and general empty img for SPACE
+    with blue walls and white space 
 */
 void render_map(t_game *game)
 {
@@ -68,7 +67,6 @@ void render_map(t_game *game)
             if (game->map->grid[pos.y][pos.x] == WALL)
                 render_box(game->img, (pos.y * TILE_SIZE)*MAPOFFSET, (pos.x * TILE_SIZE)*MAPOFFSET, BLUE);
             else
-            // if (game->map->grid[y][x] == SPACE)
                 render_box(game->img, (pos.y * TILE_SIZE)*MAPOFFSET, (pos.x * TILE_SIZE)*MAPOFFSET, WHITE);
             pos.x++;
         }
