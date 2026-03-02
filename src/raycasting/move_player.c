@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                         ::::::::           */
-/*   move_player.c                                       :+:    :+:           */
-/*                                                      +:+                   */
-/*   By: adecheri <marvin@42.fr>                       +#+                    */
-/*                                                    +#+                     */
-/*   Created: 2026/02/27 16:12:27 by adecheri       #+#    #+#                */
-/*   Updated: 2026/02/27 16:12:29 by adecheri       ########   odam.nl        */
+/*                                                        :::      ::::::::   */
+/*   move_player.c                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: jmcgrane <jmcgrane@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/02/27 16:12:27 by adecheri          #+#    #+#             */
+/*   Updated: 2026/03/02 14:28:04 by jmcgrane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,19 +109,19 @@ void	move_lr(t_game *game, double y, double x, keys_t dir)
 	dx = ( play->dirX * MOVSPEED);
 	dy = ( play->dirY * MOVSPEED);
 	printf("DIRX = %f\n, DIRY = %f\n", dx, dy);
-	if (dir == 'l')
+	if (dir == 'r')
 	{
 		if (game->map->grid[(int)floor(y)][(int)floor(x - dy)] != WALL)
-			game->player->posX += dy;
+			game->player->posX -= dy;
 		if (game->map->grid[(int)floor(y + dx)][(int)floor(x)] != WALL)
-			game->player->posY -= dx; 
+			game->player->posY += dx; 
 	}
-	else if (dir == 'r')
+	else if (dir == 'l')
 	{
 		if (game->map->grid[(int)floor(y)][(int)floor(x + dy)] != WALL)
-			game->player->posX -= dy;
+			game->player->posX += dy;
 		if (game->map->grid[(int)floor(y - dx)][(int)floor(x)] != WALL)
-			game->player->posY += dx;
+			game->player->posY -= dx;
 	}
 }
 
