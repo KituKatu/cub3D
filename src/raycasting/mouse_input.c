@@ -85,14 +85,17 @@ t_vertex check_mouse(t_game *game)
     return (mouse_pos);
 }
 
-
+//have the direction reset when mouse is not moving
 void mouse_reset(t_game *game)
 {
-    //mlx_set_mouse_pos(game->mlx, SCREEN_WIDTH/2, m_pos.y);
     game->player->dirX = game->player->dirX;
     game->player->dirY = game->player->dirY;
 }
 
+
+/* rotate the camera according to the mouse 
+    movement on the screen
+*/
 void mouse_rot(t_game *game, t_vertex m_pos)
 {
     t_vertex new_pos;
