@@ -6,7 +6,7 @@
 /*   By: jmcgrane <jmcgrane@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/14 17:13:00 by adecheri          #+#    #+#             */
-/*   Updated: 2026/02/24 15:28:20 by jmcgrane         ###   ########.fr       */
+/*   Updated: 2026/03/02 15:53:59 by jmcgrane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,9 @@ int	main(int ac, char **av)
 	mlx_terminate(game.mlx);
 	return (SUCCESS);
 }
+
+//sort out boarder minimap
+//mlxgettime func to make movement smoother
 
 // // Add these constants
 // # define SCREEN_WIDTH 1024
