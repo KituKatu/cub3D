@@ -186,7 +186,7 @@ void	free_cubgame(t_game **game);
 bool		dda(t_game *game, t_ray *ray);
 void		init_player(t_game *game);
 void		calc_side(t_game *game, t_ray *ray);
-void		rot_camera(t_game *game, char dir);
+void		rot_camera(t_game *game, char dir, double speed);
 void 		calc_delta(t_ray *ray);
 void		calc_walldist(t_game *game, t_ray *ray, int side);
 t_vertex	calc_height(t_ray *ray);

@@ -119,5 +119,6 @@ void render_scene(void *ptr)
 		render_minimap(game);
 	mouse_rot(game, old_mouse);
 	// if (game->player->moving)
+	
 		
 }	

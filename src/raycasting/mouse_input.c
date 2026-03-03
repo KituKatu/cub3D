@@ -32,6 +32,8 @@ t_vertex check_mouse(t_game *game)
 }
 
 //have the direction reset when mouse is not moving
+//when at 1/4 of the screen or 75% it will float back to 
+// the middle of the screen 
 void mouse_reset(t_game *game)
 {
     int32_t mx;

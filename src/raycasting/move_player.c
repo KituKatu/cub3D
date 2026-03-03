@@ -17,7 +17,7 @@
 /*rotates the camera plane in left or right
 	by ROTSPEED macro
 */
-void	rot_camera(t_game *game, char dir)
+void	rot_camera(t_game *game, char dir, double speed)
 {
 	t_player	*play;
 	double		oldDirX;
@@ -155,9 +155,9 @@ void	cub_keyhook(mlx_key_data_t keydown, void *param)
 		if (keydown.key == MLX_KEY_D)
 			move_lr(game, game->player->posy, game->player->posx, 'r');
 		if (keydown.key == MLX_KEY_LEFT)
-			rot_camera(game, 'l');
+			rot_camera(game, 'l', ROTSPEED);
 		if (keydown.key == MLX_KEY_RIGHT)
-			rot_camera(game, 'r');
+			rot_camera(game, 'r', ROTSPEED);
 		if (keydown.key == MLX_KEY_M)
 		 	toggle_minimap(game);
 	}
