@@ -12,101 +12,105 @@
 
 #include "../../inc/cub3d.h"
 
-
 //renders line at position.x from line.x until line.y in color
-void render_line(mlx_image_t *img, t_vertex line, t_vertex *position, int color)
+void	render_line(mlx_image_t *img, t_vertex line, t_vertex *position,
+		int color)
 {
-    int drawStart; 
-    int drawEnd;
+	int	drawStart;
+	int	drawEnd;
 
-    drawStart = line.x;
-    drawEnd = line.y;
- 	while (drawStart < drawEnd)
+	drawStart = line.x;
+	drawEnd = line.y;
+	while (drawStart < drawEnd)
 	{
 		mlx_put_pixel(img, position->x, drawStart, color);
 		drawStart++;
 	}
 }
 
-//renders a box from the 
-void render_box(mlx_image_t *img, int y, int x, int color)
+//renders a box from the
+void	render_box(mlx_image_t *img, int y, int x, int color)
 {
-    int offset;
-    int i;
-    int j;
-    int num;
+	int	offset;
+	int	i;
+	int	j;
+	int	num;
 
-    i = 0;
-    j = 0;
-    offset = 6;
-    num = TILE_SIZE * MAPOFFSET;
-    while (i < num)
-    {
-        j = 0;
-        while(j < num)
-        {
-            mlx_put_pixel(img, x+j, y+i, color);
-            j++;
-        }
-        i++;
-    }
+	i = 0;
+	j = 0;
+	offset = 6;
+	num = TILE_SIZE * MAPOFFSET;
+	while (i < num)
+	{
+		j = 0;
+		while (j < num)
+		{
+			mlx_put_pixel(img, x + j, y + i, color);
+			j++;
+		}
+		i++;
+	}
 }
 
 /*
     render 2D map for the minimap
     with blue walls and white space 
 */
-void render_map(t_game *game)
+void	render_map(t_game *game)
 {
-    t_vertex pos;
+	t_vertex	pos;
 
-    pos.y = 0;
-    while (pos.y < game->map->y_len)
-    {
-        pos.x = 0;
-        while (pos.x <game->map->x_len)
-        {
-            if (game->map->grid[(int)floor(pos.y)][(int)floor(pos.x)] == WALL)
-                render_box(game->img, (pos.y * TILE_SIZE)*MAPOFFSET, (pos.x * TILE_SIZE)*MAPOFFSET, BLUE);
-            else
-                render_box(game->img, (pos.y * TILE_SIZE)*MAPOFFSET, (pos.x * TILE_SIZE)*MAPOFFSET, WHITE);
-            pos.x++;
-        }
-        pos.y++;
-    }
-
+	pos.y = 0;
+	while (pos.y < game->map->y_len)
+	{
+		pos.x = 0;
+		while (pos.x < game->map->x_len)
+		{
+			if (game->map->grid[(int)floor(pos.y)][(int)floor(pos.x)] == WALL)
+				render_box(game->img, (pos.y * TILE_SIZE) * MAPOFFSET, (pos.x
+							* TILE_SIZE) * MAPOFFSET, BLUE);
+			else
+				render_box(game->img, (pos.y * TILE_SIZE) * MAPOFFSET, (pos.x
+							* TILE_SIZE) * MAPOFFSET, WHITE);
+			pos.x++;
+		}
+		pos.y++;
+	}
 }
 
-//&& game->player->dirY < 0 
-bool valid_space(t_game *game, double y, double x)
+//&& game->player->dirY < 0
+bool	valid_space(t_game *game, double y, double x)
 {
-    if (y > 0 && x > 0 && (int)y < game->map->y_len && (int)x < game->map->x_len && ((game->map->grid[(int)(y)][(int)x] == SPACE) || (game->map->grid[(int)y][(int)x] == 'N') || (game->map->grid[(int)y][(int)x] == 'E') || (game->map->grid[(int)y][(int)x] == 'S') || (game->map->grid[(int)y][(int)x] == 'W')))
-        return (true);
-    // else if (y > 0 && x > 0 && game->player->dirX < 0 && ((game->map->grid[(int)floor(y)][(int)x] == SPACE) || (game->map->grid[(int)y][(int)x] == 'N') || (game->map->grid[(int)y][(int)x] == 'E') || (game->map->grid[(int)y][(int)x] == 'S') || (game->map->grid[(int)y][(int)x] == 'W')))
-    //     return (true);
-    return (false);
+	if (y > 0 && x > 0 && (int)y < game->map->y_len && (int)x < game->map->x_len
+		&& ((game->map->grid[(int)(y)][(int)x] == SPACE)
+			|| (game->map->grid[(int)y][(int)x] == 'N')
+			|| (game->map->grid[(int)y][(int)x] == 'E')
+			|| (game->map->grid[(int)y][(int)x] == 'S')
+			|| (game->map->grid[(int)y][(int)x] == 'W')))
+		return (true);
+	return (false);
 }
-
 
 /*
     renders single ray from player position
     into dirX and dirY
 */
-void render_ray(t_game *game, int size, int color)
+void	render_ray(t_game *game, int size, int color)
 {
-    int drawStart;
-    t_vertex pos;
-    
-    drawStart = 1;
-    while (drawStart < size/2)
-    {
-        pos.x = (game->player->posX * TILE_SIZE);
-        pos.y = (game->player->posY * TILE_SIZE);
-        if (valid_space(game, (pos.y + (drawStart *game->player->dirY))/64, (pos.x + (drawStart * game->player->dirX))/64))
-            mlx_put_pixel(game->img, (pos.x + (drawStart * game->player->dirX))/4, (pos.y + (drawStart * game->player->dirY))/4, color);
-        drawStart++;
-    }
-    
+	int			drawStart;
+	t_vertex	pos;
+
+	drawStart = 1;
+	while (drawStart < size / 2)
+	{
+		pos.x = (game->player->posx * TILE_SIZE);
+		pos.y = (game->player->posy * TILE_SIZE);
+		if (valid_space(game, (pos.y + (drawStart * game->player->diry)) / TILE_SIZE,
+				(pos.x + (drawStart * game->player->dirx)) / TILE_SIZE))
+			mlx_put_pixel(game->img, (pos.x + (drawStart * game->player->dirx))
+					/ 4, (pos.y + (drawStart * game->player->diry)) / 4, color);
+		drawStart++;
+	}
 }
 
 /*
@@ -114,49 +118,52 @@ void render_ray(t_game *game, int size, int color)
     the player on the map 
     (prolly good to use a triangle)
 */
-void render_miniplay(t_game *game, int color)
-{   
-    int size;
-    int x;
-    int y; 
+void	render_miniplay(t_game *game, int color)
+{
+	int	size;
+	int	x;
+	int	y;
 
-    size = 12;
-    x = -size  /2;
-    while (x < size/2)
-    {
-        y =  -size /2;
-        while (y < size/2)
-        {
-            if (game->player->posX + x > 0.0 && game->player->posX + x < game->map->x_len * 1.0 && game->player->posY + y > 0.0 && game->player->posY + y < game->map->y_len * 1.0)
-                mlx_put_pixel(game->img, (game->player->posX * TILE_SIZE + x)/4, (game->player->posY * TILE_SIZE +y)/4, color);
-            y++;
-        }
-        x++;
-    }
-        
+	size = 12;
+	x = -size / 2;
+	while (x < size / 2)
+	{
+		y = -size / 2;
+		while (y < size / 2)
+		{
+			if (game->player->posx + x > 0.0 && game->player->posx
+				+ x < game->map->x_len * 1.0 && game->player->posy + y > 0.0
+				&& game->player->posy + y < game->map->y_len * 1.0)
+				mlx_put_pixel(game->img, (game->player->posx * TILE_SIZE + x)
+						/ 4, (game->player->posy * TILE_SIZE + y) / 4, color);
+			y++;
+		}
+		x++;
+	}
+    render_ray(game, 24, color);
 }
 
-void cast_mapray(t_game *game, t_ray *ray)
+void	cast_mapray(t_game *game, t_ray *ray)
 {
-    int raycount;
-    int side;
-    double size; 
+	int		raycount;
+	int		side;
+	double	size;
 
-    raycount = 0;
-    ray->mapX = (int)game->player->posX;
-	ray->mapY = (int)game->player->posY;
-    while (raycount < 1)
-    {
-        calc_delta(ray);
-        calc_side(game, ray);
-        side = dda(game, ray);
-     	if (side == VERTICAL)
-		    size = (ray->sideDistX - ray->deltaDistX);
-	    else
-            size = ray->sideDistY - ray->deltaDistY;
-        render_ray(game, size/2 * TILE_SIZE, RED);
-        raycount++;
-    }
+	raycount = 0;
+	ray->mapx = (int)game->player->posx;
+	ray->mapy = (int)game->player->posy;
+	while (raycount < 1)
+	{
+		calc_delta(ray);
+		calc_side(game, ray);
+		side = dda(game, ray);
+		if (side == VERTICAL)
+			size = (ray->side_dx - ray->d_distx);
+		else
+			size = ray->side_dy - ray->d_disty;
+		render_ray(game, size / 2 * TILE_SIZE, RED);
+		raycount++;
+	}
 }
 
 /*
@@ -165,20 +172,17 @@ void cast_mapray(t_game *game, t_ray *ray)
     this function will loop, so needs to 
     contain the raycasting bit 
 */
-void render_minimap(void *game_ptr)
+void	render_minimap(void *game_ptr)
 {
-    t_game *game;
-    t_ray ray;
+	t_game	*game;
+	t_ray	ray;
 
-    game = (t_game *)game_ptr;
-	// ray.mapX = game->player->posX;
-	// ray.mapY = game->player->posY;
-	ray.dirX = game->player->dirX;
-	ray.dirY = game->player->dirY;
-    
-    clear_scene(game->img);
-    cast_ray(game, &ray);
-    render_map(game);
-    render_miniplay(game, RED);
-    cast_mapray(game, &ray);
+	game = (t_game *)game_ptr;
+	ray.dirx = game->player->dirx;
+	ray.diry = game->player->diry;
+	clear_scene(game->img);
+	cast_ray(game, &ray);
+	render_map(game);
+	render_miniplay(game, RED);
+	cast_mapray(game, &ray);
 }

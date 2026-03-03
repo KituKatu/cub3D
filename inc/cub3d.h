@@ -49,7 +49,6 @@ typedef struct s_vertex
 {
 	double x;
 	double y;
-	double z;
 }	t_vertex;
 
 
@@ -77,17 +76,17 @@ typedef struct	s_map
 
 typedef struct	s_ray
 {
-	double	stepX;
-	double	stepY;
-	double	dirX;
-	double	dirY;
-	double	mapX;
-	double	mapY;
-	double	sideDistX;
-	double	sideDistY;
-	double	deltaDistX;
-	double	deltaDistY;
-	double	perpWallDist; 
+	double	stepx;
+	double	stepy;
+	double	dirx;
+	double	diry;
+	double	mapx;
+	double	mapy;
+	double	side_dx;
+	double	side_dy;
+	double	d_distx;
+	double	d_disty;
+	double	perp_walldist; 
 	double	wallx;
 	int		line_height;
 	int		side;
@@ -95,12 +94,12 @@ typedef struct	s_ray
 
 typedef struct	s_player
 {
-	double	posX;
-	double	posY;
-	double	dirX;
-	double	dirY;
-	double	planeX;
-	double	planeY;
+	double	posx;
+	double	posy;
+	double	dirx;
+	double	diry;
+	double	plane_x;
+	double	plane_y;
 	bool	moving; 
 }			t_player;
 
@@ -189,7 +188,7 @@ void		init_player(t_game *game);
 void		calc_side(t_game *game, t_ray *ray);
 void		rot_camera(t_game *game, char dir);
 void 		calc_delta(t_ray *ray);
-void		calc_wallDist(t_game *game, t_ray *ray, int side);
+void		calc_walldist(t_game *game, t_ray *ray, int side);
 t_vertex	calc_height(t_ray *ray);
 void		init_orient_N_S(t_game *game, t_player *player);
 void		init_orient_E_W(t_game *game, t_player *player);

@@ -18,27 +18,27 @@
 */
 void calc_delta(t_ray *ray)
 {
-	if (ray->dirX == 0)
-		ray->deltaDistX = 1e30;
+	if (ray->dirx == 0)
+		ray->d_distx = 1e30;
 	else
-		ray->deltaDistX = fabs(1.0 / ray->dirX);
-	if (ray->dirY == 0)
-		ray->deltaDistY = 1e30;
+		ray->d_distx = fabs(1.0 / ray->dirx);
+	if (ray->diry == 0)
+		ray->d_disty = 1e30;
 	else
-		ray->deltaDistY = fabs(1.0 / ray->dirY);
+		ray->d_disty = fabs(1.0 / ray->diry);
 }
 
 
-void calc_wallDist(t_game *game, t_ray *ray, int side)
+void calc_walldist(t_game *game, t_ray *ray, int side)
 {
 	if (side == VERTICAL)
-		ray->perpWallDist = (ray->mapX - game->player->posX
-			+ (1 - ray->stepX) / 2) / ray->dirX;
+		ray->perp_walldist = (ray->mapx - game->player->posx
+			+ (1 - ray->stepx) / 2) / ray->dirx;
 	else
-		ray->perpWallDist = (ray->mapY - game->player->posY
-			+ (1 - ray->stepY) / 2) / ray->dirY;
-	if (ray->perpWallDist < 0.0001)
-		ray->perpWallDist = 0.0001;
+		ray->perp_walldist = (ray->mapy - game->player->posy
+			+ (1 - ray->stepy) / 2) / ray->diry;
+	if (ray->perp_walldist < 0.0001)
+		ray->perp_walldist = 0.0001;
 }
 
 
@@ -51,9 +51,8 @@ t_vertex	calc_height(t_ray *ray)
 
 	line.x = 0;
 	line.y = 0; 
-	line_h = (int)SCREEN_HEIGHT / ray->perpWallDist;
+	line_h = (int)SCREEN_HEIGHT / ray->perp_walldist;
 	ray->line_height = (int)line_h;
-	//printf("LINE H = %f\n", line_h);
 	line.x = -line_h/2 + (SCREEN_HEIGHT /2);
 	if (line.x < 0)
 		line.x = 0; 
@@ -69,26 +68,25 @@ t_vertex	calc_height(t_ray *ray)
 */
 void	calc_side(t_game *game, t_ray *ray)
 {
-	// calculate step and initial sideDist
-	if (ray->dirX < 0)
+	if (ray->dirx < 0)
 	{
-		ray->stepX = -1;
-		ray->sideDistX = (game->player->posX - ray->mapX) * ray->deltaDistX;
+		ray->stepx = -1;
+		ray->side_dx = (game->player->posx - ray->mapx) * ray->d_distx;
 	}
 	else
 	{
-		ray->stepX = 1;
-		ray->sideDistX = (ray->mapX + 1.0 - game->player->posX) * ray->deltaDistX;
+		ray->stepx = 1;
+		ray->side_dx = (ray->mapx + 1.0 - game->player->posx) * ray->d_distx;
 	}
-	if (ray->dirY < 0)
+	if (ray->diry < 0)
 	{
-		ray->stepY = -1;
-		ray->sideDistY = (game->player->posY - ray->mapY) * ray->deltaDistY;
+		ray->stepy = -1;
+		ray->side_dy = (game->player->posy - ray->mapy) * ray->d_disty;
 	}
 	else
 	{
-		ray->stepY = 1;
-		ray->sideDistY = (ray->mapY + 1.0 - game->player->posY) * ray->deltaDistY;
+		ray->stepy = 1;
+		ray->side_dy = (ray->mapy + 1.0 - game->player->posy) * ray->d_disty;
 	}
 }
 
