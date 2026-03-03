@@ -15,11 +15,9 @@
 
 
 /*rotates the camera plane in left or right
-	changed macro ROTSPEED to reflect radians
-	in stead of degrees -> have to check out 
-	if the dirX are still alright -> might need PI conversion too
+	by speed (standard is macro ROTSPEED)
 */
-void	rot_camera(t_game *game, char dir)
+void	rot_camera(t_game *game, char dir, double speed)
 {
 	t_player	*play;
 	double		oldDirX;
@@ -30,19 +28,19 @@ void	rot_camera(t_game *game, char dir)
 	oldPlaneX = play->planeX;
 	if (dir == 'r')
 	{
-		play->dirX = (play->dirX * cos(ROTSPEED) - play->dirY * sin(ROTSPEED));
-		play->dirY = (oldDirX * sin(ROTSPEED) + play->dirY * cos(ROTSPEED));
-		play->planeX = play->planeX * cos(ROTSPEED) - play->planeY * sin(ROTSPEED);
-		play->planeY = oldPlaneX * sin(ROTSPEED) + play->planeY * cos(ROTSPEED);
+		play->dirX = (play->dirX * cos(speed) - play->dirY * sin(speed));
+		play->dirY = (oldDirX * sin(speed) + play->dirY * cos(speed));
+		play->planeX = play->planeX * cos(speed) - play->planeY * sin(speed);
+		play->planeY = oldPlaneX * sin(speed) + play->planeY * cos(speed);
 	}
 	else if (dir == 'l')
 	{
-		play->dirX = (play->dirX * cos(-ROTSPEED) - play->dirY * sin(-ROTSPEED));
-		play->dirY = (oldDirX * sin(-ROTSPEED) + play->dirY * cos(-ROTSPEED));
-		play->planeX = play->planeX * cos(-ROTSPEED) - play->planeY
-			* sin(-ROTSPEED);
-		play->planeY = oldPlaneX * sin(-ROTSPEED) + play->planeY
-			* cos(-ROTSPEED);
+		play->dirX = (play->dirX * cos(-speed) - play->dirY * sin(-speed));
+		play->dirY = (oldDirX * sin(-speed) + play->dirY * cos(-speed));
+		play->planeX = play->planeX * cos(-speed) - play->planeY
+			* sin(-speed);
+		play->planeY = oldPlaneX * sin(-speed) + play->planeY
+			* cos(-speed);
 	}
 }
 
@@ -154,9 +152,9 @@ void	cub_keyhook(mlx_key_data_t keydown, void *param)
 		if (keydown.key == MLX_KEY_D)
 			move_lr(game, game->player->posY, game->player->posX, 'r');
 		if (keydown.key == MLX_KEY_LEFT)
-			rot_camera(game, 'l');
+			rot_camera(game, 'l', ROTSPEED);
 		if (keydown.key == MLX_KEY_RIGHT)
-			rot_camera(game, 'r');
+			rot_camera(game, 'r', ROTSPEED);
 		if (keydown.key == MLX_KEY_M)
 		 	toggle_minimap(game);
 	}

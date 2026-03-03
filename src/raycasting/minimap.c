@@ -64,7 +64,7 @@ void render_map(t_game *game)
         pos.x = 0;
         while (pos.x <game->map->x_len)
         {
-            if (game->map->grid[pos.y][pos.x] == WALL)
+            if (game->map->grid[(int)floor(pos.y)][(int)floor(pos.x)] == WALL)
                 render_box(game->img, (pos.y * TILE_SIZE)*MAPOFFSET, (pos.x * TILE_SIZE)*MAPOFFSET, BLUE);
             else
                 render_box(game->img, (pos.y * TILE_SIZE)*MAPOFFSET, (pos.x * TILE_SIZE)*MAPOFFSET, WHITE);

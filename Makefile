@@ -46,6 +46,7 @@ SRCS =	$(MAINDIR)main.c \
 		$(PARSDIR)no_so_ea_we.c \
 		$(RAYDIR)minimap.c \
 		$(RAYDIR)init_player.c \
+		$(RAYDIR)mouse_input.c \
 		$(RAYDIR)move_player.c \
 		$(RAYDIR)textures.c \
 		$(UTILDIR)error.c \

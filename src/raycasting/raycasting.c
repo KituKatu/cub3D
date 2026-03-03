@@ -106,10 +106,13 @@ void cast_ray(t_game *game, t_ray *ray)
 void render_scene(void *ptr)
 {
 	t_game *game; 
-	
-	game = (t_game *)ptr; 
 	t_ray ray;
-
+	double delta_time;
+	t_vertex old_mouse;
+	
+	game = (t_game *)ptr;
+	old_mouse = check_mouse(game);
+	delta_time = mlx_get_time();
 	// ray.mapX = game->player->posX;
 	// ray.mapY = game->player->posY;
 	ray.dirX = game->player->dirX;
@@ -118,5 +121,6 @@ void render_scene(void *ptr)
 	cast_ray(game, &ray);
 	if (game->map_img->enabled)
 		render_minimap(game);
-   // cast_mapray(game, &ray);
+
+	mouse_rot(game, old_mouse);
 }	
