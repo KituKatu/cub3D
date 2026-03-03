@@ -6,7 +6,7 @@
 /*   By: jmcgrane <jmcgrane@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/27 16:12:27 by adecheri          #+#    #+#             */
-/*   Updated: 2026/03/03 15:50:28 by jmcgrane         ###   ########.fr       */
+/*   Updated: 2026/03/03 16:02:01 by jmcgrane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 /*rotates the camera plane in left or right
 	by speed (standard is macro ROTSPEED)
 */
-void	rot_camera(t_game *game, char dir, double speed)
+void	rot_camera(t_game *game, char dir)
 {
 	t_player	*play;
 	double		oldDirX;
@@ -158,9 +158,9 @@ void	cub_keyhook(mlx_key_data_t keydown, void *param)
 		if (keydown.key == MLX_KEY_D)
 			move_lr(game, game->player->posY, game->player->posX, 'r');
 		if (keydown.key == MLX_KEY_LEFT)
-			rot_camera(game, 'l', ROTSPEED);
+			rot_camera(game, 'l');
 		if (keydown.key == MLX_KEY_RIGHT)
-			rot_camera(game, 'r', ROTSPEED);
+			rot_camera(game, 'r');
 		if (keydown.key == MLX_KEY_M)
 		 	toggle_minimap(game);
 	}

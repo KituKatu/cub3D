@@ -6,7 +6,7 @@
 /*   By: jmcgrane <jmcgrane@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/14 17:31:12 by adecheri          #+#    #+#             */
-/*   Updated: 2026/03/03 15:51:23 by jmcgrane         ###   ########.fr       */
+/*   Updated: 2026/03/03 16:08:25 by jmcgrane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -187,7 +187,7 @@ void	free_cubgame(t_game **game);
 bool		dda(t_game *game, t_ray *ray);
 void		init_player(t_game *game);
 void		calc_side(t_game *game, t_ray *ray);
-void		rot_camera(t_game *game, char dir, double speed);
+void		rot_camera(t_game *game, char dir);
 void 		calc_delta(t_ray *ray);
 void		calc_wallDist(t_game *game, t_ray *ray, int side);
 t_vertex	calc_height(t_ray *ray);
@@ -211,6 +211,12 @@ void 	render_map(t_game *game);
 void 	render_minimap(void *game_ptr);
 void 	render_miniplay(t_game *game, int color);
 void 	render_ray(t_game *game, int size, int color);
+int		get_tex_x(t_game *game, t_ray *ray, mlx_texture_t *tex);
+void	render_textured_line(t_game *game, t_ray *ray, t_vertex line,
+		t_vertex *pos);
+void	draw_wall_strip(t_game *game, t_ray *ray, t_vertex line, int x);
+void	draw_ceiling_floor(t_game *game, t_vertex line, int x);
+int		ft_clamp(int value, int min, int max);
 
 
 #endif
