@@ -82,7 +82,7 @@ void render_map(t_game *game)
 //&& game->player->dirY < 0 
 bool valid_space(t_game *game, double y, double x)
 {
-    if (y > 0 && x > 0 && ((game->map->grid[(int)(y)][(int)x] == SPACE) || (game->map->grid[(int)y][(int)x] == 'N') || (game->map->grid[(int)y][(int)x] == 'E') || (game->map->grid[(int)y][(int)x] == 'S') || (game->map->grid[(int)y][(int)x] == 'W')))
+    if (y > 0 && x > 0 && (int)y < game->map->y_len && (int)x < game->map->x_len && ((game->map->grid[(int)(y)][(int)x] == SPACE) || (game->map->grid[(int)y][(int)x] == 'N') || (game->map->grid[(int)y][(int)x] == 'E') || (game->map->grid[(int)y][(int)x] == 'S') || (game->map->grid[(int)y][(int)x] == 'W')))
         return (true);
     // else if (y > 0 && x > 0 && game->player->dirX < 0 && ((game->map->grid[(int)floor(y)][(int)x] == SPACE) || (game->map->grid[(int)y][(int)x] == 'N') || (game->map->grid[(int)y][(int)x] == 'E') || (game->map->grid[(int)y][(int)x] == 'S') || (game->map->grid[(int)y][(int)x] == 'W')))
     //     return (true);
