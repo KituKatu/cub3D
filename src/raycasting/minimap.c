@@ -6,7 +6,7 @@
 /*   By: jmcgrane <jmcgrane@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/12 12:31:32 by jmcgrane          #+#    #+#             */
-/*   Updated: 2026/02/25 12:51:18 by jmcgrane         ###   ########.fr       */
+/*   Updated: 2026/03/03 12:26:54 by jmcgrane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,14 +34,16 @@ void render_box(mlx_image_t *img, int y, int x, int color)
     int offset;
     int i;
     int j;
-    
+    int num;
+
     i = 0;
     j = 0;
     offset = 6;
-    while (i < TILE_SIZE)
+    num = TILE_SIZE * MAPOFFSET;
+    while (i < num)
     {
         j = 0;
-        while(j < TILE_SIZE)
+        while(j < num)
         {
             mlx_put_pixel(img, x+j, y+i, color);
             j++;
@@ -78,7 +80,7 @@ void render_map(t_game *game)
 //&& game->player->dirY < 0 
 bool valid_space(t_game *game, double y, double x)
 {
-    if (y > 0 && x > 0 && ((game->map->grid[(int)(y)][(int)x] == SPACE) || (game->map->grid[(int)y][(int)x] == 'N') || (game->map->grid[(int)y][(int)x] == 'E') || (game->map->grid[(int)y][(int)x] == 'S') || (game->map->grid[(int)y][(int)x] == 'W')))
+    if (y > 0 && x > 0 && (int)y < game->map->y_len && (int)x < game->map->x_len && ((game->map->grid[(int)(y)][(int)x] == SPACE) || (game->map->grid[(int)y][(int)x] == 'N') || (game->map->grid[(int)y][(int)x] == 'E') || (game->map->grid[(int)y][(int)x] == 'S') || (game->map->grid[(int)y][(int)x] == 'W')))
         return (true);
     // else if (y > 0 && x > 0 && game->player->dirX < 0 && ((game->map->grid[(int)floor(y)][(int)x] == SPACE) || (game->map->grid[(int)y][(int)x] == 'N') || (game->map->grid[(int)y][(int)x] == 'E') || (game->map->grid[(int)y][(int)x] == 'S') || (game->map->grid[(int)y][(int)x] == 'W')))
     //     return (true);

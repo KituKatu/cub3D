@@ -6,7 +6,7 @@
 /*   By: jmcgrane <jmcgrane@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/20 12:42:42 by jmcgrane          #+#    #+#             */
-/*   Updated: 2026/02/20 14:31:59 by jmcgrane         ###   ########.fr       */
+/*   Updated: 2026/03/03 12:53:13 by jmcgrane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,11 @@ void	render_textured_line(t_game *game, t_ray *ray, t_vertex line,
     y = line.x;
     while (y < line.y)
     {
-        tex_y = (int)tex_pos % tex->height;
+        tex_y = (int)tex_pos;
+        if (tex_y < 0)
+            tex_y = 0;
+        else if (tex_y >= (int)tex->height)
+            tex_y = tex->height - 1;
         tex_pos += step;
         mlx_put_pixel(game->img, pos->x, y, get_tex_pixel(tex, tex_x, tex_y));
         y++;
