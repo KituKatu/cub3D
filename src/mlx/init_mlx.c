@@ -44,6 +44,7 @@ int	wall_textures(t_game *game)
 int	init_game(char *mapfile, t_game *game)
 {
 	mlx_image_t	*img;
+	mlx_texture_t *icon;
 
 	game->map = init_map(mapfile);
 	if (!game->map)
@@ -52,6 +53,8 @@ int	init_game(char *mapfile, t_game *game)
 			SCREEN_HEIGHT, "Cub3D", false);
 	if (!game->mlx)
 		return (ft_exit_errc("Can't initilize mlx", (void *)&game, 'g'));
+	icon = mlx_load_png("../../textures/jmcgrane_S.png");
+	mlx_set_icon(game->mlx, icon);
 	if (wall_textures(game) == FAILURE)
 		return (ft_exit_errc("Can't load wall texture", (void *)&game, 'w'));
 	init_player(game);

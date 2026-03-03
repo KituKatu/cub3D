@@ -16,14 +16,14 @@ static mlx_texture_t	*pick_texture(t_game *game, t_ray *ray)
 {
 	if (ray->side == VERTICAL)
 	{
-		if (ray->dirX > 0)
+		if (ray->dirx > 0)
 			return (game->texture.east);
 		else
 			return (game->texture.west);
 	}
 	else if (ray->side == HORIZONTAL)
 	{
-		if (ray->dirY > 0)
+		if (ray->diry > 0)
 			return (game->texture.south);
 		else
 			return (game->texture.north);
@@ -54,14 +54,14 @@ void	render_textured_line(t_game *game, t_ray *ray, t_vertex line,
 
     tex = pick_texture(game, ray);
     if (ray->side == VERTICAL)
-        wall_x = game->player->posY + ray->perpWallDist * ray->dirY;
+        wall_x = game->player->posy + ray->perp_walldist * ray->diry;
     else
-        wall_x = game->player->posX + ray->perpWallDist * ray->dirX;
+        wall_x = game->player->posx + ray->perp_walldist * ray->dirx;
     wall_x -= floor(wall_x);
     tex_x = (int)(wall_x * (double)tex->width);
-    if (ray->side == VERTICAL && ray->dirX > 0)
+    if (ray->side == VERTICAL && ray->dirx > 0)
         tex_x = tex->width - tex_x - 1;
-    if (ray->side == HORIZONTAL && ray->dirY < 0)
+    if (ray->side == HORIZONTAL && ray->diry < 0)
         tex_x = tex->width - tex_x - 1;
     y = 0;
     while (y < line.x)
