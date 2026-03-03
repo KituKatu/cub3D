@@ -6,7 +6,7 @@
 /*   By: jmcgrane <jmcgrane@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/12 12:31:32 by jmcgrane          #+#    #+#             */
-/*   Updated: 2026/02/25 12:51:18 by jmcgrane         ###   ########.fr       */
+/*   Updated: 2026/03/03 12:26:54 by jmcgrane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,14 +34,16 @@ void render_box(mlx_image_t *img, int y, int x, int color)
     int offset;
     int i;
     int j;
-    
+    int num;
+
     i = 0;
     j = 0;
     offset = 6;
-    while (i < TILE_SIZE)
+    num = TILE_SIZE * MAPOFFSET;
+    while (i < num)
     {
         j = 0;
-        while(j < TILE_SIZE)
+        while(j < num)
         {
             mlx_put_pixel(img, x+j, y+i, color);
             j++;
