@@ -6,7 +6,7 @@
 /*   By: jmcgrane <jmcgrane@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/27 16:12:27 by adecheri          #+#    #+#             */
-/*   Updated: 2026/03/02 14:28:04 by jmcgrane         ###   ########.fr       */
+/*   Updated: 2026/03/03 15:50:28 by jmcgrane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,25 +24,27 @@ void	rot_camera(t_game *game, char dir)
 	t_player	*play;
 	double		oldDirX;
 	double		oldPlaneX;
+	double		speed;
 
+	speed = ROTSPEED * game->mlx->delta_time;
 	play = game->player;
 	oldDirX = play->dirX;
 	oldPlaneX = play->planeX;
 	if (dir == 'r')
 	{
-		play->dirX = (play->dirX * cos(ROTSPEED) - play->dirY * sin(ROTSPEED));
-		play->dirY = (oldDirX * sin(ROTSPEED) + play->dirY * cos(ROTSPEED));
-		play->planeX = play->planeX * cos(ROTSPEED) - play->planeY * sin(ROTSPEED);
-		play->planeY = oldPlaneX * sin(ROTSPEED) + play->planeY * cos(ROTSPEED);
+		play->dirX = (play->dirX * cos(speed) - play->dirY * sin(speed));
+		play->dirY = (oldDirX * sin(speed) + play->dirY * cos(speed));
+		play->planeX = play->planeX * cos(speed) - play->planeY * sin(speed);
+		play->planeY = oldPlaneX * sin(speed) + play->planeY * cos(speed);
 	}
 	else if (dir == 'l')
 	{
-		play->dirX = (play->dirX * cos(-ROTSPEED) - play->dirY * sin(-ROTSPEED));
-		play->dirY = (oldDirX * sin(-ROTSPEED) + play->dirY * cos(-ROTSPEED));
-		play->planeX = play->planeX * cos(-ROTSPEED) - play->planeY
-			* sin(-ROTSPEED);
-		play->planeY = oldPlaneX * sin(-ROTSPEED) + play->planeY
-			* cos(-ROTSPEED);
+		play->dirX = (play->dirX * cos(-speed) - play->dirY * sin(-speed));
+		play->dirY = (oldDirX * sin(-speed) + play->dirY * cos(-speed));
+		play->planeX = play->planeX * cos(-speed) - play->planeY
+			* sin(-speed);
+		play->planeY = oldPlaneX * sin(-speed) + play->planeY
+			* cos(-speed);
 	}
 }
 
@@ -54,25 +56,27 @@ void	rot_camera(t_game *game, char dir)
 void	move_fb(t_game *game, double y, double x, keys_t dir)
 {
 	t_player	*play;
+	double		speed;
 
+	speed = MOVSPEED * game->mlx->delta_time;
 	play = game->player;
 	if (dir == 'f')
 	{
 		if (game->map->grid[(int)floor(y)][(int)floor(x + (play->dirX
-				* MOVSPEED))] != WALL)
-			game->player->posX += play->dirX * MOVSPEED;
+				* speed))] != WALL)
+			game->player->posX += play->dirX * speed;
 		if (game->map->grid[(int)floor(y + (play->dirY
-				* MOVSPEED))][(int)floor(x)] != WALL)
-			game->player->posY += play->dirY * MOVSPEED;
+				* speed))][(int)floor(x)] != WALL)
+			game->player->posY += play->dirY * speed;
 	}
 	else if (dir == 'b')
 	{
 		if (game->map->grid[(int)floor(y)][(int)floor(x - play->dirX
-				* MOVSPEED)] != WALL)
-			game->player->posX -= play->dirX * MOVSPEED;
+				* speed)] != WALL)
+			game->player->posX -= play->dirX * speed;
 		if (game->map->grid[(int)floor(y - play->dirY
-				* MOVSPEED)][(int)floor(x)] != WALL)
-			game->player->posY -= play->dirY * MOVSPEED;
+				* speed)][(int)floor(x)] != WALL)
+			game->player->posY -= play->dirY * speed;
 	}
 }
 
@@ -104,10 +108,12 @@ void	move_lr(t_game *game, double y, double x, keys_t dir)
 	t_player	*play;
 	double		dx;
 	double 		dy;
+	double		speed;
 
+	speed = MOVSPEED * game->mlx->delta_time;
 	play = game->player;
-	dx = ( play->dirX * MOVSPEED);
-	dy = ( play->dirY * MOVSPEED);
+	dx = ( play->dirX * speed);
+	dy = ( play->dirY * speed);
 	printf("DIRX = %f\n, DIRY = %f\n", dx, dy);
 	if (dir == 'r')
 	{

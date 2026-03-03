@@ -6,7 +6,7 @@
 /*   By: jmcgrane <jmcgrane@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/14 17:31:12 by adecheri          #+#    #+#             */
-/*   Updated: 2026/02/24 15:27:35 by jmcgrane         ###   ########.fr       */
+/*   Updated: 2026/03/03 15:51:23 by jmcgrane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,10 +30,10 @@
 # define HORIZONTAL 1
 # define READ_SIZE 42
 # define MAPOFFSET 0.25
-# define ROTSPEED 0.26179 //0.5235
 # define DEGREE 0.01745
 # define PI 3.14159
-# define MOVSPEED 0.8
+# define MOVSPEED 3.0 //0.8
+# define ROTSPEED 3.0 //0.5235 //0.26179
 # define WHITE 0xFFFFFFFF
 # define BLUE 111184
 # define RED 0xFF033E
