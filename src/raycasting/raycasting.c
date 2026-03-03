@@ -13,8 +13,6 @@
 #include "../../inc/cub3d.h"
 #include <time.h>
 
-//TODO: make func to check intersecting rays with play->mov -->walls
-
 
 //&& (ray->mapX > 0 || ray->mapY > 0 || ray->mapX < game->map->x_len || ray->mapY < game->map->y_len)
 // calc if ray from camera plane hits wall
@@ -100,8 +98,11 @@ void cast_ray(t_game *game, t_ray *ray)
 }
 
 
-
-
+/* renders per frame the 3d scene, 
+	clears it and renders minimap if 
+	enabled. checks for mouse pos 
+	to establish rotation if needed 
+*/
 void render_scene(void *ptr)
 {
 	t_game *game; 

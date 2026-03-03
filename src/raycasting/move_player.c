@@ -96,7 +96,6 @@ bool val_step(t_game *game, t_vertex pos, double delta)
 	next position is taken by a wall, still needs to check if 
 	the sides of the ray from player to wall intersect the collision 
 	box of the player when moving through 
-	TODO: make func validating intersections of pl box with walls
 */
 void	move_lr(t_game *game, double y, double x, keys_t dir)
 {
