@@ -44,22 +44,8 @@ void mouse_reset(t_game *game)
     game->player->plane_x = game->player->plane_x;
     game->player->plane_y = game->player->plane_y;
 
-    if (mx > SCREEN_WIDTH/4)
-    {
-        while (mx > SCREEN_WIDTH/2)
-        {
-            mlx_set_mouse_pos(game->mlx, mx, my);
-            mx--;
-        }
-    }
-    else if (mx < (SCREEN_WIDTH/2) + SCREEN_WIDTH/4)
-    {
-        while (mx < SCREEN_WIDTH/2)
-        {
-            mlx_set_mouse_pos(game->mlx, mx, my);
-            mx++;
-        }
-    }
+    // if (mx > SCREEN_WIDTH/4 || mx < (SCREEN_WIDTH/2) + SCREEN_WIDTH/4)
+    //     mlx_set_mouse_pos(game->mlx, SCREEN_WIDTH/2, my);
 }
 
 void mouse_rot(t_game *game, t_vertex m_pos)
@@ -78,9 +64,17 @@ void mouse_rot(t_game *game, t_vertex m_pos)
         if (angle == 0.00)
             mouse_reset(game);
         else if (new_pos.x < SCREEN_WIDTH/2)
+        {
             rot_camera(game, 'l', -angle * DEGREE);
+            if (new_pos.x < (SCREEN_WIDTH*0.1))
+                mlx_set_mouse_pos(game->mlx, SCREEN_WIDTH/2, new_pos.y);
+        }
         else if (new_pos.x > SCREEN_WIDTH/2)
+        {
             rot_camera(game, 'r', angle *DEGREE);
+            if (new_pos.x > (SCREEN_WIDTH* 0.9))
+                mlx_set_mouse_pos(game->mlx, SCREEN_WIDTH/2, new_pos.y);
+        }
     }
 }
 
