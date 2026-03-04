@@ -6,7 +6,7 @@
 /*   By: jmcgrane <jmcgrane@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/14 17:13:00 by adecheri          #+#    #+#             */
-/*   Updated: 2026/03/02 15:53:59 by jmcgrane         ###   ########.fr       */
+/*   Updated: 2026/03/04 13:04:17 by jmcgrane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@ int	main(int ac, char **av)
 	return (SUCCESS);
 }
 
+//130,200,229
 //sort out boarder minimap
 //mlxgettime func to make movement smoother
 

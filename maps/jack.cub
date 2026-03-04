@@ -1,10 +1,10 @@
-NO ./textures/seamless_tile1.png
-SO ./textures/space_4.png
-WE ./textures/space_18.png
-EA ./textures/space_18.png
+NO ./textures/nt_2.png
+SO ./textures/nt_2.png
+WE ./textures/nt_2.png
+EA ./textures/nt_2.png
 
 F 100,57,0
-C 0,0,0
+C 210,250,230
 
 11111111111111111111111111111
 10000000000000000000000000011
