@@ -6,7 +6,7 @@
 /*   By: jmcgrane <jmcgrane@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/28 15:29:43 by jmcgrane          #+#    #+#             */
-/*   Updated: 2026/02/24 15:26:16 by jmcgrane         ###   ########.fr       */
+/*   Updated: 2026/03/04 12:41:17 by jmcgrane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,7 @@ int	init_game(char *mapfile, t_game *game)
 	if(!icon)
 		ft_exit_errc("Failed to load icon", (void *)&game, 'g');
 	mlx_set_icon(game->mlx, icon);
+	mlx_delete_texture(icon);
 	if (wall_textures(game) == FAILURE)
 		return (ft_exit_errc("Can't load wall texture", (void *)&game, 'w'));
 	init_player(game);

@@ -6,13 +6,25 @@
 /*   By: jmcgrane <jmcgrane@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/27 16:12:27 by adecheri          #+#    #+#             */
-/*   Updated: 2026/03/03 16:02:01 by jmcgrane         ###   ########.fr       */
+/*   Updated: 2026/03/04 12:41:15 by jmcgrane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/cub3d.h"
 #include <time.h>
 
+static bool	is_wall(t_game *game, double y, double x)
+{
+	int	iy;
+	int	ix;
+
+	iy = (int)floor(y);
+	ix = (int)floor(x);
+	if (iy < 0 || iy >= game->map->y_len || ix < 0
+		|| ix >= game->map->x_len)
+		return (true);
+	return (game->map->grid[iy][ix] == WALL);
+}
 
 /*rotates the camera plane in left or right
 	by ROTSPEED macro
@@ -24,6 +36,8 @@ void	rot_camera(t_game *game, char dir, double speed)
 	double		oldPlaneX;
 
 	speed *= game->mlx->delta_time;
+	if (speed > 0.2)
+		speed = 0.2;
 	play = game->player;
 	oldDirX = play->dirx;
 	oldPlaneX = play->plane_x;
@@ -56,23 +70,21 @@ void	move_fb(t_game *game, double y, double x, keys_t dir)
 	double		speed;
 
 	speed = MOVSPEED * game->mlx->delta_time;
+	if (speed > 0.4)
+		speed = 0.4;
 	play = game->player;
 	if (dir == 'f')
 	{
-		if (game->map->grid[(int)floor(y)][(int)floor(x + (play->dirx
-				* speed))] != WALL)
+		if (!is_wall(game, y, x + play->dirx * speed))
 			game->player->posx += play->dirx * speed;
-		if (game->map->grid[(int)floor(y + (play->diry
-				* speed))][(int)floor(x)] != WALL)
+		if (!is_wall(game, y + play->diry * speed, x))
 			game->player->posy += play->diry * speed;
 	}
 	else if (dir == 'b')
 	{
-		if (game->map->grid[(int)floor(y)][(int)floor(x - play->dirx
-				* speed)] != WALL)
+		if (!is_wall(game, y, x - play->dirx * speed))
 			game->player->posx -= play->dirx * speed;
-		if (game->map->grid[(int)floor(y - play->diry
-				* speed)][(int)floor(x)] != WALL)
+		if (!is_wall(game, y - play->diry * speed, x))
 			game->player->posy -= play->diry * speed;
 	}
 }
@@ -85,7 +97,7 @@ void	move_fb(t_game *game, double y, double x, keys_t dir)
 */
 bool val_step(t_game *game, t_vertex pos, double delta)
 {
-	if (game->map->grid[(int)floor(pos.y)][(int)floor(pos.x + delta)] != WALL)
+	if (!is_wall(game, pos.y, pos.x + delta))
 		return(false);	
 	return (true);
 }
@@ -105,21 +117,23 @@ void	move_lr(t_game *game, double y, double x, keys_t dir)
 	double		speed;
 
 	speed = MOVSPEED * game->mlx->delta_time;
+	if (speed > 0.4)
+		speed = 0.4;
 	play = game->player;
 	dx = ( play->dirx * speed);
 	dy = ( play->diry * speed);
 	if (dir == 'r')
 	{
-		if (game->map->grid[(int)floor(y)][(int)floor(x - dy)] != WALL)
+		if (!is_wall(game, y, x - dy))
 			game->player->posx -= dy;
-		if (game->map->grid[(int)floor(y + dx)][(int)floor(x)] != WALL)
-			game->player->posy += dx; 
+		if (!is_wall(game, y + dx, x))
+			game->player->posy += dx;
 	}
 	else if (dir == 'l')
 	{
-		if (game->map->grid[(int)floor(y)][(int)floor(x + dy)] != WALL)
+		if (!is_wall(game, y, x + dy))
 			game->player->posx += dy;
-		if (game->map->grid[(int)floor(y - dx)][(int)floor(x)] != WALL)
+		if (!is_wall(game, y - dx, x))
 			game->player->posy -= dx;
 	}
 }
