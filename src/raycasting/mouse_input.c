@@ -32,8 +32,6 @@ t_vertex check_mouse(t_game *game)
 }
 
 //have the direction reset when mouse is not moving
-//when at 1/4 of the screen or 75% it will float back to 
-// the middle of the screen 
 void mouse_reset(t_game *game)
 {
     int32_t mx;
@@ -43,11 +41,12 @@ void mouse_reset(t_game *game)
     game->player->diry = game->player->diry;
     game->player->plane_x = game->player->plane_x;
     game->player->plane_y = game->player->plane_y;
-
-    // if (mx > SCREEN_WIDTH/4 || mx < (SCREEN_WIDTH/2) + SCREEN_WIDTH/4)
-    //     mlx_set_mouse_pos(game->mlx, SCREEN_WIDTH/2, my);
 }
 
+/* have the mouse position rotate the camera
+    at the left and right part of the screen
+    
+*/
 void mouse_rot(t_game *game, t_vertex m_pos)
 {
     t_vertex new_pos;
