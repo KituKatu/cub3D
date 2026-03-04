@@ -25,7 +25,7 @@ void	free_cubmap(t_map **map)
 	ft_safefree((void *)&(*map)->west);
 	if ((*map)->grid)
 	{
-		while((*map)->grid[i])
+		while ((*map)->grid[i])
 		{
 			ft_safefree((void *)&(*map)->grid[i]);
 			i++;
@@ -53,7 +53,6 @@ void	free_cubgame(t_game **game)
 	free_cubmap(&(*game)->map);
 	ft_safefree((void *)&(*game)->player);
 }
-
 
 void	ft_clean_cubed(void **ptr, char id)
 {

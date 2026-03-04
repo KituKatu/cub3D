@@ -99,8 +99,7 @@ typedef struct	s_player
 	double	dirx;
 	double	diry;
 	double	plane_x;
-	double	plane_y;
-	bool	moving; 
+	double	plane_y; 
 }			t_player;
 
 typedef struct	s_minimap

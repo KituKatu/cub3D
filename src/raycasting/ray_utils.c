@@ -14,9 +14,10 @@
 
 /*calculate height of walls on grid by raycasting
 	calc vector of camera plane?
-	direction vector multiplies the pos of player in cert direction (length doesn't matter only dir)
+	direction vector multiplies the pos of player 
+	in cert direction (length doesn't matter only dir)
 */
-void calc_delta(t_ray *ray)
+void	calc_delta(t_ray *ray)
 {
 	if (ray->dirx == 0)
 		ray->d_distx = 1e30;
@@ -28,40 +29,38 @@ void calc_delta(t_ray *ray)
 		ray->d_disty = fabs(1.0 / ray->diry);
 }
 
-
-void calc_walldist(t_game *game, t_ray *ray, int side)
+void	calc_walldist(t_game *game, t_ray *ray, int side)
 {
 	if (side == VERTICAL)
-		ray->perp_walldist = (ray->mapx - game->player->posx
-			+ (1 - ray->stepx) / 2) / ray->dirx;
+		ray->perp_walldist = (ray->mapx - game->player->posx + (1 - ray->stepx)
+				/ 2) / ray->dirx;
 	else
-		ray->perp_walldist = (ray->mapy - game->player->posy
-			+ (1 - ray->stepy) / 2) / ray->diry;
+		ray->perp_walldist = (ray->mapy - game->player->posy + (1 - ray->stepy)
+				/ 2) / ray->diry;
 	if (ray->perp_walldist < 0.0001)
 		ray->perp_walldist = 0.0001;
 }
 
-
-// returns the line height of the walls depending on x or y axis is hit by raycast
+// returns the line height of the walls 
+// depending on x or y axis is hit by raycast
 // needs a struct for all the arguments
 t_vertex	calc_height(t_ray *ray)
 {
-	t_vertex line;
-	double line_h;
+	t_vertex	line;
+	double		line_h;
 
 	line.x = 0;
-	line.y = 0; 
+	line.y = 0;
 	line_h = (int)SCREEN_HEIGHT / ray->perp_walldist;
 	ray->line_height = (int)line_h;
-	line.x = -line_h/2 + (SCREEN_HEIGHT /2);
+	line.x = -line_h / 2 + (SCREEN_HEIGHT / 2);
 	if (line.x < 0)
-		line.x = 0; 
-	line.y = line_h/2 + (SCREEN_HEIGHT /2);
+		line.x = 0;
+	line.y = line_h / 2 + (SCREEN_HEIGHT / 2);
 	if (line.y >= SCREEN_HEIGHT)
 		line.y = SCREEN_HEIGHT - 1;
 	return (line);
 }
-
 
 /* calculate where ray intersects 
 	with either y or x axis on the mapgrid	
@@ -89,4 +88,3 @@ void	calc_side(t_game *game, t_ray *ray)
 		ray->side_dy = (ray->mapy + 1.0 - game->player->posy) * ray->d_disty;
 	}
 }
-

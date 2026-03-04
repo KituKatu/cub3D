@@ -41,32 +41,40 @@ int	wall_textures(t_game *game)
 	return (SUCCESS);
 }
 
+void	init_gamedetails(t_game *game)
+{
+	mlx_texture_t	*icon;
+
+	icon = mlx_load_png("./textures/jmcgrane_S.png");
+	if (!icon)
+		ft_exit_errc("Failed to load icon", (void *)&game, 'g');
+	mlx_set_icon(game->mlx, icon);
+	mlx_delete_texture(icon);
+	mlx_set_window_title(game->mlx, "Jack in the Box");
+}
+
 int	init_game(char *mapfile, t_game *game)
 {
 	mlx_image_t	*img;
-	mlx_texture_t *icon;
 
 	game->map = init_map(mapfile);
 	if (!game->map)
 		return (FAILURE);
-	game->mlx = mlx_init(SCREEN_WIDTH,
-			SCREEN_HEIGHT, "Cub3D", false);
+	game->mlx = mlx_init(SCREEN_WIDTH, SCREEN_HEIGHT, "Cub3D", false);
 	if (!game->mlx)
 		return (ft_exit_errc("Can't initilize mlx", (void *)&game, 'g'));
-	icon = mlx_load_png("./textures/jmcgrane_S.png");
-	if(!icon)
-		ft_exit_errc("Failed to load icon", (void *)&game, 'g');
-	mlx_set_icon(game->mlx, icon);
-	mlx_delete_texture(icon);
 	if (wall_textures(game) == FAILURE)
 		return (ft_exit_errc("Can't load wall texture", (void *)&game, 'w'));
 	init_player(game);
+	init_gamedetails(game);
 	img = mlx_new_image(game->mlx, SCREEN_WIDTH, SCREEN_HEIGHT);
 	if (!img || (mlx_image_to_window(game->mlx, img, 0, 0) < 0))
 		ft_exit_errc("Failed to load screen", (void *)&game, 'g');
 	game->img = img;
-	game->map_img = mlx_new_image(game->mlx, SCREEN_WIDTH* MAPOFFSET, SCREEN_HEIGHT* MAPOFFSET);
-	if (!game->map_img || (mlx_image_to_window(game->mlx, game->map_img, 0, 0) < 0))
+	game->map_img = mlx_new_image(game->mlx, SCREEN_WIDTH * MAPOFFSET,
+			SCREEN_HEIGHT * MAPOFFSET);
+	if (!game->map_img || (mlx_image_to_window(game->mlx, game->map_img, 0,
+				0) < 0))
 		ft_exit_errc("Failed to load screen", (void *)&game, 'g');
 	return (SUCCESS);
 }

@@ -13,8 +13,8 @@
 #include "../../inc/cub3d.h"
 #include <time.h>
 
-
-//&& (ray->mapX > 0 || ray->mapY > 0 || ray->mapX < game->map->x_len || ray->mapY < game->map->y_len)
+//&& (ray->mapX > 0 || ray->mapY > 0 || ray->mapX < game->map->x_len
+		//|| ray->mapY < game->map->y_len)
 // calc if ray from camera plane hits wall
 // with side defining if the wall is NS or EW
 bool	dda(t_game *game, t_ray *ray)
@@ -46,20 +46,19 @@ bool	dda(t_game *game, t_ray *ray)
 	return (side);
 }
 
-
 /*redraws black all over the scene to clear mlx img
 	for the next frame (no ghosting)
-*/ 
-void clear_scene(mlx_image_t *img)
+*/
+void	clear_scene(mlx_image_t *img)
 {
-	int x;
-	int y;
-	
+	int	x;
+	int	y;
+
 	y = 0;
 	while (y < SCREEN_HEIGHT)
 	{
 		x = 0;
-		while(x < SCREEN_WIDTH)
+		while (x < SCREEN_WIDTH)
 		{
 			mlx_put_pixel(img, x, y, 0);
 			x++;
@@ -68,14 +67,13 @@ void clear_scene(mlx_image_t *img)
 	}
 }
 
-
-void cast_ray(t_game *game, t_ray *ray)
+void	cast_ray(t_game *game, t_ray *ray)
 {
-	int side; 
-	double cam_x;
-	t_vertex line_h;
-	t_vertex position;
-	
+	int			side;
+	double		cam_x;
+	t_vertex	line_h;
+	t_vertex	position;
+
 	position.x = 0;
 	side = -1;
 	while (position.x < SCREEN_WIDTH)
@@ -96,18 +94,17 @@ void cast_ray(t_game *game, t_ray *ray)
 	}
 }
 
-
 /* renders per frame the 3d scene, 
 	clears it and renders minimap if 
 	enabled. checks for mouse pos 
 	to establish rotation if needed 
 */
-void render_scene(void *ptr)
+void	render_scene(void *ptr)
 {
-	t_game *game; 
-	t_ray ray;
-	t_vertex old_mouse;
-	
+	t_game		*game;
+	t_ray		ray;
+	t_vertex	old_mouse;
+
 	game = (t_game *)ptr;
 	old_mouse = check_mouse(game);
 	ray.dirx = game->player->dirx;
@@ -118,5 +115,4 @@ void render_scene(void *ptr)
 		render_minimap(game);
 	mouse_rot(game, old_mouse);
 	// if (game->player->moving)
-		
-}	
+}
