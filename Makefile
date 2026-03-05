@@ -44,6 +44,7 @@ SRCS =	$(MAINDIR)main.c \
 		$(PARSDIR)parsing_utils.c \
 		$(PARSDIR)read_map.c \
 		$(PARSDIR)no_so_ea_we.c \
+		$(RAYDIR)minimap_utils.c \
 		$(RAYDIR)minimap.c \
 		$(RAYDIR)init_player.c \
 		$(RAYDIR)mouse_input.c \
