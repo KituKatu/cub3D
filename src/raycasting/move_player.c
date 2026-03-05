@@ -26,9 +26,11 @@ static bool	is_wall(t_game *game, double y, double x)
 }
 
 /*rotates the camera plane in left or right
-	by ROTSPEED macro
+	by ROTSPEED macro. If the speed is neg,
+	the rotation is left (ccw), when speed is pos,
+	the rotation is to the righ (cw)
 */
-void	rot_camera(t_game *game, char dir, double speed)
+void	rot_camera(t_game *game, double speed)
 {
 	t_player	*play;
 	double		olddirx;
@@ -40,21 +42,11 @@ void	rot_camera(t_game *game, char dir, double speed)
 	play = game->player;
 	olddirx = play->dirx;
 	oldplanex = play->plane_x;
-	if (dir == 'r')
-	{
-		play->dirx = (play->dirx * cos(speed) - play->diry * sin(speed));
-		play->diry = (olddirx * sin(speed) + play->diry * cos(speed));
-		play->plane_x = play->plane_x * cos(speed) - play->plane_y * sin(speed);
-		play->plane_y = oldplanex * sin(speed) + play->plane_y * cos(speed);
-	}
-	else if (dir == 'l')
-	{
-		play->dirx = (play->dirx * cos(-speed) - play->diry * sin(-speed));
-		play->diry = (olddirx * sin(-speed) + play->diry * cos(-speed));
-		play->plane_x = play->plane_x * cos(-speed) - play->plane_y
-			* sin(-speed);
-		play->plane_y = oldplanex * sin(-speed) + play->plane_y * cos(-speed);
-	}
+
+	play->dirx = (play->dirx * cos(speed) - play->diry * sin(speed));
+	play->diry = (olddirx * sin(speed) + play->diry * cos(speed));
+	play->plane_x = play->plane_x * cos(speed) - play->plane_y * sin(speed);
+	play->plane_y = oldplanex * sin(speed) + play->plane_y * cos(speed);
 }
 
 /* updates the player position by checking if the 
@@ -62,73 +54,58 @@ void	rot_camera(t_game *game, char dir, double speed)
 	the sides of the ray from player to wall intersect the collision 
 	box of the player when moving through
 */
-void	move_fb(t_game *game, double y, double x, keys_t dir)
+void	move_fb(t_game *game, t_vertex pos, keys_t dir, double speed)
 {
 	t_player	*play;
-	double		speed;
 
-	speed = MOVSPEED * game->mlx->delta_time;
 	if (speed > 0.4)
 		speed = 0.4;
 	play = game->player;
-	if (dir == 'f')
+	if (dir == MLX_KEY_UP || dir == MLX_KEY_W)
 	{
-		if (!is_wall(game, y, x + play->dirx * speed))
+		if (!is_wall(game, pos.y, pos.x + play->dirx * speed))
 			game->player->posx += play->dirx * speed;
-		if (!is_wall(game, y + play->diry * speed, x))
+		if (!is_wall(game, pos.y + play->diry * speed, pos.x))
 			game->player->posy += play->diry * speed;
 	}
-	else if (dir == 'b')
+	else if (dir == MLX_KEY_S || dir == MLX_KEY_DOWN)
 	{
-		if (!is_wall(game, y, x - play->dirx * speed))
+		if (!is_wall(game, pos.y, pos.x - play->dirx * speed))
 			game->player->posx -= play->dirx * speed;
-		if (!is_wall(game, y - play->diry * speed, x))
+		if (!is_wall(game, pos.y - play->diry * speed, pos.x))
 			game->player->posy -= play->diry * speed;
 	}
 }
 
-/*
-	needs to have the absolute coordinates 
-	of intersection of wall to check 4 sides?
-	--> no jumping between grid points 
-*/
-bool	val_step(t_game *game, t_vertex pos, double delta)
-{
-	if (!is_wall(game, pos.y, pos.x + delta))
-		return (false);
-	return (true);
-}
 
 /* updates the player position by checking if the 
 	next position is taken by a wall, still needs to check if 
 	the sides of the ray from player to wall intersect the collision 
 	box of the player when moving through 
 */
-void	move_lr(t_game *game, double y, double x, keys_t dir)
+void	move_lr(t_game *game, t_vertex pos, keys_t dir, double speed)
 {
 	t_player	*play;
 	double		dx;
 	double		dy;
-	double		speed;
 
-	speed = MOVSPEED * game->mlx->delta_time;
 	if (speed > 0.4)
 		speed = 0.4;
 	play = game->player;
 	dx = (play->dirx * speed);
 	dy = (play->diry * speed);
-	if (dir == 'r')
+	if (dir == MLX_KEY_D)
 	{
-		if (!is_wall(game, y, x - dy))
+		if (!is_wall(game, pos.y, pos.x - dy))
 			game->player->posx -= dy;
-		if (!is_wall(game, y + dx, x))
+		if (!is_wall(game, pos.y + dx, pos.x))
 			game->player->posy += dx;
 	}
-	else if (dir == 'l')
+	else if (dir == MLX_KEY_A)
 	{
-		if (!is_wall(game, y, x + dy))
+		if (!is_wall(game, pos.y, pos.x + dy))
 			game->player->posx += dy;
-		if (!is_wall(game, y - dx, x))
+		if (!is_wall(game, pos.y - dx, pos.x))
 			game->player->posy -= dx;
 	}
 }
@@ -145,27 +122,27 @@ void	toggle_minimap(t_game *game)
 void	cub_keyhook(mlx_key_data_t keydown, void *param)
 {
 	t_game	*game;
+	t_vertex pos;
+	double speed;
 
 	game = (t_game *)param;
+	pos.x = game->player->posx;
+	pos.y = game->player->posy;
+	speed = MOVSPEED * game->mlx->delta_time;
 	if (keydown.action == MLX_PRESS || keydown.action == MLX_REPEAT)
 	{
 		render_miniplay(game, WHITE);
 		if (keydown.key == MLX_KEY_ESCAPE)
 			mlx_close_window(game->mlx);
-		if (keydown.key == MLX_KEY_UP || keydown.key == MLX_KEY_W)
-			move_fb(game, game->player->posy, game->player->posx, 'f');
-		if (keydown.key == MLX_KEY_DOWN || keydown.key == MLX_KEY_S)
-			move_fb(game, game->player->posy, game->player->posx, 'b');
-		if (keydown.key == MLX_KEY_A)
-			move_lr(game, game->player->posy, game->player->posx, 'l');
-		if (keydown.key == MLX_KEY_D)
-			move_lr(game, game->player->posy, game->player->posx, 'r');
+		move_fb(game, pos, keydown.key, speed);
+		move_lr(game, pos, keydown.key, speed);
 		if (keydown.key == MLX_KEY_LEFT)
-			rot_camera(game, 'l', ROTSPEED);
+			rot_camera(game, -ROTSPEED);
 		if (keydown.key == MLX_KEY_RIGHT)
-			rot_camera(game, 'r', ROTSPEED);
+			rot_camera(game, ROTSPEED);
 		if (keydown.key == MLX_KEY_M)
 			toggle_minimap(game);
 	}
 	render_miniplay(game, RED);
+	game->player->moving = false;
 }

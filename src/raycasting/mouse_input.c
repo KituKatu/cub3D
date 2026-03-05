@@ -62,13 +62,13 @@ void	mouse_rot(t_game *game, t_vertex m_pos)
 			mouse_reset(game);
 		else if (new_pos.x < SCREEN_WIDTH / 2)
 		{
-			rot_camera(game, 'l', -angle * DEGREE);
+			rot_camera(game, -angle * DEGREE);
 			if (new_pos.x < (SCREEN_WIDTH * 0.1))
 				mlx_set_mouse_pos(game->mlx, SCREEN_WIDTH / 2, new_pos.y);
 		}
 		else if (new_pos.x > SCREEN_WIDTH / 2)
 		{
-			rot_camera(game, 'r', angle * DEGREE);
+			rot_camera(game, angle * DEGREE);
 			if (new_pos.x > (SCREEN_WIDTH * 0.9))
 				mlx_set_mouse_pos(game->mlx, SCREEN_WIDTH / 2, new_pos.y);
 		}

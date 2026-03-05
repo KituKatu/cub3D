@@ -99,7 +99,8 @@ typedef struct	s_player
 	double	dirx;
 	double	diry;
 	double	plane_x;
-	double	plane_y; 
+	double	plane_y;
+	bool	moving;
 }			t_player;
 
 typedef struct	s_minimap
@@ -185,7 +186,7 @@ void	free_cubgame(t_game **game);
 bool		dda(t_game *game, t_ray *ray);
 void		init_player(t_game *game);
 void		calc_side(t_game *game, t_ray *ray);
-void		rot_camera(t_game *game, char dir, double speed);
+void		rot_camera(t_game *game, double speed);
 void 		calc_delta(t_ray *ray);
 void		calc_walldist(t_game *game, t_ray *ray, int side);
 t_vertex	calc_height(t_ray *ray);
@@ -193,8 +194,8 @@ void		init_orient_N_S(t_game *game, t_player *player);
 void		init_orient_E_W(t_game *game, t_player *player);
 void 		mouse_rot(t_game *game, t_vertex m_pos);
 t_vertex 	check_mouse(t_game *game);
-void		move_fb(t_game *game, double y, double x, keys_t dir);
-void		move_lr(t_game *game, double y, double x, keys_t dir);
+void		move_fb(t_game *game, t_vertex pos, keys_t dir, double speed);
+void		move_lr(t_game *game, t_vertex pos, keys_t dir, double speed);
 void 		cast_mapray(t_game *game, t_ray *ray);
 void 		cast_ray(t_game *game, t_ray *ray);
 void		render_textured_line(t_game *game, t_ray *ray, t_vertex line,

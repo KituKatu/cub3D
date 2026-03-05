@@ -39,8 +39,8 @@ bool	dda(t_game *game, t_ray *ray)
 			side = HORIZONTAL;
 		}
 		if ((int)ray->mapx < 0 || (int)ray->mapx >= game->map->x_len
-			|| (int)ray->mapy < 0 || (int)ray->mapy >= game->map->y_len ||
-			game->map->grid[(int)(ray->mapy)][(int)(ray->mapx)] == WALL)
+			|| (int)ray->mapy < 0 || (int)ray->mapy >= game->map->y_len
+			|| game->map->grid[(int)(ray->mapy)][(int)(ray->mapx)] == WALL)
 			hit = true;
 	}
 	return (side);
@@ -114,5 +114,4 @@ void	render_scene(void *ptr)
 	if (game->map_img->enabled)
 		render_minimap(game);
 	mouse_rot(game, old_mouse);
-	// if (game->player->moving)
 }
