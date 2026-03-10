@@ -6,7 +6,7 @@
 /*   By: jmcgrane <jmcgrane@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/14 17:31:12 by adecheri          #+#    #+#             */
-/*   Updated: 2026/03/10 13:38:34 by jmcgrane         ###   ########.fr       */
+/*   Updated: 2026/03/10 14:03:49 by jmcgrane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -164,6 +164,7 @@ void				create_grid(t_map *map, int i, int j);
 int					init_game(char *mapfile, t_game *game);
 int					parse_identifier(char *line, t_map *map);
 int					floodfill(t_map *map, char **map_copy, int x, int y);
+int					read_map_helper(t_map *map);
 
 /*Map colors*/
 
@@ -171,6 +172,8 @@ int					parse_color(char *line, t_map *map);
 void				validate_color_chars(char *line, t_map *map);
 void				color_error(char **c_arr, char *msg, t_map *map);
 void				extract_color_values(char **c_arr, int *color, t_map *map);
+mlx_texture_t		*pick_texture(t_game *game, t_ray *ray);
+uint32_t			get_tex_pixel(mlx_texture_t *tex, int x, int y);
 
 /*MLX*/
 
