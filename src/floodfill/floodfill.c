@@ -6,7 +6,7 @@
 /*   By: jmcgrane <jmcgrane@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/30 14:00:42 by jmcgrane          #+#    #+#             */
-/*   Updated: 2026/03/10 13:08:38 by jmcgrane         ###   ########.fr       */
+/*   Updated: 2026/03/10 15:34:15 by jmcgrane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,10 +61,6 @@ char	**map_copy(t_map *map)
 		i++;
 	}
 	map_copy[i] = NULL;
-	printf("------------------MAP_COPY----------------\n");
-	i = 0;
-	while (i < map->y_len)
-		printf("%s\n", map_copy[i++]);
 	return (map_copy);
 }
 
