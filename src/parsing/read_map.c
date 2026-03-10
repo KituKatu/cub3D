@@ -93,7 +93,7 @@ int	read_map_again(t_map *map)
 			break ;
 		}
 		else if (parse_map_id(map->line) == FAILURE)
-			return(ft_safefree((void *)&map->line), close(map->fd), FAILURE);
+			return (ft_safefree((void *)&map->line), close(map->fd), FAILURE);
 		ft_safefree((void *)&map->line);
 	}
 	return (close(map->fd), SUCCESS);
