@@ -1,6 +1,4 @@
-_This project has been created as part of the 42 curriculum by adecheri and jmcgrane._
-
----
+*This project has been created as part of the 42 curriculum by <adecheri>, <jmcgrane>*
 
 ## Description
 
@@ -112,4 +110,3 @@ GitHub Copilot (Claude Sonnet) was used during this project in the following way
 - **Code review**: Spot-checking individual functions for off-by-one errors, memory leaks, and undefined behaviour.
 
 AI was **not** used to generate core algorithmic code (raycasting, DDA, texture mapping) — those were implemented by hand, guided by the references above.
-
