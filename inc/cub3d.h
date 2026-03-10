@@ -214,6 +214,7 @@ void				render_ray(t_game *game, int size, int color);
 int					get_tex_x(t_game *game, t_ray *ray, mlx_texture_t *tex);
 void				render_textured_line(t_game *game, t_ray *ray,
 						t_vertex line, t_vertex *pos);
+void				toggle_minimap(t_game *game);
 void				draw_wall_strip(t_game *game, t_ray *ray, t_vertex line,
 						int x);
 void				draw_ceiling_floor(t_game *game, t_vertex line, int x);

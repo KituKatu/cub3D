@@ -108,14 +108,6 @@ void	move_lr(t_game *game, t_vertex pos, keys_t dir, double speed)
 	}
 }
 
-void	toggle_minimap(t_game *game)
-{
-	if (game->map_img->enabled)
-		game->map_img->enabled = false;
-	else
-		game->map_img->enabled = true;
-}
-
 // keyhook to process player input
 void	cub_keyhook(mlx_key_data_t keydown, void *param)
 {

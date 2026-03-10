@@ -12,6 +12,14 @@
 
 #include "../../inc/cub3d.h"
 
+void	toggle_minimap(t_game *game)
+{
+	if (game->map_img->enabled)
+		game->map_img->enabled = false;
+	else
+		game->map_img->enabled = true;
+}
+
 //renders line at position.x from line.x until line.y in color
 void	render_line(mlx_image_t *img, t_vertex line, t_vertex *position,
 		int color)
