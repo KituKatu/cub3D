@@ -49,6 +49,7 @@ SRCS =	$(MAINDIR)main.c \
 		$(RAYDIR)init_player.c \
 		$(RAYDIR)mouse_input.c \
 		$(RAYDIR)move_player.c \
+		$(RAYDIR)texture_utils.c \
 		$(RAYDIR)textures.c \
 		$(UTILDIR)error.c \
 		$(UTILDIR)free.c \
