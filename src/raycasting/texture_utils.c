@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                         ::::::::           */
-/*   texture_utils.c                                     :+:    :+:           */
-/*                                                      +:+                   */
-/*   By: adecheri <marvin@42.fr>                       +#+                    */
-/*                                                    +#+                     */
-/*   Created: 2026/03/10 13:21:04 by adecheri       #+#    #+#                */
-/*   Updated: 2026/03/10 13:21:06 by adecheri       ########   odam.nl        */
+/*                                                        :::      ::::::::   */
+/*   texture_utils.c                                    :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: jmcgrane <jmcgrane@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/03/10 13:21:04 by adecheri          #+#    #+#             */
+/*   Updated: 2026/03/10 13:52:27 by jmcgrane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/cub3d.h"
 
-static mlx_texture_t	*pick_texture(t_game *game, t_ray *ray)
+mlx_texture_t	*pick_texture(t_game *game, t_ray *ray)
 {
 	if (ray->side == VERTICAL)
 	{
@@ -31,7 +31,7 @@ static mlx_texture_t	*pick_texture(t_game *game, t_ray *ray)
 	return (game->texture.north);
 }
 
-static uint32_t	get_tex_pixel(mlx_texture_t *tex, int x, int y)
+uint32_t	get_tex_pixel(mlx_texture_t *tex, int x, int y)
 {
 	uint8_t	*pixel;
 

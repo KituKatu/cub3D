@@ -6,7 +6,7 @@
 /*   By: jmcgrane <jmcgrane@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/23 12:52:50 by jmcgrane          #+#    #+#             */
-/*   Updated: 2026/02/24 13:29:21 by jmcgrane         ###   ########.fr       */
+/*   Updated: 2026/03/10 13:50:45 by jmcgrane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,27 +82,26 @@ int	n_s_e_w(t_map *map, char *line)
 void	map_dimensions(t_map *map)
 {
 	int	i;
-	int	width;
-	int	height;
 
 	i = 0;
-	height = 1;
+	map->y_len = 1;
 	while (map->line[i] && map->line[i] != '\n')
 		i++;
-	width = i;
+	map->x_len = i;
 	ft_safefree((void *)&map->line);
-	while ((map->line = get_next_line(map->fd)))
+	while (1)
 	{
+		map->line = get_next_line(map->fd);
+		if (!map->line)
+			break ;
 		i = 0;
 		while (map->line[i] && map->line[i] != '\n')
 			i++;
-		if (i > width)
-			width = i;
+		if (i > map->x_len)
+			map->x_len = i;
 		ft_safefree((void *)&map->line);
-		height++;
+		map->y_len++;
 	}
-	map->x_len = width;
-	map->y_len = height;
 	if (map->x_len > 116 || map->y_len > 40)
 		ft_exit_errc("Map size error!", (void *)&map, 's');
 	close(map->fd);
