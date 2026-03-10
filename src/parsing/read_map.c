@@ -38,7 +38,7 @@ int	read_map(t_map *map)
 {
 	map->fd = open(map->name, O_RDONLY);
 	if (map->fd < 0)
-		ft_exit_errc("Error opening file", NULL, '0');
+		ft_exit_errc("Error opening file", (void *)&map, 'm');
 	if (read_map_helper(map) == FAILURE)
 		return (FAILURE);
 	return (close(map->fd), SUCCESS);
@@ -76,7 +76,7 @@ int	read_map_again(t_map *map)
 {
 	map->fd = open(map->name, O_RDONLY);
 	if (map->fd < 0)
-		ft_exit_errc("Error opening file", NULL, '0');
+		ft_exit_errc("Error opening file", (void *)&map, 'm');
 	while (1)
 	{
 		map->line = get_next_line(map->fd);
