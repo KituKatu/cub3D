@@ -103,7 +103,7 @@ void	map_dimensions(t_map *map)
 		map->y_len++;
 	}
 	if (map->x_len > 116 || map->y_len > 40)
-		ft_exit_errc("Map size error!", (void *)&map, 's');
+		ft_exit_errc("Map size error!", (void **)&map, 'm');
 	close(map->fd);
 }
 

@@ -22,14 +22,14 @@ void	validate_color_chars(char *line, t_map *map)
 		if (ft_isdigit(*ptr) || *ptr == ',')
 			ptr++;
 		else
-			ft_exit_errc("Wrong input colors", (void *)&map, 'm');
+			ft_exit_errc("Wrong input colors", (void **)&map, 'm');
 	}
 }
 
 void	color_error(char **c_arr, char *msg, t_map *map)
 {
 	ft_freearr((void **)c_arr);
-	ft_exit_errc(msg, (void *)&map, 'm');
+	ft_exit_errc(msg, (void **)&map, 'm');
 }
 
 void	extract_color_values(char **c_arr, int *color, t_map *map)
@@ -60,7 +60,7 @@ int	parse_color(char *line, t_map *map)
 	validate_color_chars(line, map);
 	c_arr = ft_split(line, ',');
 	if (!c_arr)
-		ft_exit_errc("Colors split failed", (void *)&map, 'm');
+		ft_exit_errc("Colors split failed", (void **)&map, 'm');
 	extract_color_values(c_arr, color, map);
 	ft_freearr((void **)c_arr);
 	ft_safefree((void **)&line);

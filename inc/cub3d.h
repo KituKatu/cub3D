@@ -35,9 +35,9 @@
 # define MOVSPEED 3.0 //0.8
 # define ROTSPEED 3.0 //0.5235 //0.26179
 # define WHITE 0xFFFFFFFF
-# define BLUE 111184
-# define RED 0xFF033E
-# define YELLOW 0xFFFF00
+# define BLUE 0x0000FFFF
+# define RED 0xFF033EFF
+# define YELLOW 0xFFFF00FF
 
 # define TILE_SIZE 64
 # define FOV 0.66          // Same as wolfenstien
@@ -186,9 +186,9 @@ void				cub_keyhook(mlx_key_data_t keydown, void *param);
 
 /*Error Functions*/
 
-void				ft_clean_cubed(void **ptr, char id);
+void				ft_clean_cubed(void *ptr, char id);
 int					ft_exit_errc(const char *msg, void **ptr, char id);
-void				free_cubgame(t_game **game);
+void				free_cubgame(t_game *game);
 
 /*Ray Casting*/
 

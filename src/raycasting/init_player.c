@@ -21,7 +21,7 @@ void	init_player(t_game *game)
 
 	player = ft_calloc(1, sizeof(t_player));
 	if (!player)
-		ft_exit_errc("Failed to init player", (void *)&game, 'g');
+		ft_exit_errc("Failed to init player", (void **)&game, 'g');
 	player->posx = game->map->player_x + 0.5;
 	player->posy = game->map->player_y + 0.5;
 	game->map->grid[game->map->player_y][game->map->player_x] = SPACE;

@@ -27,7 +27,7 @@ int	main(int ac, char **av)
 	mlx_key_hook(game.mlx, cub_keyhook, (void *)&game);
 	mlx_loop(game.mlx);
 	gptr = &game;
-	free_cubgame(&gptr);
+	free_cubgame(gptr);
 	mlx_terminate(game.mlx);
 	return (SUCCESS);
 }

@@ -40,10 +40,11 @@ void	render_ray(t_game *game, int size, int color)
 		pos.x = (game->player->posx * TILE_SIZE);
 		pos.y = (game->player->posy * TILE_SIZE);
 		if (valid_space(game, (pos.y + (draw_start * game->player->diry))
-				/ TILE_SIZE,
-				(pos.x + (draw_start * game->player->dirx)) / TILE_SIZE))
-			mlx_put_pixel(game->img, (pos.x + (draw_start * game->player->dirx))
-				/ 4, (pos.y + (draw_start * game->player->diry)) / 4, color);
+				/ TILE_SIZE, (pos.x + (draw_start * game->player->dirx))
+				/ TILE_SIZE))
+			mlx_put_pixel(game->map_img, (pos.x + (draw_start
+						* game->player->dirx)) / 4, (pos.y + (draw_start
+						* game->player->diry)) / 4, color);
 		draw_start++;
 	}
 }
@@ -69,8 +70,9 @@ void	render_miniplay(t_game *game, int color)
 			if (game->player->posx + x > 0.0 && game->player->posx
 				+ x < game->map->x_len * 1.0 && game->player->posy + y > 0.0
 				&& game->player->posy + y < game->map->y_len * 1.0)
-				mlx_put_pixel(game->img, (game->player->posx * TILE_SIZE + x)
-					/ 4, (game->player->posy * TILE_SIZE + y) / 4, color);
+				mlx_put_pixel(game->map_img, (game->player->posx * TILE_SIZE
+						+ x) / 4, (game->player->posy * TILE_SIZE + y) / 4,
+					color);
 			y++;
 		}
 		x++;
@@ -115,8 +117,6 @@ void	render_minimap(void *game_ptr)
 	game = (t_game *)game_ptr;
 	ray.dirx = game->player->dirx;
 	ray.diry = game->player->diry;
-	clear_scene(game->img);
-	cast_ray(game, &ray);
 	render_map(game);
 	render_miniplay(game, RED);
 	cast_mapray(game, &ray);

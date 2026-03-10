@@ -12,54 +12,54 @@
 
 #include "../../inc/cub3d.h"
 
-void	free_cubmap(t_map **map)
+static void	free_cubmap(t_map *map)
 {
 	int	i;
 
 	i = 0;
-	ft_safefree((void *)&(*map)->line);
-	ft_safefree((void *)&(*map)->name);
-	ft_safefree((void *)&(*map)->north);
-	ft_safefree((void *)&(*map)->east);
-	ft_safefree((void *)&(*map)->south);
-	ft_safefree((void *)&(*map)->west);
-	if ((*map)->grid)
+	ft_safefree((void **)&map->line);
+	ft_safefree((void **)&map->name);
+	ft_safefree((void **)&map->north);
+	ft_safefree((void **)&map->east);
+	ft_safefree((void **)&map->south);
+	ft_safefree((void **)&map->west);
+	if (map->grid)
 	{
-		while ((*map)->grid[i])
+		while (map->grid[i])
 		{
-			ft_safefree((void *)&(*map)->grid[i]);
+			ft_safefree((void **)&map->grid[i]);
 			i++;
 		}
-		ft_safefree((void *)&(*map)->grid);
+		ft_safefree((void **)&map->grid);
 	}
-	ft_safefree((void *)map);
+	ft_safefree((void **)&map);
 }
 
-static void	free_textures(t_game **game)
+static void	free_textures(t_game *game)
 {
-	if ((*game)->texture.north)
-		mlx_delete_texture((*game)->texture.north);
-	if ((*game)->texture.south)
-		mlx_delete_texture((*game)->texture.south);
-	if ((*game)->texture.east)
-		mlx_delete_texture((*game)->texture.east);
-	if ((*game)->texture.west)
-		mlx_delete_texture((*game)->texture.west);
+	if (game->texture.north)
+		mlx_delete_texture(game->texture.north);
+	if (game->texture.south)
+		mlx_delete_texture(game->texture.south);
+	if (game->texture.east)
+		mlx_delete_texture(game->texture.east);
+	if (game->texture.west)
+		mlx_delete_texture(game->texture.west);
 }
 
-void	free_cubgame(t_game **game)
+void	free_cubgame(t_game *game)
 {
 	free_textures(game);
-	free_cubmap(&(*game)->map);
-	ft_safefree((void *)&(*game)->player);
+	free_cubmap(game->map);
+	ft_safefree((void **)&game->player);
 }
 
-void	ft_clean_cubed(void **ptr, char id)
+void	ft_clean_cubed(void *ptr, char id)
 {
 	if (id == 'm')
-		free_cubmap((t_map **)ptr);
+		free_cubmap((t_map *)ptr);
 	else if (id == 'g')
-		free_cubgame((t_game **)ptr);
+		free_cubgame((t_game *)ptr);
 	else
-		ft_safefree(ptr);
+		ft_safefree((void **)&ptr);
 }

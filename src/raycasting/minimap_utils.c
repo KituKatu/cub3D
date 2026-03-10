@@ -12,14 +12,6 @@
 
 #include "../../inc/cub3d.h"
 
-void	toggle_minimap(t_game *game)
-{
-	if (game->map_img->enabled)
-		game->map_img->enabled = false;
-	else
-		game->map_img->enabled = true;
-}
-
 //renders line at position.x from line.x until line.y in color
 void	render_line(mlx_image_t *img, t_vertex line, t_vertex *position,
 		int color)
@@ -39,14 +31,12 @@ void	render_line(mlx_image_t *img, t_vertex line, t_vertex *position,
 //renders a box from the
 void	render_box(mlx_image_t *img, int y, int x, int color)
 {
-	int	offset;
 	int	i;
 	int	j;
 	int	num;
 
 	i = 0;
 	j = 0;
-	offset = 6;
 	num = TILE_SIZE * MAPOFFSET;
 	while (i < num)
 	{
@@ -75,11 +65,11 @@ void	render_map(t_game *game)
 		while (pos.x < game->map->x_len)
 		{
 			if (game->map->grid[(int)floor(pos.y)][(int)floor(pos.x)] == WALL)
-				render_box(game->img, (pos.y * TILE_SIZE) * MAPOFFSET, (pos.x
-						* TILE_SIZE) * MAPOFFSET, BLUE);
+				render_box(game->map_img, (pos.y * TILE_SIZE) * MAPOFFSET,
+					(pos.x * TILE_SIZE) * MAPOFFSET, BLUE);
 			else
-				render_box(game->img, (pos.y * TILE_SIZE) * MAPOFFSET, (pos.x
-						* TILE_SIZE) * MAPOFFSET, WHITE);
+				render_box(game->map_img, (pos.y * TILE_SIZE) * MAPOFFSET,
+					(pos.x * TILE_SIZE) * MAPOFFSET, WHITE);
 			pos.x++;
 		}
 		pos.y++;

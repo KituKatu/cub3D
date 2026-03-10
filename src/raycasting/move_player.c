@@ -119,7 +119,7 @@ void	cub_keyhook(mlx_key_data_t keydown, void *param)
 	pos.x = game->player->posx;
 	pos.y = game->player->posy;
 	speed = MOVSPEED * game->mlx->delta_time;
-	if (keydown.action == MLX_PRESS || keydown.action == MLX_REPEAT)
+	if (mlx_is_key_down(game->mlx, keydown.key) == true)
 	{
 		render_miniplay(game, WHITE);
 		if (keydown.key == MLX_KEY_ESCAPE)
@@ -131,7 +131,7 @@ void	cub_keyhook(mlx_key_data_t keydown, void *param)
 		if (keydown.key == MLX_KEY_RIGHT)
 			rot_camera(game, ROTSPEED);
 		if (keydown.key == MLX_KEY_M)
-			toggle_minimap(game);
+			game->map_img->enabled = !game->map_img->enabled;
 	}
 	render_miniplay(game, RED);
 	game->player->moving = false;
