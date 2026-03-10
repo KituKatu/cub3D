@@ -6,7 +6,7 @@
 /*   By: jmcgrane <jmcgrane@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/30 14:00:42 by jmcgrane          #+#    #+#             */
-/*   Updated: 2026/03/10 13:06:17 by jmcgrane         ###   ########.fr       */
+/*   Updated: 2026/03/10 13:08:38 by jmcgrane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 int	validate_map(t_map *map)
 {
-	t_vars v;
+	t_vars	v;
 
 	v.y = 0;
 	v.result = 0;

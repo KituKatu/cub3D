@@ -6,7 +6,7 @@
 /*   By: jmcgrane <jmcgrane@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/14 17:31:12 by adecheri          #+#    #+#             */
-/*   Updated: 2026/03/10 13:02:45 by jmcgrane         ###   ########.fr       */
+/*   Updated: 2026/03/10 13:38:34 by jmcgrane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -165,6 +165,7 @@ void	create_grid(t_map *map, int i, int j);
 int		init_game(char *mapfile, t_game *game);
 int		parse_identifier(char *line, t_map *map);
 int		floodfill(t_map *map, char **map_copy, int x, int y);
+int		read_map_helper(t_map *map);
 
 /*Map colors*/
 
