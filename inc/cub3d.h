@@ -6,7 +6,7 @@
 /*   By: jmcgrane <jmcgrane@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/14 17:31:12 by adecheri          #+#    #+#             */
-/*   Updated: 2026/03/03 16:08:25 by jmcgrane         ###   ########.fr       */
+/*   Updated: 2026/03/10 13:02:45 by jmcgrane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,14 @@
 # define FOV 0.66          // Same as wolfenstien
 # define SCREEN_WIDTH 2048 // Standard (4 : 3 aspect ratio)
 # define SCREEN_HEIGHT 1436
+
+typedef struct	s_vars
+{
+	int		x;
+	int		y;
+	char	**copy;
+	int		result;
+}			t_vars;
 
 typedef struct s_vertex
 {
