@@ -32,7 +32,6 @@ int	parse_identifier(char *line, t_map *map)
 	return (SUCCESS);
 }
 
-
 int	floor_ceiling(t_map *map, char *line)
 {
 	if (ft_strncmp(line, "F ", 2) == 0)

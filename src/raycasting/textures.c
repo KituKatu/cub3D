@@ -12,7 +12,6 @@
 
 #include "../../inc/cub3d.h"
 
-
 void	draw_ceiling_floor(t_game *game, t_vertex line, int x)
 {
 	int	y;
@@ -70,5 +69,3 @@ int	get_tex_x(t_game *game, t_ray *ray, mlx_texture_t *tex)
 		tex_x = tex->width - tex_x - 1;
 	return (tex_x);
 }
-
-

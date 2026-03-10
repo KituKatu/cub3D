@@ -188,8 +188,8 @@ void				rot_camera(t_game *game, double speed);
 void				calc_delta(t_ray *ray);
 void				calc_walldist(t_game *game, t_ray *ray, int side);
 t_vertex			calc_height(t_ray *ray);
-void				init_orient_N_S(t_game *game, t_player *player);
-void				init_orient_E_W(t_game *game, t_player *player);
+void				init_orient_n_s(t_game *game, t_player *player);
+void				init_orient_e_w(t_game *game, t_player *player);
 void				mouse_rot(t_game *game, t_vertex m_pos);
 t_vertex			check_mouse(t_game *game);
 void				move_fb(t_game *game, t_vertex pos, keys_t dir,
