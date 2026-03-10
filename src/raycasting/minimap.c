@@ -39,7 +39,8 @@ void	render_ray(t_game *game, int size, int color)
 	{
 		pos.x = (game->player->posx * TILE_SIZE);
 		pos.y = (game->player->posy * TILE_SIZE);
-		if (valid_space(game, (pos.y + (draw_start * game->player->diry)) / TILE_SIZE,
+		if (valid_space(game, (pos.y + (draw_start * game->player->diry))
+				/ TILE_SIZE,
 				(pos.x + (draw_start * game->player->dirx)) / TILE_SIZE))
 			mlx_put_pixel(game->img, (pos.x + (draw_start * game->player->dirx))
 				/ 4, (pos.y + (draw_start * game->player->diry)) / 4, color);
