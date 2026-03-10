@@ -56,23 +56,28 @@ void	rot_camera(t_game *game, double speed)
 void	move_fb(t_game *game, t_vertex pos, keys_t dir, double speed)
 {
 	t_player	*play;
+	double		dir_s;
 
 	if (speed > 0.4)
 		speed = 0.4;
 	play = game->player;
 	if (dir == MLX_KEY_UP || dir == MLX_KEY_W)
 	{
-		if (!is_wall(game, pos.y, pos.x + play->dirx * speed))
-			game->player->posx += play->dirx * speed;
-		if (!is_wall(game, pos.y + play->diry * speed, pos.x))
-			game->player->posy += play->diry * speed;
+		dir_s = play->dirx * speed;
+		if (!is_wall(game, pos.y, pos.x + dir_s))
+			game->player->posx += dir_s;
+		dir_s = play->diry * speed;
+		if (!is_wall(game, pos.y + dir_s, pos.x))
+			game->player->posy += dir_s;
 	}
 	else if (dir == MLX_KEY_S || dir == MLX_KEY_DOWN)
 	{
-		if (!is_wall(game, pos.y, pos.x - play->dirx * speed))
-			game->player->posx -= play->dirx * speed;
-		if (!is_wall(game, pos.y - play->diry * speed, pos.x))
-			game->player->posy -= play->diry * speed;
+		dir_s = play->dirx * speed;
+		if (!is_wall(game, pos.y, pos.x - dir_s))
+			game->player->posx -= dir_s;
+		dir_s = play->diry * speed;
+		if (!is_wall(game, pos.y - dir_s, pos.x))
+			game->player->posy -= dir_s;
 	}
 }
 

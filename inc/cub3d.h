@@ -35,7 +35,7 @@
 # define MOVSPEED 3.0 //0.8
 # define ROTSPEED 3.0 //0.5235 //0.26179
 # define WHITE 0xFFFFFFFF
-# define BLUE 0x0000FFFF
+# define BLUE 0x000080FF
 # define RED 0xFF033EFF
 # define YELLOW 0xFFFF00FF
 

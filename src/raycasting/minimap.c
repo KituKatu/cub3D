@@ -98,7 +98,7 @@ void	cast_mapray(t_game *game, t_ray *ray)
 			size = (ray->side_dx - ray->d_distx);
 		else
 			size = ray->side_dy - ray->d_disty;
-		render_ray(game, size / 2 * TILE_SIZE, RED);
+		render_ray(game, size * TILE_SIZE, RED);
 		raycount++;
 	}
 }
