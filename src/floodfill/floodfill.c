@@ -6,7 +6,7 @@
 /*   By: jmcgrane <jmcgrane@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/30 14:00:42 by jmcgrane          #+#    #+#             */
-/*   Updated: 2026/02/02 14:34:17 by jmcgrane         ###   ########.fr       */
+/*   Updated: 2026/03/10 13:06:17 by jmcgrane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,35 +14,31 @@
 
 int	validate_map(t_map *map)
 {
-	int		x;
-	int		y;
-	char	**copy;
-	int		result;
+	t_vars v;
 
-	result = 0;
-	copy = map_copy(map);
-	if (!copy)
+	v.y = 0;
+	v.result = 0;
+	v.copy = map_copy(map);
+	if (!v.copy)
 		return (FAILURE);
-	y = 0;
-	while (y < map->y_len)
+	while (v.y < map->y_len)
 	{
-		x = 0;
-		while (x < map->x_len)
+		v.x = 0;
+		while (v.x < map->x_len)
 		{
-			if (copy[y][x] && ft_strchr("NSEW", copy[y][x]))
+			if (v.copy[v.y][v.x] && ft_strchr("NSEW", v.copy[v.y][v.x]))
 			{
-				map->player_x = x;
-				map->player_y = y;
-				map->orient = copy[y][x];
-				result = floodfill(map, copy, x, y);
-				return (ft_freearr((void *)copy), result);
+				map->player_x = v.x;
+				map->player_y = v.y;
+				map->orient = v.copy[v.y][v.x];
+				v.result = floodfill(map, v.copy, v.x, v.y);
+				return (ft_freearr((void *)v.copy), v.result);
 			}
-			x++;
+			v.x++;
 		}
-		y++;
+		v.y++;
 	}
-	ft_freearr((void *)copy);
-	return (result);
+	return (ft_freearr((void *)v.copy), v.result);
 }
 
 char	**map_copy(t_map *map)
