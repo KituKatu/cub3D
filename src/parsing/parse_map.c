@@ -36,7 +36,6 @@ void	parse_map_first_line(t_map *map)
 	j = 0;
 	if (i == 0 && frst_last(map->line))
 		ft_exit_errc("Invalid map setup", (void *)&map, 'm');
-		// ft_exit_errc("Invalid first map row", (void *)&map, 'm');
 	while (map->line[j] && map->line[j] != '\n')
 	{
 		map->grid[i][j] = map->line[j];

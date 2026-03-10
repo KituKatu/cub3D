@@ -20,7 +20,7 @@ int	parse_identifier(char *line, t_map *map)
 			return (FAILURE);
 	}
 	else if (ft_strncmp(line, "NO ", 3) == 0 || ft_strncmp(line, "SO ", 3) == 0
-			|| ft_strncmp(line, "EA ", 3) == 0 || ft_strncmp(line, "WE ", 3) == 0)
+		|| ft_strncmp(line, "EA ", 3) == 0 || ft_strncmp(line, "WE ", 3) == 0)
 	{
 		if (n_s_e_w(map, line) == FAILURE)
 			return (FAILURE);
