@@ -6,7 +6,7 @@
 /*   By: jmcgrane <jmcgrane@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/26 13:50:37 by jmcgrane          #+#    #+#             */
-/*   Updated: 2026/02/17 13:48:46 by jmcgrane         ###   ########.fr       */
+/*   Updated: 2026/03/10 13:45:34 by jmcgrane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,13 +36,23 @@ t_map	*init_map(char *mapname)
 
 int	read_map(t_map *map)
 {
-	int	ret;
-
 	map->fd = open(map->name, O_RDONLY);
 	if (map->fd < 0)
 		ft_exit_errc("Error opening file", NULL, '0');
-	while ((map->line = get_next_line(map->fd)))
+	if (read_map_helper(map) == FAILURE)
+		return (FAILURE);
+	return (close(map->fd), SUCCESS);
+}
+
+int	read_map_helper(t_map *map)
+{
+	int	ret;
+
+	while (1)
 	{
+		map->line = get_next_line(map->fd);
+		if (!map->line)
+			break ;
 		if (empty_line(map->line) == SUCCESS)
 		{
 			ft_safefree((void *)&map->line);
@@ -64,28 +74,27 @@ int	read_map(t_map *map)
 
 int	read_map_again(t_map *map)
 {
-	int	ret;
-
 	map->fd = open(map->name, O_RDONLY);
 	if (map->fd < 0)
 		ft_exit_errc("Error opening file", NULL, '0');
-	while ((map->line = get_next_line(map->fd)))
+	while (1)
 	{
+		map->line = get_next_line(map->fd);
+		if (!map->line)
+			break ;
 		if (empty_line(map->line) == SUCCESS)
 		{
 			ft_safefree((void *)&map->line);
 			continue ;
 		}
-		ret = parse_map_id(map->line);
-		if (ret == MAP_START)
+		if (parse_map_id(map->line) == MAP_START)
 		{
 			parse_map_first_line(map);
 			break ;
 		}
-		else if (ret == FAILURE)
-			return (ft_safefree((void *)&map->line), close(map->fd), FAILURE);
+		else if (parse_map_id(map->line) == FAILURE)
+			return(ft_safefree((void *)&map->line), close(map->fd), FAILURE);
 		ft_safefree((void *)&map->line);
 	}
-	close(map->fd);
-	return (SUCCESS);
+	return (close(map->fd), SUCCESS);
 }

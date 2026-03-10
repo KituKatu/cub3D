@@ -6,7 +6,7 @@
 /*   By: jmcgrane <jmcgrane@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/02 12:49:59 by jmcgrane          #+#    #+#             */
-/*   Updated: 2026/02/12 13:06:11 by jmcgrane         ###   ########.fr       */
+/*   Updated: 2026/03/10 13:46:08 by jmcgrane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,9 +24,9 @@ int	is_valid_char(t_map *map)
 		while (j < map->x_len)
 		{
 			if (map->grid[i][j] != 'N' && map->grid[i][j] != 'S'
-				&& map->grid[i][j] != 'E' && map->grid[i][j] != 'W'
-				&& map->grid[i][j] != '1' && map->grid[i][j] != '0'
-				&& map->grid[i][j] != ' ')
+				&& map->grid[i][j] != 'E' && map->grid[i][j] != ' '
+				&& map->grid[i][j] != 'W' && map->grid[i][j] != '1'
+				&& map->grid[i][j] != '0')
 			{
 				return (FAILURE);
 			}

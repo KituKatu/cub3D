@@ -6,7 +6,7 @@
 /*   By: jmcgrane <jmcgrane@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/16 16:38:24 by adecheri          #+#    #+#             */
-/*   Updated: 2026/02/18 15:56:01 by jmcgrane         ###   ########.fr       */
+/*   Updated: 2026/03/10 13:16:40 by jmcgrane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,8 +54,11 @@ void	parse_map_first_line(t_map *map)
 
 void	create_grid(t_map *map, int i, int j)
 {
-	while ((i < map->y_len) && (map->line = get_next_line(map->fd)))
+	while ((i < map->y_len))
 	{
+		map->line = get_next_line(map->fd);
+		if (!map->line)
+			break ;
 		j = 0;
 		while (map->line[j] && map->line[j] != '\n')
 		{

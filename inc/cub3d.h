@@ -6,7 +6,7 @@
 /*   By: jmcgrane <jmcgrane@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/14 17:31:12 by adecheri          #+#    #+#             */
-/*   Updated: 2026/03/10 13:02:45 by jmcgrane         ###   ########.fr       */
+/*   Updated: 2026/03/10 13:38:34 by jmcgrane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -137,6 +137,7 @@ typedef struct s_game
 
 /*Map Validation*/
 
+<<<<<<< HEAD
 int					dot_cub(char *file);
 int					read_map(t_map *map);
 bool				frst_last(char *line);
@@ -164,6 +165,36 @@ void				create_grid(t_map *map, int i, int j);
 int					init_game(char *mapfile, t_game *game);
 int					parse_identifier(char *line, t_map *map);
 int					floodfill(t_map *map, char **map_copy, int x, int y);
+=======
+int		dot_cub(char *file);
+int		read_map(t_map *map);
+bool	frst_last(char *line);
+void	map_setup(t_map *map);
+char	**map_copy(t_map *map);
+int		empty_line(char *line);
+int		one_player(t_map *map);
+char	**init_grid(t_map *map);
+t_map	*init_map(char *mapname);
+int		parse_map_id(char *line);
+int		validate_map(t_map *map);
+int		is_valid_char(t_map *map);
+int		read_map_again(t_map *map);
+void	map_dimensions(t_map *map);
+int		wall_textures(t_game *game);
+int		n_s_e_w(t_map *map, char *line);
+void	parse_map_first_line(t_map *map);
+int		east_path(t_map *map, char *line);
+int		west_path(t_map *map, char *line);
+int		north_path(t_map *map, char *line);
+int		south_path(t_map *map, char *line);
+int		is_valid_map(t_map *map, char *line);
+int		floor_ceiling(t_map *map, char *line);
+void	create_grid(t_map *map, int i, int j);
+int		init_game(char *mapfile, t_game *game);
+int		parse_identifier(char *line, t_map *map);
+int		floodfill(t_map *map, char **map_copy, int x, int y);
+int		read_map_helper(t_map *map);
+>>>>>>> jack
 
 /*Map colors*/
 
