@@ -14,7 +14,7 @@
 
 /* spawns player on the map in direction orient
 	+0.5 for center of tile
-*/ 
+*/
 void	init_player(t_game *game)
 {
 	t_player	*player;
@@ -25,11 +25,11 @@ void	init_player(t_game *game)
 	player->posx = game->map->player_x + 0.5;
 	player->posy = game->map->player_y + 0.5;
 	game->map->grid[game->map->player_y][game->map->player_x] = SPACE;
-	init_orient_N_S(game, player);
+	init_orient_n_s(game, player);
 	game->player = player;
 }
 
-void	init_orient_N_S(t_game *game, t_player *player)
+void	init_orient_n_s(t_game *game, t_player *player)
 {
 	if (game->map->orient == 'N')
 	{
@@ -45,10 +45,10 @@ void	init_orient_N_S(t_game *game, t_player *player)
 		player->plane_x = -0.66;
 		player->plane_y = 0.0;
 	}
-	init_orient_E_W(game, player);
+	init_orient_e_w(game, player);
 }
 
-void	init_orient_E_W(t_game *game, t_player *player)
+void	init_orient_e_w(t_game *game, t_player *player)
 {
 	if (game->map->orient == 'E')
 	{

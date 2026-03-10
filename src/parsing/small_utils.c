@@ -24,8 +24,9 @@ int	is_valid_char(t_map *map)
 		while (j < map->x_len)
 		{
 			// printf("%s\n", map->grid[i]);
-			if (map->grid[i][j] != 'N' && map->grid[i][j] != 'S' && map->grid[i][j] != 'E'
-				&& map->grid[i][j] != 'W' && map->grid[i][j] != '1' && map->grid[i][j] != '0'
+			if (map->grid[i][j] != 'N' && map->grid[i][j] != 'S'
+				&& map->grid[i][j] != 'E' && map->grid[i][j] != 'W'
+				&& map->grid[i][j] != '1' && map->grid[i][j] != '0'
 				&& map->grid[i][j] != ' ')
 			{
 				return (FAILURE);
