@@ -42,7 +42,6 @@ void	rot_camera(t_game *game, double speed)
 	play = game->player;
 	olddirx = play->dirx;
 	oldplanex = play->plane_x;
-
 	play->dirx = (play->dirx * cos(speed) - play->diry * sin(speed));
 	play->diry = (olddirx * sin(speed) + play->diry * cos(speed));
 	play->plane_x = play->plane_x * cos(speed) - play->plane_y * sin(speed);
@@ -76,7 +75,6 @@ void	move_fb(t_game *game, t_vertex pos, keys_t dir, double speed)
 			game->player->posy -= play->diry * speed;
 	}
 }
-
 
 /* updates the player position by checking if the 
 	next position is taken by a wall, still needs to check if 
@@ -121,9 +119,9 @@ void	toggle_minimap(t_game *game)
 // keyhook to process player input
 void	cub_keyhook(mlx_key_data_t keydown, void *param)
 {
-	t_game	*game;
-	t_vertex pos;
-	double speed;
+	t_game		*game;
+	t_vertex	pos;
+	double		speed;
 
 	game = (t_game *)param;
 	pos.x = game->player->posx;

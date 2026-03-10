@@ -32,10 +32,6 @@ int	parse_identifier(char *line, t_map *map)
 	return (SUCCESS);
 }
 
-// int	is_valid_map(t_map *map, char *line)
-// {
-	
-// }
 
 int	floor_ceiling(t_map *map, char *line)
 {
