@@ -138,6 +138,5 @@ void	cub_keyhook(mlx_key_data_t keydown, void *param)
 		if (keydown.key == MLX_KEY_M)
 			game->map_img->enabled = !game->map_img->enabled;
 	}
-	render_miniplay(game, RED);
 	game->player->moving = false;
 }

@@ -114,4 +114,5 @@ void	render_scene(void *ptr)
 	if (game->map_img->enabled)
 		render_minimap(game);
 	mouse_rot(game, old_mouse);
+	printf("Delta Time = %f\n", game->mlx->delta_time);
 }

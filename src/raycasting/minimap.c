@@ -82,25 +82,19 @@ void	render_miniplay(t_game *game, int color)
 
 void	cast_mapray(t_game *game, t_ray *ray)
 {
-	int		raycount;
 	int		side;
-	double	size;
+	float	size;
 
-	raycount = 0;
 	ray->mapx = (int)game->player->posx;
 	ray->mapy = (int)game->player->posy;
-	while (raycount < 1)
-	{
-		calc_delta(ray);
-		calc_side(game, ray);
-		side = dda(game, ray);
-		if (side == VERTICAL)
-			size = (ray->side_dx - ray->d_distx);
-		else
-			size = ray->side_dy - ray->d_disty;
-		render_ray(game, size * TILE_SIZE, RED);
-		raycount++;
-	}
+	calc_delta(ray);
+	calc_side(game, ray);
+	side = dda(game, ray);
+	if (side == VERTICAL)
+		size = (ray->side_dx - ray->d_distx);
+	else
+		size = ray->side_dy - ray->d_disty;
+	render_ray(game, size * TILE_SIZE, RED);
 }
 
 /*
