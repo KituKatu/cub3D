@@ -12,7 +12,10 @@
 
 #include "../../inc/cub3d.h"
 
-//&& game->player->dirY < 0
+/* checks if ray can be rendered on minimap
+	improv: check what direction hits in order to 
+	render accurate stop on the ray hitting walls
+*/
 bool	valid_space(t_game *game, double y, double x)
 {
 	if (y > 0 && x > 0 && (int)y < game->map->y_len && (int)x < game->map->x_len
@@ -43,8 +46,8 @@ void	render_ray(t_game *game, int size, int color)
 				/ TILE_SIZE, (pos.x + (draw_start * game->player->dirx))
 				/ TILE_SIZE))
 			mlx_put_pixel(game->map_img, (pos.x + (draw_start
-						* game->player->dirx)) / 4, (pos.y + (draw_start
-						* game->player->diry)) / 4, color);
+						* game->player->dirx)) * MAPOFFSET, (pos.y + (draw_start
+						* game->player->diry)) * MAPOFFSET, color);
 		draw_start++;
 	}
 }
@@ -77,20 +80,14 @@ void	render_miniplay(t_game *game, int color)
 		}
 		x++;
 	}
-	render_ray(game, 24, color);
 }
 
+// printf("SIZE = %f\n", size);
 void	cast_mapray(t_game *game, t_ray *ray)
 {
-	int		side;
 	float	size;
 
-	ray->mapx = (int)game->player->posx;
-	ray->mapy = (int)game->player->posy;
-	calc_delta(ray);
-	calc_side(game, ray);
-	side = dda(game, ray);
-	if (side == VERTICAL)
+	if (ray->side == VERTICAL)
 		size = (ray->side_dx - ray->d_distx);
 	else
 		size = ray->side_dy - ray->d_disty;
@@ -103,14 +100,11 @@ void	cast_mapray(t_game *game, t_ray *ray)
     this function will loop, so needs to 
     contain the raycasting bit 
 */
-void	render_minimap(void *game_ptr)
+void	render_minimap(void *game_ptr, t_ray ray)
 {
 	t_game	*game;
-	t_ray	ray;
 
 	game = (t_game *)game_ptr;
-	ray.dirx = game->player->dirx;
-	ray.diry = game->player->diry;
 	render_map(game);
 	render_miniplay(game, RED);
 	cast_mapray(game, &ray);

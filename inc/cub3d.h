@@ -41,7 +41,7 @@
 
 # define TILE_SIZE 64
 # define FOV 0.66          // Same as wolfenstien
-# define SCREEN_WIDTH 2048 // Standard (4 : 3 aspect ratio)
+# define SCREEN_WIDTH 2087 // Standard (4 : 3 aspect ratio)
 # define SCREEN_HEIGHT 1436
 
 typedef struct s_vars
@@ -158,7 +158,6 @@ int					east_path(t_map *map, char *line);
 int					west_path(t_map *map, char *line);
 int					north_path(t_map *map, char *line);
 int					south_path(t_map *map, char *line);
-int					is_valid_map(t_map *map, char *line);
 int					floor_ceiling(t_map *map, char *line);
 void				create_grid(t_map *map, int i, int j);
 int					init_game(char *mapfile, t_game *game);
@@ -219,13 +218,12 @@ void				render_line(mlx_image_t *img, t_vertex line,
 						t_vertex *position, int color);
 void				render_scene(void *game);
 void				render_map(t_game *game);
-void				render_minimap(void *game_ptr);
+void				render_minimap(void *game_ptr, t_ray ray);
 void				render_miniplay(t_game *game, int color);
 void				render_ray(t_game *game, int size, int color);
 int					get_tex_x(t_game *game, t_ray *ray, mlx_texture_t *tex);
 void				render_textured_line(t_game *game, t_ray *ray,
 						t_vertex line, t_vertex *pos);
-void				toggle_minimap(t_game *game);
 void				draw_wall_strip(t_game *game, t_ray *ray, t_vertex line,
 						int x);
 void				draw_ceiling_floor(t_game *game, t_vertex line, int x);

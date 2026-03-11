@@ -69,13 +69,12 @@ void	clear_scene(mlx_image_t *img)
 
 void	cast_ray(t_game *game, t_ray *ray)
 {
-	int			side;
 	double		cam_x;
 	t_vertex	line_h;
 	t_vertex	position;
 
 	position.x = 0;
-	side = -1;
+	ray->side = -1;
 	while (position.x < SCREEN_WIDTH)
 	{
 		cam_x = 2 * position.x / (double)SCREEN_WIDTH - 1;
@@ -85,9 +84,8 @@ void	cast_ray(t_game *game, t_ray *ray)
 		ray->mapy = (int)game->player->posy;
 		calc_delta(ray);
 		calc_side(game, ray);
-		side = dda(game, ray);
-		ray->side = side;
-		calc_walldist(game, ray, side);
+		ray->side = dda(game, ray);
+		calc_walldist(game, ray, ray->side);
 		line_h = calc_height(ray);
 		render_textured_line(game, ray, line_h, &position);
 		position.x++;
@@ -112,7 +110,7 @@ void	render_scene(void *ptr)
 	clear_scene(game->img);
 	cast_ray(game, &ray);
 	if (game->map_img->enabled)
-		render_minimap(game);
+		render_minimap(game, ray);
 	mouse_rot(game, old_mouse);
 	printf("Delta Time = %f\n", game->mlx->delta_time);
 }
